@@ -18,7 +18,9 @@
 
 %% usage: imp = [mag, phase] = DSS (F,fs)
 %%
-%% Obtiene los valores de la ecualización DSS sobre un vector de frecuencias f.
+%% Obtiene los valores de la ecualizaciÃ³n DSS sobre un vector de frecuencias f.
+%% ' Let's call this filter DSS (yes, it also de-esses), short for "Don & Siegfried's Shelf" '
+%% http://www.linkwitzlab.com/frontiers_7.htm#A2
 %%
 %% mag = Vector de magnitudes (dB).
 %% phase = Vector de fases (deg).
