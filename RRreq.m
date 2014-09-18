@@ -92,7 +92,7 @@ fullImpN = length(fullImp);						% impulse length after trim
 if fullImpN>m
 	fullImpN = m;
 	fullImp = fullImp(1:m);
-	warning("Time window is bigger than fft size. Impulse trimmed.\n");
+	warning("Impulse length is bigger than fft size. Impulse trimmed.\n");
 end
 [peak,peakK] = max(abs(fullImp));				% finds new peak index
 
@@ -105,7 +105,7 @@ flatK2=flatK1 + GSFlatWindowN -1;
 windowN = flatK1-1;		                    % length of Pre-peak taper
 % Checks if flat top reaches the ends of impulse, then build or omit the tapers
 if windowN>0
-	window = [window;hann(windowN*2+1)(1:windowN)]; % Pre-peak taper
+	window = [window;hanning(windowN*2+1)(1:windowN)]; % Pre-peak taper
 else
 	GSFlatWindowN += windowN;
 	warning("Pre-peak taper window omitted. Check config time window settings and flat top size\n");
@@ -123,7 +123,7 @@ if GSFlatWindowN > 0
 	window = [window;ones(GSFlatWindowN,1)]; % Flat top
 end
 if buildTaperC
-	window = [window;hann(windowN*2+1)(windowN+2:windowN*2+1)]; % Post-peak taper
+	window = [window;hanning(windowN*2+1)(windowN+2:windowN*2+1)]; % Post-peak taper
 end
 
 fullImp = fullImp.*window;	% windowed impulse
