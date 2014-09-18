@@ -131,7 +131,7 @@ fullImp = postpad(fullImp,m);
 
 disp("Getting magnitude response...");
 fullMag = abs(fft(fullImp));
-fullMagSs = semisp(fullMag)'; % semispectrum
+fullMagSs = semisp(fullMag); % semispectrum
 disp(MSOk);
 
 % Hasta aquí, el corte y confección del impulso y respuesta total
