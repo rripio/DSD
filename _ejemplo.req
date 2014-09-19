@@ -14,6 +14,5 @@ TRLowXoOrder=2;				% Target HP Butterworth crossover order (usually 2)
 EFRef=-2.5;					% Reference level for magnitude inversion (dB)
 EFBassOnly=false;			% Avoid equalization of upper range
 TWLimitLowF=20;				% Límite a ecualizar plano en graves (Low) (Hz)
-TWIntervalLow=1;			% Interval of progressive elimination of equalization (octaves)
 
 % End user data------------------------------------------------------------
