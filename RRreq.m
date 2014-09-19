@@ -281,7 +281,7 @@ filterImp = semiblackman(m) .* real(ifft(minphsp(wholespmp(filterMagSs))));
 % Output
 [FSDir,FSOutBasename]=fileparts(FSInputFile);
 
-savepcm(filterImp, [FSOutDir FSOutBasename '.pcm']);
+savepcm(filterImp, [FSOutDir FSOutPrefix FSOutBasename '.pcm']);
 wavwrite (filterImp, fs, FSOutWavDepth, [FSOutDir FSOutPrefix FSOutBasename ".wav"]);
 
 %-------------------------------------------------------------------------------
