@@ -55,24 +55,18 @@ function xsss=smooth(xws,ppo);
 	for i=2:d;
 	    % Suma por la izquierda
 	    if kl(i,1)<i;
-            xsss(i)+=sum(xws(kl(i,1):i-1))\
-            + fl(i,1)*xws(kl(i-1,1))\
-            + 0.5*xws(i);
+            xsss(i)+=sum(xws(kl(i,1):i-1)) + fl(i,1)*xws(kl(i-1,1)) + 0.5*xws(i);
         elseif kl(i,1)==i;
-            xsss(i)+=fl(i,1)*xws(i-1)\
-            + 0.5*xws(i);
+            xsss(i)+=fl(i,1)*xws(i-1) + 0.5*xws(i);
         else
             fl(i,1)-=0.5;
             xsss(i)+=fl(i,1)*xws(i);
         end
         % Suma por la derecha
         if kl(i,2)>i;
-            xsss(i)+=sum(xws(i+1:kl(i,2)))\
-            + fl(i,2)*xws(kl(i+1,2))\
-            + 0.5*xws(i);
+            xsss(i)+=sum(xws(i+1:kl(i,2))) + fl(i,2)*xws(kl(i+1,2)) + 0.5*xws(i);
         elseif kl(i,2)==i;
-            xsss(i)+=fl(i,2)*xws(i+1)\
-            + 0.5*xws(i);
+            xsss(i)+=fl(i,2)*xws(i+1) + 0.5*xws(i);
         else
             fl(i,2)-=0.5;
             xsss(i)+=fl(i,2)*xws(i);
