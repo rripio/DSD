@@ -26,11 +26,11 @@ disp("RRreq\nRR Room Correction Equalizer\n\
 disp(["Running from " fileparts(cmdpath=mfilename("fullpath")) "\n"]);
 configDefaults= [cmdpath ".ini"];
 if exist(configDefaults, "file")
-    source(configDefaults);         % configuración por defecto
+    source(configDefaults);         % Reads default config
 end
 
 filename = [fileshort '.req'];
-source(filename);        			% ejecuta el archivo de datos de usuario
+source(filename);        			% Reads project config
 
 % admite Fs como parámetro
 if exist("strGSFs")
@@ -134,7 +134,7 @@ fullMag = abs(fft(fullImp));
 fullMagSs = semisp(fullMag); % semispectrum
 disp(MSOk);
 
-% Hasta aquí, el corte y confección del impulso y respuesta total
+% End of impulse shaping and response calculation
 
 %-----------------------------------------------------------------------------
 % Smoothing
@@ -170,7 +170,7 @@ if TWLowK2<2 TWLowK2=2; end;
 % Base unit response
 unitMagLog = ones(mlog,1);
 
-% target response
+% Target response
 EFRefMag = dB2mag(EFRef);
 targetMag = EFRefMag * unitMagLog;
 flatTargetMag = targetMag;
@@ -293,7 +293,7 @@ clf();
 %figure(1);	
 hold on;
 
-% Establece el rango de abscisas
+% Defines abscissae range
 %PSVTop=max(mag2dB(bassSMagLog_save)); PSVTop=PSVTop+PSVStep*2-mod(PSVTop,PSVStep);
 PSVBottom=PSVTop-PSVRange;
 
