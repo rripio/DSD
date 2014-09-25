@@ -312,11 +312,11 @@ set(axe, "ytick", (PSVBottom:PSVStep:PSVTop));
 
 plotlogF = logF/1000;
 
-semilogx(plotlogF,mag2dB(filterMagLog),"k;Filtro;","linewidth",2); % Filter
+semilogx(plotlogF,mag2dB(filterMagLog),"k;Filter response;","linewidth",2); % Filter
 % semilogx(plotlogF,mag2dB(correctionMagLog),"r;Segunda corrección"); % Second loop correction
-semilogx(plotlogF,mag2dB(fullSMagLog./EFRefMag),"c;Suavizado de agudos;"); % Response: Full range smoothing
-semilogx(plotlogF,mag2dB(bassSMagLog_save./EFRefMag),"m;Suavizado de graves;"); % Response: Bass smoothing
-semilogx(plotlogF,mag2dB(fullPreSMagLogSave.*filterMagLog/EFRefMag),"b;Respuesta final;","linewidth",2); % Final Response: Bass smoothing
+semilogx(plotlogF,mag2dB(fullSMagLog./EFRefMag),"c;High range smoothing;"); % Response: Full range smoothing
+semilogx(plotlogF,mag2dB(bassSMagLog_save./EFRefMag),"m;Low range smoothing;"); % Response: Bass smoothing
+semilogx(plotlogF,mag2dB(fullPreSMagLogSave.*filterMagLog/EFRefMag),"b;Final response;","linewidth",2); % Final Response: Bass smoothing
 
 print ([FSOutDir FSOutBasename ".eps"], "-deps")
 print ([FSOutDir FSOutBasename ".png"], "-dpng")
