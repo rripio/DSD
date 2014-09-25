@@ -34,12 +34,15 @@ FLow = 5; FHigh = 20000;
 
 semilogx(F/1000,dBmag);
 
-title(plotitle);
-xlabel("Frequency (KHz)");
-ylabel("Magnitude (dB)");
-axis([(FLow/1000),(FHigh/1000),bottom,top]);
-grid("on");
-tics('x', [0.001;0.005;0.01;0.02;0.03;0.05;0.1;0.2;0.3;0.5;1;2;3;5;10;20],['.001';'0.005';'.01';'.02';'.03';'.05';'.1';'.2';'.3';'.5';'1';'2';'3';'5';'10';'20']);
-tics('y',(-100:step:100));
+set(axe, "title", plotitle);
+set(axe, "xlabel", "Frequency (KHz)");
+set(axe, "ylabel", "Magnitude (dB)");
+set(axe, "xlim", [(PSFLow/1000),(PSFHigh/1000)]);
+set(axe, "ylim", [bottom,top]);
+set(axe, "xgrid", "on");
+set(axe, "ygrid", "on");
+set(axe, "xtick", [0.01;0.02;0.03;0.05;0.1;0.2;0.3;0.5;1;2;3;5;10;20]);
+set(axe, "xticklabel", ['.01';'.02';'.03';'.05';'.1';'.2';'.3';'.5';'1';'2';'3';'5';'10';'20']);
+set(axe, "ytick", (PSVBottom:PSVStep:PSVTop));
 
 endfunction

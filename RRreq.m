@@ -32,7 +32,7 @@ end
 filename = [fileshort '.req'];
 source(filename);        			% Reads project config
 
-% admite Fs como parámetro
+% admits Fs as a parameter
 if exist("strGSFs")
 	GSFs=str2num(strGSFs);
 else strGSFs = num2str(GSFs);
@@ -297,13 +297,18 @@ hold on;
 %PSVTop=max(mag2dB(bassSMagLog_save)); PSVTop=PSVTop+PSVStep*2-mod(PSVTop,PSVStep);
 PSVBottom=PSVTop-PSVRange;
 
-title(FSOutBasename);
-xlabel("Frequency (KHz)");
-ylabel("Magnitude (dB)");
-axis([(PSFLow/1000),(PSFHigh/1000),PSVBottom,PSVTop]);
-grid("on");
-tics('x', [0.01;0.02;0.03;0.05;0.1;0.2;0.3;0.5;1;2;3;5;10;20],['.01';'.02';'.03';'.05';'.1';'.2';'.3';'.5';'1';'2';'3';'5';'10';'20']);
-tics('y',(PSVBottom:PSVStep:PSVTop));
+axe=gca();
+
+set(axe, "title", FSOutBasename);
+set(axe, "xlabel", "Frequency (KHz)");
+set(axe, "ylabel", "Magnitude (dB)");
+set(axe, "xlim", [(PSFLow/1000),(PSFHigh/1000)]);
+set(axe, "ylim", [PSVBottom,PSVTop]);
+set(axe, "xgrid", "on");
+set(axe, "ygrid", "on");
+set(axe, "xtick", [0.01;0.02;0.03;0.05;0.1;0.2;0.3;0.5;1;2;3;5;10;20]);
+set(axe, "xticklabel", ['.01';'.02';'.03';'.05';'.1';'.2';'.3';'.5';'1';'2';'3';'5';'10';'20']);
+set(axe, "ytick", (PSVBottom:PSVStep:PSVTop));
 
 plotlogF = logF/1000;
 
