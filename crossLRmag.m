@@ -21,11 +21,11 @@
 %% Obtiene la magnitud de los filtros Linkwitz-Riley pasabajos y pasaaltos
 %% con pendiente dada sobre un semiespectro. El espaciado de frecuencias es arbitrario.
 %% 
-%%	magL	= vector con la magnitud del pasabajos.
-%%	magH	= vector con la magnitud del pasaaltos.
-%%	F	= vector con las frecuencias del semiespectro.
-%%	fc	= frecuencia de corte.
-%%	slope	= pendiente en dB/oct.
+%%	magL	= Vector con la magnitud del pasabajos.
+%%	magH	= Vector con la magnitud del pasaaltos.
+%%	F	= Vector con las frecuencias del semiespectro.
+%%	fc	= Frecuencia de corte.
+%%	slope	= Pendiente en dB/oct.
 
 function [magL,magH]=crossLRmag(F,fc,slope);
 

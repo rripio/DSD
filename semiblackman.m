@@ -20,8 +20,8 @@
 %%
 %% Obtiene la mitad derecha de una ventana Blackman de longitud m.
 %%
-%% w = ventana.
-%% m = número de muestras.
+%% w = Ventana.
+%% m = Número de muestras.
 
 function w=semiblackman(m);
     w=blackmanharris(2*m);

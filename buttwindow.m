@@ -20,10 +20,10 @@
 %%
 %% Genera una ventana estándar de promediado de potencia con filtrado butterworth de 6º orden.
 %%
-%% x = ventana.
-%% m = longitud del espectro logarítmico a promediar.
-%% ppo = fracción de octava del intervalo de frecuencias. 
-%% ppoSm = fracción de octava del suavizado.
+%% x = Ventana.
+%% m = Longitud del espectro logarítmico a promediar.
+%% ppo = Fracción de octava del intervalo de frecuencias. 
+%% ppoSm = Fracción de octava del suavizado.
 
 function x=buttwindow(m,ppo,ppoSm);
     w=logfreq(m,2*pi,ppo);

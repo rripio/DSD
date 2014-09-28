@@ -21,11 +21,11 @@
 %% Une dos respuestas en magnitud sobre el semiespectro, mezclándolas en un intervalo de
 %% índices dado.
 %%
-%% ssp	= vector columna con la magnitud de la mezcla.
-%% ssp1	= vector columna con la respuesta a mezclar por la izquierda.
-%% ssp2	= vector columna con la respuesta a mezclar por la derecha.
-%% k1	= primer índice del intervalo.
-%% k2	= segundo índice del intervalo.
+%% ssp	= Vector columna con la magnitud de la mezcla.
+%% ssp1	= Vector columna con la respuesta a mezclar por la izquierda.
+%% ssp2	= Vector columna con la respuesta a mezclar por la derecha.
+%% k1	= Primer índice del intervalo.
+%% k2	= Segundo índice del intervalo.
 
 function ssp = frjoin(ssp1,ssp2,k1,k2)
 

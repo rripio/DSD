@@ -20,8 +20,8 @@
 %%
 %% Pasa decibelios a potencia.
 %%
-%% b	= potencia.
-%% a	= decibelios.
+%% b	= Potencia.
+%% a	= Decibelios.
 
 function b = dB2pow(a)
 

@@ -20,9 +20,9 @@
 %%
 %% Suaviza un semiespectro real con un ancho dado en fracción de octava.
 %%
-%% xsss = vector columna con el semiespectro suavizado.
-%% xws = vector columna de valores reales (magnitud o fase) del	semiespectro.
-%% ppo = fracción de octava del suavizado.
+%% xsss = Vector columna con el semiespectro suavizado.
+%% xws = Vector columna de valores reales (magnitud o fase) del	semiespectro.
+%% ppo = Fracción de octava del suavizado.
 
 function xsss=smooth(xws,ppo);
 

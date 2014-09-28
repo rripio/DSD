@@ -20,8 +20,8 @@
 %%
 %% Pasa decibelios a magnitud.
 %%
-%% b	= magnitud.
-%% a	= decibelios.
+%% b	= Magnitud.
+%% a	= Decibelios.
 
 function b = dB2mag(a)
 

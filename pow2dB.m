@@ -20,8 +20,8 @@
 %%
 %% Pasa potencia a decibelios.
 %%
-%% b	= decibelios.
-%% a	= potencia.
+%% b	= Decibelios.
+%% a	= Potencia.
 
 function b = mag2dB(a)
 

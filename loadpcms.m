@@ -21,10 +21,10 @@
 %% Carga archivos impulso que verifican una máscara en una matriz de vectores columna.
 %%
 %% imps	= matriz de vectores columna con los impulsos.
-%% n		= número de impulsos.
-%% filemask	= máscara de nombres de archivo (string).
-%% kinit	= índice para el comienzo del recorte.
-%% kend		= índice para el comienzo del recorte.
+%% n		= Número de impulsos.
+%% filemask	= Máscara de nombres de archivo (string).
+%% kinit	= Índice para el comienzo del recorte.
+%% kend		= Índice para el comienzo del recorte.
 
 function [imps, n] = loadpcms (filemask, kinit, kend)
 

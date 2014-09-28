@@ -20,8 +20,8 @@
 %%
 %% Aplica una cierta ganancia en dB a un archivo pcm y lo guarda.
 %%
-%% filename	= nombres del archivo pcm.
-%% gaindB	= ganancia a aplicar (dB).
+%% filename	= Nombres del archivo pcm.
+%% gaindB	= Ganancia a aplicar (dB).
 
 function gainpcm (filename, gaindB)
 

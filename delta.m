@@ -21,7 +21,7 @@
 %% Obtiene un impulso de longitud m con valor uno en su primera muestra.
 %%
 %% imp = Coeficientes del filtro FIR.
-%% m = número de muestras.
+%% m = Número de muestras.
 
 function imp=delta(m);
     imp=zeros(m,1);

@@ -20,6 +20,7 @@
 %%
 %% load a pir file created by ARTA
 %%
+%% pcm	= Vector columna del impulso
 %% fname = pir file name
 
 function [pir, fs] = loadpir(fname)

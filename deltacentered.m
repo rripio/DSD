@@ -21,7 +21,7 @@
 %% Obtiene un impulso de longitud m con valor uno en su muestra central.
 %%
 %% imp = Coeficientes del filtro FIR.
-%% m = número de muestras. Debe ser impar.
+%% m = Número de muestras. Debe ser impar.
 
 function imp=deltacentered(m);
 	if (mod(m,2) == 0)

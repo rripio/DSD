@@ -22,7 +22,7 @@
 %%
 %% maglin = Magnitud interpolada.
 %% mag    = Magnitud a interpolar.
-%% F      = Frecuencias.
+%% F      = Vector de frecuencias.
 %% m	  = Longitud del espectro completo (debe ser par).
 %% fs	  = Frecuencia de muestreo.
 

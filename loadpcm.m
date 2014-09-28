@@ -20,6 +20,7 @@
 %%
 %% load a pcm raw file created by DRC
 %%
+%% pcm	= Impulse column vector
 %% fname = pcm file name
 %% the file must be in 32 bit floating point format
 

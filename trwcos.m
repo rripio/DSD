@@ -21,8 +21,8 @@
 %% Genera ventanas de transición complementarias en un intervalo dado, según una función
 %% 'raised cosine' en escala de frecuencias logarítmica.
 %%
-%% trw1	= ventana de transición de izquierda a derecha.
-%% trw2	= ventana de transición de derecha a izquierda.
+%% trw1	= Ventana de transición de izquierda a derecha.
+%% trw2	= Ventana de transición de derecha a izquierda.
 %% n1	= Índice del extremo izquierdo de la ventana.
 %% n2	= Índice del extremo derecho de la ventana.
 

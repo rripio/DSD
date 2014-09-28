@@ -16,6 +16,14 @@
 %%
 %% This function is part of DSD
 
+%% usage logf = logfreq(m,fs,ppo)
+%%
+%% Genera un vector de frecuencias espaciado logaritmicamente, entre el bin menor no nulo del fft y fs/2.
+%%
+%% m	= Longitud del fft original.
+%% fs	= Frecuencia de muestreo.
+%% ppo	= Fracción de octava del intervalo de frecuencias.
+
 function logf=logfreq(m,fs,ppo);
 
 	f2 = fs/2;

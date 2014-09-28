@@ -20,10 +20,10 @@
 %%
 %% Suaviza un espectro logarítmico con un ancho dado en fracción de octava.
 %%
-%% xs = vector columna con el espectro logarítmico suavizado.
-%% x = vector columna de valores reales con el espectro logarítmico.
-%% ppo = fracción de octava del intervalo de frecuencias. 
-%% ppoSm = fracción de octava del suavizado.
+%% xs = Vector columna con el espectro logarítmico suavizado.
+%% x = Vector columna de valores reales con el espectro logarítmico.
+%% ppo = Fracción de octava del intervalo de frecuencias. 
+%% ppoSm = Fracción de octava del suavizado.
 
 function xs=smoothlog(x,ppo,ppoSm);
 
