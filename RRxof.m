@@ -207,12 +207,11 @@ F_ls=linspace(0,mh_ls,m2_ls+1);
 
 % Defines abscissae range
 %PSVTop=max(LSdB); PSVTop=PSVTop+PSVStep*2-mod(PSVTop,PSVStep);
-PSVTop=3;
 PSVBottom=PSVTop-PSVRange;
 
 axe=gca();
 
-set(axe, "title", FSOutBasename);
+set(axe, "title", FSOutPrefix);
 set(axe, "xlabel", "Frequency (KHz)");
 set(axe, "ylabel", "Magnitude (dB)");
 set(axe, "xlim", [(PSFLow/1000),(PSFHigh/1000)]);
