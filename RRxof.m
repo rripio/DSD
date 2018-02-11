@@ -191,7 +191,9 @@ OUTdB=CFdB+LSdB;
 
 % Saves complete filter
 savepcm(CFEqImp, [FSOutDir FSOutPrefix '.pcm']);
-wavwrite(CFEqImp, GSFs, FSOutWavDepth, [FSOutDir FSOutPrefix '.wav']);
+# Obsolete function wavwrite
+# wavwrite(CFEqImp, GSFs, FSOutWavDepth, [FSOutDir FSOutPrefix '.wav']);
+audiowrite([FSOutDir FSOutPrefix '.wav'], CFEqImp, GSFs, 'BitsPerSample', FSOutWavDepth);
 
 %-----------------------------------------------------------------------------------------
 % Plotting

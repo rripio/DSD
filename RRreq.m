@@ -52,7 +52,8 @@ pi2 = 2*pi;
 % reads impulse response from file
 [dir, name, ext] = fileparts(FSInputFile);
 if ext == ".wav"
-	[fullImp, fs] = wavread(FSInputFile);
+# Changed obsolete function wavread
+	[fullImp, fs] = audioread(FSInputFile);
 elseif ext == ".pir"
 	[fullImp, fs] = loadpir(FSInputFile);
 elseif ext == ".pcm"
@@ -282,7 +283,9 @@ filterImp = semiblackman(m) .* real(ifft(minphsp(wholespmp(filterMagSs))));
 % [FSDir,FSOutBasename]=fileparts(FSInputFile);
 FSOutBasename=fileshort; % Use script name as output name
 savepcm(filterImp, [FSOutDir FSOutPrefix FSOutBasename '.pcm']);
-wavwrite (filterImp, fs, FSOutWavDepth, [FSOutDir FSOutPrefix FSOutBasename ".wav"]);
+# Obsolete function wavwrite
+# wavwrite (filterImp, fs, FSOutWavDepth, [FSOutDir FSOutPrefix FSOutBasename ".wav"]);
+audiowrite([FSOutDir FSOutPrefix FSOutBasename ".wav"], filterImp, fs, 'BitsPerSample', FSOutWavDepth);
 
 %-------------------------------------------------------------------------------
 % Plotting
