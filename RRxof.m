@@ -21,7 +21,7 @@ function RRxof(fileshort, strGSFs, strCFClass)
 home; close;
 t1=time;
 
-disp("RRreq\nRR Loudspeaker Crossover and Equalizer designer\n\
+disp("RRxof\nRR Loudspeaker Crossover and Equalizer designer\n\
 (C) 2012 Roberto Ripio\n");
 
 disp(["Running from " fileparts(cmdpath=mfilename("fullpath")) "\n"]);
