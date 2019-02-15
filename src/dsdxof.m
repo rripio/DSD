@@ -142,10 +142,10 @@ switch(CFClass)
     case "lp"
 		if CFLowAsMP & strcmp (CFLowType{1}, "B") & (CFLowF(1) > 0)
 			CFLowImp = crossButterworthLP(GSFs,m_ls/2,CFLowOrder(1),CFLowF(1),0,0);
-			CFHighImp = crossLinear(GSFs,m_ls/2,CFLenghthCycles,0,CFHighF);
+			CFHighImp = crossLinear(GSFs,m_ls/2,CFLenghthFactor,0,CFHighF);
 			CFImp=postpad(fftconv(CFLowImp,CFHighImp), m_ls); % both already windowed
         elseif (CFHighF > 0 | CFLowF(1) > 0) % Crossover filter
-            CFImp = crossLinear(GSFs,m_ls,CFLenghthCycles,CFLowF(1),CFHighF);
+            CFImp = crossLinear(GSFs,m_ls,CFLenghthFactor,CFLowF(1),CFHighF);
         else
             CFImp=delta(m_ls);
             CFClass='mp'; % ???
