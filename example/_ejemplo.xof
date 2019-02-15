@@ -2,30 +2,28 @@
 
 % FS File Settings
 
-FSInputFile="t.frd";
-FSOutDir="./";				% FSOutDir Output directory
+FSInputFile="t.frd";                        % Input file
+FSOutDir="./";                              % Output directory
 
 % GS General Settings
 
-GSFs=44100;             	% GSFs Sampling frequency of final filters
-							% May be omitted if given as command line parameter
+GSFs=44100;                                 % Sampling frequency of final filters
+                                            % May be omitted if given as command line parameter
 
 % CF Crossover Filter
 
-CFClass = 'lp';             % CFClass Crossover class: 'mp', minimum phase; 'lp', linear phase
-							% May be omitted if given as command line parameter
+CFClass = 'lp';                             % Crossover class: 'mp', minimum phase; 'lp', linear phase
+                                            % May be omitted if given as command line parameter
 
-							% CFType: "Butterworth" or "LinkwitzRiley" (for minimum phase class)
-% Set CFLowF or CFHighF to 0 if no crossover at that end
 
-CFLowType={"LinkwitzRiley" "Butterworth"};  % CFLowType Crossover type: Must be a cell array
-CFLowOrder=[4 2];               % CFLowOrder low feq. crossover order (for minimum phase varieties)
-CFLowF=[2700 45] ;				% CFLowF Crossover point frequency Low (Hz)
-CFLowAsMP=false;			% If CFClass = 'lp' and CFLowType="Butterworth", mimics the magnitude
-							% of a Butterwoth high pass
-							
-CFHighType="LinkwitzRiley"; % CFHighType Crossover type:
-CFHighOrder=4;              % CFHighOrder high feq. crossover order (for minimum phase varieties)
-CFHighF=0;		    		% CFHighF Crossover point frequency High (Hz)
+CFLowType={"LinkwitzRiley" "Butterworth"};  % Crossover type: Must be a cell array
+CFLowOrder=[4 2];                           % Low feq. crossover order (for minimum phase varieties)
+CFLowF=[2700 45] ;                          % Crossover point frequency Low (Hz)
+CFLowAsMP=false;                            % If CFClass = 'lp' and CFLowType="Butterworth", mimics the magnitude
+                                            % of a Butterwoth high pass
+                            
+CFHighType="LinkwitzRiley";                 % Crossover type
+CFHighOrder=4;                              % High feq. crossover order (for minimum phase varieties)
+CFHighF=0;                                  % Crossover point frequency High (Hz)
 
-% End user data------------------------------------------------------------
+%% End user data

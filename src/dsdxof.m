@@ -140,7 +140,7 @@ IFRImp=semiblackman(m_ls).*IFRImp(1:m_ls);
 
 switch(CFClass)
     case "lp"
-		if CFLowAsMP & strcmp (CFLowType{1}, "Butterworth") & (CFLowF(1) > 0)
+		if CFLowAsMP & strcmp (CFLowType{1}, "B") & (CFLowF(1) > 0)
 			CFLowImp = crossButterworthLP(GSFs,m_ls/2,CFLowOrder(1),CFLowF(1),0,0);
 			CFHighImp = crossLinear(GSFs,m_ls/2,CFLenghthCycles,0,CFHighF);
 			CFImp=postpad(fftconv(CFLowImp,CFHighImp), m_ls); % both already windowed
@@ -156,9 +156,9 @@ switch(CFClass)
 			% Highpass
 			if CFLowF(i) > 0
 				switch(CFLowType{i})
-					case "Butterworth"
+					case "B"
 						CFLowImpTemp = crossButterworth(GSFs,m_ls,CFLowOrder(i),CFLowF(i),0,0);
-					case "LinkwitzRiley"
+					case "LR"
 						CFLowImpTemp = crossLinkwitzRiley(GSFs,m_ls,CFLowOrder(i),CFLowF(i),0,0);
 				end
 			else
@@ -169,9 +169,9 @@ switch(CFClass)
 		% Lowpass
         if CFHighF > 0
             switch(CFHighType)
-                case "Butterworth"
+                case "B"
                     CFHighImp = crossButterworth(GSFs,m_ls,0,0,CFHighOrder,CFHighF);
-                case "LinkwitzRiley"
+                case "LR"
                     CFHighImp = crossLinkwitzRiley(GSFs,m_ls,0,0,CFHighOrder,CFHighF);
             end
         else
