@@ -17,7 +17,7 @@
 %% You should have received a copy of the GNU General Public License
 %% along with DSD.  If not, see <https://www.gnu.org/licenses/>.
 
-function RRxof(fileshort, strGSFs, strCFClass)
+function dsdxof(fileshort, strGSFs, strCFClass)
 
 home; close;
 t1=time;

@@ -2,7 +2,7 @@
 %%
 %% DSD A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
-%% Copyright (C) 2012-2018 Roberto Ripio
+%% Copyright (C) 2012-2019 Roberto Ripio
 %%
 %% DSD is free software: you can redistribute it and/or modify
 %% it under the terms of the GNU General Public License as published by
@@ -17,7 +17,7 @@
 %% You should have received a copy of the GNU General Public License
 %% along with DSD.  If not, see <https://www.gnu.org/licenses/>.
 
-function RRreq(fileshort, strGSFs)
+function dsdreq(fileshort, strGSFs)
 
 home; close all;
 
