@@ -27,15 +27,15 @@ disp("RRreq\nRR Room Correction Equalizer\n\
 disp(["Running from " fileparts(cmdpath=mfilename("fullpath")) "\n"]);
 configDefaults= [cmdpath ".ini"];
 if exist(configDefaults, "file")
-    source(configDefaults);         % Reads default config
+    source(configDefaults); % Reads default config
 end
 
 filename = [fileshort '.req'];
-source(filename);        			% Reads project config
+source(filename); % Reads project config
 
 % admits Fs as a parameter
 if exist("strGSFs")
-	GSFs=str2num(strGSFs);
+    GSFs=str2num(strGSFs);
 else strGSFs = num2str(GSFs);
 end
 
@@ -44,7 +44,7 @@ mkdir(FSOutDir);
 
 % MS Message Settings
 
-MSOk = "OK\n";						% End of routine confirmation
+MSOk = "OK\n"; % End of routine confirmation
 
 % ---------------------------------------------------------------------------------
 c0 = 343; %speed of sound
@@ -54,81 +54,81 @@ pi2 = 2*pi;
 [dir, name, ext] = fileparts(FSInputFile);
 if ext == ".wav"
 # Changed obsolete function wavread
-	[fullImp, fs] = audioread(FSInputFile);
+    [fullImp, fs] = audioread(FSInputFile);
 elseif ext == ".pir"
-	[fullImp, fs] = loadpir(FSInputFile);
+    [fullImp, fs] = loadpir(FSInputFile);
 elseif ext == ".pcm"
-	fullImp = loadpcm(FSInputFile);
-	fs = FSFs;
+    fullImp = loadpcm(FSInputFile);
+    fs = FSFs;
 elseif ext == ".txt"
-	fullimp = load(FSInputFile);
-	fs = FSFs;
+    fullimp = load(FSInputFile);
+    fs = FSFs;
 end
 fullImpN = length(fullImp);
 
 m = 2^GSLExp; m2 = m/2;
 
-mLow = fs/m;						% low freq, freq jump
-mHigh = m2*mLow;					% max freq
-ssK = 1:m2;							% indexes of non aliased frequency vector
-ssF = mLow*(ssK-1);					% non aliased frequency vector
-ts = 1/fs;							% time jump
-mT = (1:m)*ts;						% time vector of impulse samples
-mL = mT*c0;							% distance vector of impulse samples
+mLow = fs/m;                        % low freq, freq jump
+mHigh = m2*mLow;                    % max freq
+ssK = 1:m2;                         % indexes of non aliased frequency vector
+ssF = mLow*(ssK-1);                 % non aliased frequency vector
+ts = 1/fs;                          % time jump
+mT = (1:m)*ts;                      % time vector of impulse samples
+mL = mT*c0;                         % distance vector of impulse samples
 
 %% Trims and windows impulse response
-[peak,peakK] = max(abs(fullImp));		% finds peak index
-preTK = peakK-floor(GSPreT/ts);		% index of impulse window before peak
+[peak,peakK] = max(abs(fullImp));   % finds peak index
+preTK = peakK-floor(GSPreT/ts);     % index of impulse window before peak
 
 % Checks if impulse fits the time window
 if preTK<1
-	preTK = 1;
-	warning("Beginning of selected time window is beyond impulse beginning.\n");
+    preTK = 1;
+    warning("Beginning of selected time window is beyond impulse beginning.\n");
 end
 postTK = fullImpN;
 
-fullImp = fullImp(preTK:postTK);				% trims impulse
-fullImpN = length(fullImp);						% impulse length after trim
+fullImp = fullImp(preTK:postTK);    % trims impulse
+fullImpN = length(fullImp);         % impulse length after trim
 
 % Checks if impulse fits the fft size
 if fullImpN>m
-	fullImpN = m;
-	fullImp = fullImp(1:m);
-	warning("Impulse length is bigger than fft size. Impulse trimmed.\n");
+    fullImpN = m;
+    fullImp = fullImp(1:m);
+    warning("Impulse length is bigger than fft size. Impulse trimmed.\n");
 end
-[peak,peakK] = max(abs(fullImp));				% finds new peak index
+[peak,peakK] = max(abs(fullImp)); % finds new peak index
 
 % Builds window from left to right
-window = [];								% void window to begin
+window = []; % void window to begin
 
 GSFlatWindowN = abs(GSFlatWindowN+mod(GSFlatWindowN+1,2)); % GSFlatWindowN must be a positive odd
-flatK1=peakK-floor(GSFlatWindowN/2);         % flat window indexes
+flatK1=peakK-floor(GSFlatWindowN/2); % flat window indexes
 flatK2=flatK1 + GSFlatWindowN -1;
-windowN = flatK1-1;		                    % length of Pre-peak taper
+windowN = flatK1-1; % length of Pre-peak taper
 % Checks if flat top reaches the ends of impulse, then build or omit the tapers
 if windowN>0
-	window = [window;hanning(windowN*2+1)(1:windowN)]; % Pre-peak taper
+    window = [window;hanning(windowN*2+1)(1:windowN)]; % Pre-peak taper
 else
-	GSFlatWindowN += windowN;
-	warning("Pre-peak taper window omitted. Check config time window settings and flat top size\n");
+    GSFlatWindowN += windowN;
+    warning("Pre-peak taper window omitted. Check config time window settings and flat top size\n");
 end
 
 windowN = fullImpN-flatK2; % length of Post-peak taper
 if windowN <= 0
-	GSFlatWindowN += windowN;
-	buildTaperC = false;
-	warning("Post-peak taper window omitted. Check config time window settings and flat top size\n");
+    GSFlatWindowN += windowN;
+    buildTaperC = false;
+    warning("Post-peak taper window omitted. Check config time window settings and flat top size\n");
 else
-	buildTaperC=true;
+    buildTaperC=true;
 end
 if GSFlatWindowN > 0
-	window = [window;ones(GSFlatWindowN,1)]; % Flat top
+    window = [window;ones(GSFlatWindowN,1)]; % Flat top
 end
 if buildTaperC
-	window = [window;hanning(windowN*2+1)(windowN+2:windowN*2+1)]; % Post-peak taper
+    window = [window;hanning(windowN*2+1)(windowN+2:windowN*2+1)]; % Post-peak taper
 end
 
-fullImp = fullImp.*window;	% windowed impulse
+fullImp = fullImp.*window;  % windowed impulse
 fullImp = postpad(fullImp,m);
 
 disp("Getting magnitude response...");
@@ -177,26 +177,26 @@ EFRefMag = dB2mag(EFRef);
 targetMag = EFRefMag * unitMagLog;
 flatTargetMag = targetMag;
 if TRLowXoF != 0
-	[b,a] = butter(TRLowXoOrder, TRLowXoF/(fs/2), 'high');
-	crossoverMag = abs(freqz(b, a, logF, fs));
-	targetMag .*= crossoverMag;
+    [b,a] = butter(TRLowXoOrder, TRLowXoF/(fs/2), 'high');
+    crossoverMag = abs(freqz(b, a, logF, fs));
+    targetMag .*= crossoverMag;
 end
 if TRHouseCurve
-	[HdB, Hpha] = HouseCurve (logF, TRH_f_corner, TRH_atten, fs);
-	targetMag .*= dB2mag(HdB);
+    [HdB, Hpha] = HouseCurve (logF, TRH_f_corner, TRH_atten, fs);
+    targetMag .*= dB2mag(HdB);
 end
 if TRRoomGain
-	[RdB, Rpha] = RoomGain (logF, TRR_gain, fs);
-	targetMag .*= dB2mag(RdB);
+    [RdB, Rpha] = RoomGain (logF, TRR_gain, fs);
+    targetMag .*= dB2mag(RdB);
 end
 if TRDSS
-	[DdB, Dpha] = DSS (logF,fs);
-	targetMag .*= dB2mag(DdB);
+    [DdB, Dpha] = DSS (logF,fs);
+    targetMag .*= dB2mag(DdB);
 end
 
 % If only bass eq. wanted, fakes a flat response in highs
 if EFBassOnly
-	fullPreSMagLog = frjoinlog(fullPreSMagLog,flatTargetMag,TWHighK1,TWHighK2);
+    fullPreSMagLog = frjoinlog(fullPreSMagLog,flatTargetMag,TWHighK1,TWHighK2);
 end
 
 
@@ -210,7 +210,7 @@ bassSMagLog ./= fullSMagLog;
 
 % Tailor bass response
 if TWLimitLowF2 != 0
-	bassSMagLog = frjoinlog(unitMagLog,bassSMagLog,TWLowK1,TWLowK2);
+    bassSMagLog = frjoinlog(unitMagLog,bassSMagLog,TWLowK1,TWLowK2);
 end
 bassSMagLog = frjoinlog(bassSMagLog,unitMagLog,TWHighK1,TWHighK2);
 bassSdBLog = mag2dB(bassSMagLog);
@@ -219,11 +219,10 @@ bassPreScaleSMagLog = bassSMagLog; % Save Bass scaling for plotting
 %-------------------------------------------------------------------------
 % Dip scaling
 % Dip identification
-kChange=find(diff(bassSdBLog>=EFDipTransition));    % Indexes of sign change in bass magnitude
+kChange=find(diff(bassSdBLog>=EFDipTransition)); % Indexes of sign change in bass magnitude
 nChange=length(kChange);
 nDips=nChange/2;
-kDips=zeros(nDips,2);               % Pairs of indexes of first and last 
-                                    % index of dips
+kDips=zeros(nDips,2); % Pairs of indexes of first and last index of dips
 kDips(:,1)=kChange(mod(1:nChange,2)!=0)(:)+1;
 kDips(:,2)=kChange(mod(1:nChange,2)==0)(:);
 
@@ -294,7 +293,7 @@ audiowrite([FSOutDir FSOutPrefix FSOutBasename ".wav"], filterImp, fs, 'BitsPerS
 
 %newplot();
 clf();
-%figure(1);	
+%figure(1); 
 hold on;
 
 % Defines abscissae range
@@ -322,7 +321,6 @@ semilogx(plotlogF,mag2dB(fullSMagLog./EFRefMag),"c;High range smoothing;"); % Re
 semilogx(plotlogF,mag2dB(bassSMagLog_save./EFRefMag),"m;Low range smoothing;"); % Response: Bass smoothing
 semilogx(plotlogF,mag2dB(fullPreSMagLogSave.*filterMagLog/EFRefMag),"b;Final response;","linewidth",2); % Final Response: Bass smoothing
 
-print ([FSOutDir FSOutBasename ".eps"], "-deps")
 print ([FSOutDir FSOutBasename ".png"], "-dpng")
 
 endfunction

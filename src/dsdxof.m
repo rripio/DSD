@@ -2,7 +2,7 @@
 %%
 %% DSD A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
-%% Copyright (C) 2012-2018 Roberto Ripio
+%% Copyright (C) 2012-2019 Roberto Ripio
 %%
 %% DSD is free software: you can redistribute it and/or modify
 %% it under the terms of the GNU General Public License as published by
@@ -28,28 +28,28 @@ disp("RRxof\nRR Loudspeaker Crossover and Equalizer designer\n\
 disp(["Running from " fileparts(cmdpath=mfilename("fullpath")) "\n"]);
 configDefaults= [cmdpath ".ini"];
 if exist(configDefaults, "file")
-    source(configDefaults);         % Reads default config
+    source(configDefaults); % Reads default config
 end
 
 filename = [fileshort '.xof'];
-source(filename);        			% Reads project config
+source(filename); % Reads project config
 
 % admits Fs as a parameter
 if exist("strGSFs")
-	GSFs=str2num(strGSFs);
+    GSFs=str2num(strGSFs);
 else strGSFs = num2str(GSFs);
 end
 
 % admits CFClass as a parameter
 if exist("strCFClass")
-	CFClass = strCFClass;
+    CFClass = strCFClass;
 end
 
-% Establece el directorio y prefijo de salida 
+% Set file output folder and prefix
 [dummyFSOutDir , FSOutPrefix] = fileparts(FSInputFile); % values from frd file
 [FSOutDir , dummyFSOutPrefix] = fileparts(filename); % values from input file
 if length(FSOutDir)==0
-	FSOutDir = ".";
+    FSOutDir = ".";
 end
 FSOutDir = [FSOutDir "/" strGSFs "/"];
 mkdir(FSOutDir);
@@ -61,7 +61,7 @@ GSFs
 FSOutPrefix
 disp ("\n");
 % MS Message Settings
-MSOk = "OK\n";						% End of routine confirmation
+MSOk = "OK\n"; % End of routine confirmation
 
 % ---------------------------------------------------------------------------------
 
@@ -78,15 +78,15 @@ m_ls=m/2; m2_ls=m2/2; % Speaker correction length
 % Reads magnitude response from .frd file
 LSdB = frdinterp(FSInputFile,m_ls,GSFs);
 
-ml_ls=GSFs/m_ls;	% low freq, freq jump
-mh_ls=m2_ls*ml_ls;	% max freq
+ml_ls=GSFs/m_ls; % low freq, freq jump
+mh_ls=m2_ls*ml_ls; % max freq
 
 % Calculates transition limits
 if CFLowF(1)==0
     TWLowF2=TWLimitLowF2;
 else
-	TWLowF2=CFLowF(1)/(2^TWFlatInterval);
-	if TWLowF2<TWLimitLowF2 TWLowF2=TWLimitLowF2; end;
+    TWLowF2=CFLowF(1)/(2^TWFlatInterval);
+    if TWLowF2<TWLimitLowF2 TWLowF2=TWLimitLowF2; end;
 end
 TWLowF1=TWLowF2/(2^TWTransitionInterval);
 if TWLowF1<TWLimitLowF1 TWLowF1=TWLimitLowF1; end;
@@ -98,8 +98,8 @@ if TWLowK2<3 TWLowK2=3; end;
 if CFHighF==0
     TWHighF1=TWLimitHighF1;
 else
-	TWHighF1=CFHighF*(2^TWFlatInterval);
-	if TWHighF1>TWLimitHighF1 TWHighF1=TWLimitHighF1; end;
+    TWHighF1=CFHighF*(2^TWFlatInterval);
+    if TWHighF1>TWLimitHighF1 TWHighF1=TWLimitHighF1; end;
 end
 TWHighF2=TWHighF1*(2^TWTransitionInterval);
 if TWHighF2>TWLimitHighF2 TWHighF2=TWLimitHighF2; end;
@@ -140,10 +140,10 @@ IFRImp=semiblackman(m_ls).*IFRImp(1:m_ls);
 
 switch(CFClass)
     case "lp"
-		if CFLowAsMP & strcmp (CFLowType{1}, "B") & (CFLowF(1) > 0)
-			CFLowImp = crossButterworthLP(GSFs,m_ls/2,CFLowOrder(1),CFLowF(1),0,0);
-			CFHighImp = crossLinear(GSFs,m_ls/2,CFLenghthFactor,0,CFHighF);
-			CFImp=postpad(fftconv(CFLowImp,CFHighImp), m_ls); % both already windowed
+        if CFLowAsMP & strcmp (CFLowType{1}, "B") & (CFLowF(1) > 0)
+            CFLowImp = crossButterworthLP(GSFs,m_ls/2,CFLowOrder(1),CFLowF(1),0,0);
+            CFHighImp = crossLinear(GSFs,m_ls/2,CFLenghthFactor,0,CFHighF);
+            CFImp=postpad(fftconv(CFLowImp,CFHighImp), m_ls); % both already windowed
         elseif (CFHighF > 0 | CFLowF(1) > 0) % Crossover filter
             CFImp = crossLinear(GSFs,m_ls,CFLenghthFactor,CFLowF(1),CFHighF);
         else
@@ -151,22 +151,22 @@ switch(CFClass)
             CFClass='mp'; % ???
         end
     case "mp"
-		CFLowImp=delta(m_ls);
-		for i = 1:length(CFLowF)
-			% Highpass
-			if CFLowF(i) > 0
-				switch(CFLowType{i})
-					case "B"
-						CFLowImpTemp = crossButterworth(GSFs,m_ls,CFLowOrder(i),CFLowF(i),0,0);
-					case "LR"
-						CFLowImpTemp = crossLinkwitzRiley(GSFs,m_ls,CFLowOrder(i),CFLowF(i),0,0);
-				end
-			else
-				CFLowImpTemp=delta(m_ls);
-			end
-			CFLowImp=fftconv(CFLowImp,CFLowImpTemp);
-		end
-		% Lowpass
+        CFLowImp=delta(m_ls);
+        for i = 1:length(CFLowF)
+            % Highpass
+            if CFLowF(i) > 0
+                switch(CFLowType{i})
+                    case "B"
+                        CFLowImpTemp = crossButterworth(GSFs,m_ls,CFLowOrder(i),CFLowF(i),0,0);
+                    case "LR"
+                        CFLowImpTemp = crossLinkwitzRiley(GSFs,m_ls,CFLowOrder(i),CFLowF(i),0,0);
+                end
+            else
+                CFLowImpTemp=delta(m_ls);
+            end
+            CFLowImp=fftconv(CFLowImp,CFLowImpTemp);
+        end
+        % Lowpass
         if CFHighF > 0
             switch(CFHighType)
                 case "B"
@@ -178,7 +178,7 @@ switch(CFClass)
             CFHighImp=delta(m_ls);
         end
         CFImp=fftconv(CFLowImp,CFHighImp);
-		CFImp=semiblackman(m_ls).*CFImp(1:m_ls);
+        CFImp=semiblackman(m_ls).*CFImp(1:m_ls);
 end
 
 %Convolves with loudspeaker correction
@@ -192,8 +192,6 @@ OUTdB=CFdB+LSdB;
 
 % Saves complete filter
 savepcm(CFEqImp, [FSOutDir FSOutPrefix '.pcm']);
-# Obsolete function wavwrite
-# wavwrite(CFEqImp, GSFs, FSOutWavDepth, [FSOutDir FSOutPrefix '.wav']);
 audiowrite([FSOutDir FSOutPrefix '.wav'], CFEqImp, GSFs, 'BitsPerSample', FSOutWavDepth);
 
 %-----------------------------------------------------------------------------------------
@@ -203,9 +201,9 @@ audiowrite([FSOutDir FSOutPrefix '.wav'], CFEqImp, GSFs, 'BitsPerSample', FSOutW
 
 %newplot();
 clf();
-%figure(1);	
+%figure(1); 
 hold on;
-% Generates frequecies vector
+% Generates frequencies vector
 F_ls=linspace(0,mh_ls,m2_ls+1);
 
 % Defines abscissae range
@@ -234,21 +232,21 @@ semilogx(F_ls/1000,CFdB,strcat("4",";",'Filter',";"));
 % plots final response
 semilogx(F_ls/1000,OUTdB,strcat("3",";",'Result',";"));
 
-%% print (strcat(FSOutPrefix,".eps"), "-deps")
 print (strcat(FSOutDir,FSOutPrefix,".png"), "-dpng")
 
 %-----------------------------------------------------------------------------------------
 % Log
-% Indica el tiempo de cálculo
+
+% indicates calculation time
 t2=time;
 disp ("\n");
 disp (strcat ('Calculado en: ' , num2str(t2-t1) , ' s'));
 disp ("\n");
 
-% Guarda los factores de normalización
+% save normalization factor
 normfactor_dB_str=num2str(-mag2dB(normfactor));
 normfile = [FSOutDir FSNormFile];
-% unlink(normfile); % Debe hacerse solo una vez para cada fs
+% unlink(normfile); % only once for each fs
 fid=fopen(normfile, "a+t");
 disp ("\n");
 
