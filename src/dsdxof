@@ -1,3 +1,5 @@
+#! /usr/bin/octave -q
+
 %% This file is part of DSD
 %%
 %% DSD A GNU-Octave set of scripts for calculating
@@ -17,37 +19,73 @@
 %% You should have received a copy of the GNU General Public License
 %% along with DSD.  If not, see <https://www.gnu.org/licenses/>.
 
-function dsdxof(fileshort, strGSFs, strCFClass)
+% avoid checking timestamps of DSD m files for better performance
+ignore_function_time_stamp ("all")
 
-home; close;
+% say hello
+disp("\n\
+dsdxof, loudspeaker crossover and equalizer design\n\
+part of DSD (C) 2012-2019 Roberto Ripio\
+\n");
+
+% parse command line
+p = inputParser;
+% mandatory script filename as first parameter
+p.addRequired("script", @ischar);
+% optional fs as "fs <integer_number>"
+p.addParameter("fs",0,@(x) mod(str2double(x),1) == 0)
+% optional filter class as "class <lp|mp>"
+p.addParameter("class","none",@(x) any (strcmp (x, {"none","lp", "mp"})));
+try
+    p.parse(argv(){:});
+catch
+    % lasterror()
+    disp( "Error:");
+    disp(["Incorrect command line parameters. " ...
+             "Cannot continue: exiting...\n"]);
+    quit();            
+end_try_catch
+
+% begin chronometer for calculation time asessment
 t1=time;
 
-disp("RRxof\nRR Loudspeaker Crossover and Equalizer designer\n\
-(C) 2012 Roberto Ripio\n");
-
-disp(["Running from " fileparts(cmdpath=mfilename("fullpath")) "\n"]);
-configDefaults= [cmdpath ".ini"];
+% check for default config file and sources it
+configDefaults=[mfilename("fullpath") ".ini"];
 if exist(configDefaults, "file")
     source(configDefaults); % Reads default config
+else
+    disp( "Warning:");
+    disp(["file \"" configDefaults "\" not found."]);
+    disp( "Running without defaults.\n");
 end
 
-filename = [fileshort '.xof'];
-source(filename); % Reads project config
-
-% admits Fs as a parameter
-if exist("strGSFs")
-    GSFs=str2num(strGSFs);
-else strGSFs = num2str(GSFs);
+% check for design script file and sources it
+filename = [p.Results.script '.xof'];
+if exist(filename, "file")
+    source(filename); % Reads project config
+else
+    disp("Error:");
+    disp(["Script file \"" filename "\" not found. " ...
+             "Cannot continue: exiting...\n"]);
+    quit();
 end
 
-% admits CFClass as a parameter
-if exist("strCFClass")
-    CFClass = strCFClass;
+% check for fs as command line parameter
+if p.Results.fs != 0
+    GSFs=str2num(p.Results.fs);
+end
+strGSFs = num2str(GSFs);
+
+% check for flter class as command line parameter
+if p.Results.class != "none"
+    CFClass = p.Results.class;
 end
 
 % Set file output folder and prefix
-[dummyFSOutDir , FSOutPrefix] = fileparts(FSInputFile); % values from frd file
-[FSOutDir , dummyFSOutPrefix] = fileparts(filename); % values from input file
+% filename prefix taken from frd file
+[dummyFSOutDir , FSOutPrefix] = fileparts(FSInputFile);
+% directory path taken from script file
+[FSOutDir , dummyFSOutPrefix] = fileparts(filename);
 if length(FSOutDir)==0
     FSOutDir = ".";
 end
@@ -253,5 +291,3 @@ disp ("\n");
 fputs(fid,[FSOutPrefix, "\n"]);
 fputs(fid,[normfactor_dB_str, "\n\n"]);
 fclose(fid);
-
-endfunction
