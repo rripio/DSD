@@ -23,29 +23,36 @@
 %%
 %% Dibuja una gráfica de respuesta en frecuencia con un formato convencional.
 %%
-%% F    = Vector de frecuencias.
+%% F        = Vector de frecuencias.
 %% dBmag    = Vector de magnitudes en dB.
-%% bottom    = Mínimo de la magnitud (dB).
-%% top    = Máximo de la magnitud (dB).
-%% step    = Escalones de dB a efectos de rejilla y rotulación.
-%% plotitle    = TÍtulo de la gráfica.
+%% bottom   = Mínimo de la magnitud (dB).
+%% top      = Máximo de la magnitud (dB).
+%% step     = Escalones de dB a efectos de rejilla y rotulación.
+%% f_low    = Low frequency limit.
+%% f_high   = High frequency limit.
+%% plotitle = TÍtulo de la gráfica.
 
-function audioplot(F, dBmag, bottom, top, step, plotitle)
-
-% plots magnitude responses
-FLow = 5; FHigh = 20000;
+function audioplot( F,
+                    dBmag,
+                    bottom=-18,
+                    top=+6,
+                    f_low=10,
+                    f_high=30000,
+                    step=3,
+                    plotitle="Frequency response")
 
 semilogx(F/1000,dBmag);
 
 set(axe, "title", plotitle);
 set(axe, "xlabel", "Frequency (KHz)");
 set(axe, "ylabel", "Magnitude (dB)");
-set(axe, "xlim", [(PSFLow/1000),(PSFHigh/1000)]);
+set(axe, "xlim", [(f_low/1000),(f_high/1000)]);
 set(axe, "ylim", [bottom,top]);
 set(axe, "xgrid", "on");
 set(axe, "ygrid", "on");
 set(axe, "xtick", [0.01;0.02;0.03;0.05;0.1;0.2;0.3;0.5;1;2;3;5;10;20]);
-set(axe, "xticklabel", ['.01';'.02';'.03';'.05';'.1';'.2';'.3';'.5';'1';'2';'3';'5';'10';'20']);
-set(axe, "ytick", (PSVBottom:PSVStep:PSVTop));
+set(axe, "xticklabel", ...
+    ['.01';'.02';'.03';'.05';'.1';'.2';'.3';'.5';'1';'2';'3';'5';'10';'20']);
+set(axe, "ytick", (bottom:step:top));
 
 endfunction
