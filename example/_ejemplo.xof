@@ -7,7 +7,7 @@ FSOutDir="./";                              % Output directory
 
 % GS General Settings
 
-GSFs=44100;                                 % Sampling frequency of final filters
+GSFs=48000;                                 % Sampling frequency of final filters
                                             % May be omitted if given as command line parameter
 
 % CF Crossover Filter
@@ -16,7 +16,7 @@ CFClass = 'lp';                             % Crossover class: 'mp', minimum pha
                                             % May be omitted if given as command line parameter
 
 
-CFLowType={"LinkwitzRiley" "Butterworth"};  % Crossover type: Must be a cell array
+CFLowType={"LR" "B"};                       % Crossover type: Must be a cell array
 CFLowOrder=[4 2];                           % Low feq. crossover order (for minimum phase varieties)
 CFLowF=[2700 45] ;                          % Crossover point frequency Low (Hz)
 CFLowAsMP=false;                            % If CFClass = 'lp' and CFLowType="Butterworth", mimics the magnitude
