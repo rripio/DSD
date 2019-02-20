@@ -1,8 +1,10 @@
 %% This file is part of DSD
 %%
-%% DSD A GNU-Octave set of scripts for calculating
+%% DSD
+%%
+%% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
-%% Copyright (C) 2012-2018 Roberto Ripio
+%% Copyright (C) 2012-2019 Roberto Ripio
 %%
 %% DSD is free software: you can redistribute it and/or modify
 %% it under the terms of the GNU General Public License as published by
@@ -25,7 +27,7 @@
 %% fs = Frecuencia de muestreo.
 %% f0 = Frecuencia central del filtro.
 %% Q = Definido en "DSP EQ cookbook". En "peakingEQ" el ancho de banda es entre
-%%		puntos de ganancia mitad.
+%%        puntos de ganancia mitad.
 %% type = Valor de cadena entre: LPF, HPF, notch, peakingEQ, lowShelf o highShelf.
 %% dBgain = Solo para peakingEQ, lowShelf o highShelf.
 
@@ -34,13 +36,13 @@ function [b,a]=biquad(fs,f0,Q,type,dBgain);
     if (nargin < 4)
         error ("nargin < 4");
     end
-	if (Q <= 0)
-		error ("Q must be positive");
-	end
-	if (f0 <= 0) || (fs <= 0)
-		error ("f must be positive");
-	end
-	
+    if (Q <= 0)
+        error ("Q must be positive");
+    end
+    if (f0 <= 0) || (fs <= 0)
+        error ("f must be positive");
+    end
+    
 
     w0 = 2*pi*f0/fs;
     alpha = sin(w0)/(2*Q);

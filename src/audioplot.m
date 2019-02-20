@@ -1,8 +1,10 @@
 %% This file is part of DSD
 %%
-%% DSD A GNU-Octave set of scripts for calculating
+%% DSD
+%%
+%% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
-%% Copyright (C) 2012-2018 Roberto Ripio
+%% Copyright (C) 2012-2019 Roberto Ripio
 %%
 %% DSD is free software: you can redistribute it and/or modify
 %% it under the terms of the GNU General Public License as published by
@@ -19,14 +21,14 @@
 
 %% usage: audioplot(F, dBmag, bottom, top, step, plotitle)
 %%
-%% Dibuja una gráfica de respuesta en frecuencia con un formato convencional.
+%% Dibuja una grÃ¡fica de respuesta en frecuencia con un formato convencional.
 %%
-%% F	= Vector de frecuencias.
-%% dBmag	= Vector de magnitudes en dB.
-%% bottom	= Mínimo de la magnitud (dB).
-%% top	= Máximo de la magnitud (dB).
-%% step	= Escalones de dB a efectos de rejilla y rotulación.
-%% plotitle	= Título de la gráfica.
+%% F    = Vector de frecuencias.
+%% dBmag    = Vector de magnitudes en dB.
+%% bottom    = MÃ­nimo de la magnitud (dB).
+%% top    = MÃ¡ximo de la magnitud (dB).
+%% step    = Escalones de dB a efectos de rejilla y rotulaciÃ³n.
+%% plotitle    = TÃtulo de la grÃ¡fica.
 
 function audioplot(F, dBmag, bottom, top, step, plotitle)
 

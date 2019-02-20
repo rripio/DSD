@@ -1,8 +1,10 @@
 %% This file is part of DSD
 %%
-%% DSD A GNU-Octave set of scripts for calculating
+%% DSD
+%%
+%% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
-%% Copyright (C) 2012-2018 Roberto Ripio
+%% Copyright (C) 2012-2019 Roberto Ripio
 %%
 %% DSD is free software: you can redistribute it and/or modify
 %% it under the terms of the GNU General Public License as published by
@@ -19,24 +21,24 @@
 
 %% usage: imps = loadpcms (filemask, kinit, kend)
 %%
-%% Carga archivos impulso que verifican una m·scara en una matriz de vectores columna.
+%% Carga archivos impulso que verifican una m√°scara en una matriz de vectores columna.
 %%
-%% imps	= matriz de vectores columna con los impulsos.
-%% n		= N˙mero de impulsos.
-%% filemask	= M·scara de nombres de archivo (string).
-%% kinit	= Õndice para el comienzo del recorte.
-%% kend		= Õndice para el comienzo del recorte.
+%% imps    = matriz de vectores columna con los impulsos.
+%% n        = N√∫mero de impulsos.
+%% filemask    = M√°scara de nombres de archivo (string).
+%% kinit    = √çndice para el comienzo del recorte.
+%% kend        = √çndice para el comienzo del recorte.
 
 function [imps, n] = loadpcms (filemask, kinit, kend)
 
-	impnames = glob (filemask);
-	n = size (impnames, 1);
-	l = kend-kinit+1;
-	imps = zeros(l, n);
-	for i = 1:n;
-		temp = loadpcm(impnames(i));
-		temp = temp(kinit:kend);
-		imps(:,i) = temp;
-	end;
+    impnames = glob (filemask);
+    n = size (impnames, 1);
+    l = kend-kinit+1;
+    imps = zeros(l, n);
+    for i = 1:n;
+        temp = loadpcm(impnames(i));
+        temp = temp(kinit:kend);
+        imps(:,i) = temp;
+    end;
 
 endfunction

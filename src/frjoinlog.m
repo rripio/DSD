@@ -1,8 +1,10 @@
 %% This file is part of DSD
 %%
-%% DSD A GNU-Octave set of scripts for calculating
+%% DSD
+%%
+%% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
-%% Copyright (C) 2012-2018 Roberto Ripio
+%% Copyright (C) 2012-2019 Roberto Ripio
 %%
 %% DSD is free software: you can redistribute it and/or modify
 %% it under the terms of the GNU General Public License as published by
@@ -19,29 +21,29 @@
 
 %% usage: ssp = frjoinlog(ssp1,ssp2,k1,k2)
 %%
-%% Une dos respuestas en magnitud sobre el semiespectro, mezcl·ndolas en un intervalo de
-%% Ìndices dado. Asume que las respuestas a unir est·n en magnitud logarÌtmica sobre una 
-%% escala de frecuencias logarÌtmica.
+%% Une dos respuestas en magnitud sobre el semiespectro, mezcl√°ndolas en un intervalo de
+%% √≠ndices dado. Asume que las respuestas a unir est√°n en magnitud logar√≠tmica sobre una 
+%% escala de frecuencias logar√≠tmica.
 %%
-%% ssp	= Vector columna con la magnitud de la mezcla.
-%% ssp1	= Vector columna con la respuesta a mezclar por la izquierda.
-%% ssp2	= Vector columna con la respuesta a mezclar por la derecha.
-%% k1	= Primer Ìndice del intervalo.
-%% k2	= Segundo Ìndice del intervalo.
+%% ssp    = Vector columna con la magnitud de la mezcla.
+%% ssp1    = Vector columna con la respuesta a mezclar por la izquierda.
+%% ssp2    = Vector columna con la respuesta a mezclar por la derecha.
+%% k1    = Primer √≠ndice del intervalo.
+%% k2    = Segundo √≠ndice del intervalo.
 
 function ssp = frjoinlog(ssp1,ssp2,k1,k2)
 
-	if ! iscolumn(ssp1)
-		error ("ssp1 must be a column vector")
-	end
+    if ! iscolumn(ssp1)
+        error ("ssp1 must be a column vector")
+    end
 
-	if ! iscolumn(ssp2)
-		error ("ssp2 must be a column vector")
-	end
+    if ! iscolumn(ssp2)
+        error ("ssp2 must be a column vector")
+    end
 
-	if (length (ssp1) != length (ssp2))
-		error ("frjoin: Spectrum lengths must be equal");
-	end
+    if (length (ssp1) != length (ssp2))
+        error ("frjoin: Spectrum lengths must be equal");
+    end
     [trw1, trw2] = trwcoslog(k1,k2);
     m=length(ssp1);
     ssp1=[ssp1(1:k1-1);ssp1(k1:k2).*trw1;zeros(m-k2,1)];

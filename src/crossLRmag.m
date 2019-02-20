@@ -1,8 +1,10 @@
 %% This file is part of DSD
 %%
-%% DSD A GNU-Octave set of scripts for calculating
+%% DSD
+%%
+%% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
-%% Copyright (C) 2012-2018 Roberto Ripio
+%% Copyright (C) 2012-2019 Roberto Ripio
 %%
 %% DSD is free software: you can redistribute it and/or modify
 %% it under the terms of the GNU General Public License as published by
@@ -22,21 +24,21 @@
 %% Obtiene la magnitud de los filtros Linkwitz-Riley pasabajos y pasaaltos
 %% con pendiente dada sobre un semiespectro. El espaciado de frecuencias es arbitrario.
 %% 
-%%	magL	= Vector con la magnitud del pasabajos.
-%%	magH	= Vector con la magnitud del pasaaltos.
-%%	F	= Vector con las frecuencias del semiespectro.
-%%	fc	= Frecuencia de corte.
-%%	slope	= Pendiente en dB/oct.
+%%    magL    = Vector con la magnitud del pasabajos.
+%%    magH    = Vector con la magnitud del pasaaltos.
+%%    F    = Vector con las frecuencias del semiespectro.
+%%    fc    = Frecuencia de corte.
+%%    slope    = Pendiente en dB/oct.
 
 function [magL,magH]=crossLRmag(F,fc,slope);
 
-	if ! iscolumn(F)
-		error ("F must be a column vector")
-	end
+    if ! iscolumn(F)
+        error ("F must be a column vector")
+    end
 
-	K=slope / (20*log10(2)) / 2;
+    K=slope / (20*log10(2)) / 2;
 
-	magL = (1./(1+((F./fc).^(2*K))));
-	magH = (((F./fc).^(2*K))./(1+((F./fc).^(2*K))));
+    magL = (1./(1+((F./fc).^(2*K))));
+    magH = (((F./fc).^(2*K))./(1+((F./fc).^(2*K))));
 
 end

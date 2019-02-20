@@ -1,6 +1,8 @@
 %% This file is part of DSD
 %%
-%% DSD A GNU-Octave set of scripts for calculating
+%% DSD
+%%
+%% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
 %% Copyright (C) 2012-2019 Roberto Ripio
 %%
@@ -316,7 +318,7 @@ set(axe, "ytick", (PSVBottom:PSVStep:PSVTop));
 plotlogF = logF/1000;
 
 semilogx(plotlogF,mag2dB(filterMagLog),"k;Filter response;","linewidth",2); % Filter
-% semilogx(plotlogF,mag2dB(correctionMagLog),"r;Segunda corrección"); % Second loop correction
+% semilogx(plotlogF,mag2dB(correctionMagLog),"r;Second loop correction"); % Second loop correction
 semilogx(plotlogF,mag2dB(fullSMagLog./EFRefMag),"c;High range smoothing;"); % Response: Full range smoothing
 semilogx(plotlogF,mag2dB(bassSMagLog_save./EFRefMag),"m;Low range smoothing;"); % Response: Bass smoothing
 semilogx(plotlogF,mag2dB(fullPreSMagLogSave.*filterMagLog/EFRefMag),"b;Final response;","linewidth",2); % Final Response: Bass smoothing

@@ -1,8 +1,10 @@
 %% This file is part of DSD
 %%
-%% DSD A GNU-Octave set of scripts for calculating
+%% DSD
+%%
+%% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
-%% Copyright (C) 2012-2018 Roberto Ripio
+%% Copyright (C) 2012-2019 Roberto Ripio
 %%
 %% DSD is free software: you can redistribute it and/or modify
 %% it under the terms of the GNU General Public License as published by
@@ -19,12 +21,12 @@
 
 %% usage: x = buttwindow (m,ppo,ppoSm)
 %%
-%% Genera una ventana estándar de promediado de potencia con filtrado butterworth de 6º orden.
+%% Genera una ventana estÃ¡ndar de promediado de potencia con filtrado butterworth de 6Âº orden.
 %%
 %% x = Ventana.
-%% m = Longitud del espectro logarítmico a promediar.
-%% ppo = Fracción de octava del intervalo de frecuencias. 
-%% ppoSm = Fracción de octava del suavizado.
+%% m = Longitud del espectro logarÃ­tmico a promediar.
+%% ppo = FracciÃ³n de octava del intervalo de frecuencias. 
+%% ppoSm = FracciÃ³n de octava del suavizado.
 
 function x=buttwindow(m,ppo,ppoSm);
     w=logfreq(m,2*pi,ppo);

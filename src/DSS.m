@@ -1,8 +1,10 @@
 %% This file is part of DSD
 %%
-%% DSD A GNU-Octave set of scripts for calculating
+%% DSD
+%%
+%% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
-%% Copyright (C) 2012-2018 Roberto Ripio
+%% Copyright (C) 2012-2019 Roberto Ripio
 %%
 %% DSD is free software: you can redistribute it and/or modify
 %% it under the terms of the GNU General Public License as published by
@@ -30,9 +32,9 @@
 
 function [mag, phase] = DSS (F,fs);
 
-	if ! iscolumn(F)
-		error ("F must be a column vector")
-	end
+    if ! iscolumn(F)
+        error ("F must be a column vector")
+    end
 
     f1 = 1800;
     Q = 0.5;

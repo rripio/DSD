@@ -1,8 +1,10 @@
 %% This file is part of DSD
 %%
-%% DSD A GNU-Octave set of scripts for calculating
+%% DSD
+%%
+%% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
-%% Copyright (C) 2012-2018 Roberto Ripio
+%% Copyright (C) 2012-2019 Roberto Ripio
 %%
 %% DSD is free software: you can redistribute it and/or modify
 %% it under the terms of the GNU General Public License as published by
@@ -24,18 +26,18 @@
 %% maglin = Magnitud interpolada.
 %% mag    = Magnitud a interpolar.
 %% F      = Vector de frecuencias.
-%% m	  = Longitud del espectro completo (debe ser par).
-%% fs	  = Frecuencia de muestreo.
+%% m      = Longitud del espectro completo (debe ser par).
+%% fs      = Frecuencia de muestreo.
 
 function maglin = lininterp (F, mag, m, fs)
 
 if ! iscolumn(F)
-	error ("F must be a column vector")
+    error ("F must be a column vector")
 end
 
-	fnew = (0:m/2)'*fs/m; % column vector
-	maglin = interp1(F, mag, fnew, "spline");
-	maglin(fnew<F(1)  )=mag(1);
-	maglin(fnew>F(end))=mag(end);
-	
+    fnew = (0:m/2)'*fs/m; % column vector
+    maglin = interp1(F, mag, fnew, "spline");
+    maglin(fnew<F(1)  )=mag(1);
+    maglin(fnew>F(end))=mag(end);
+    
 endfunction

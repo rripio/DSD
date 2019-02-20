@@ -1,8 +1,10 @@
 %% This file is part of DSD
 %%
-%% DSD A GNU-Octave set of scripts for calculating
+%% DSD
+%%
+%% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
-%% Copyright (C) 2012-2018 Roberto Ripio
+%% Copyright (C) 2012-2019 Roberto Ripio
 %%
 %% DSD is free software: you can redistribute it and/or modify
 %% it under the terms of the GNU General Public License as published by
@@ -21,25 +23,25 @@
 %%
 %% load a pir file created by ARTA
 %%
-%% pcm	= Vector columna del impulso
+%% pcm    = Vector columna del impulso
 %% fname = pir file name
 
 function [pir, fs] = loadpir(fname)
 
-	f = fopen(fname,"rb");
-	[filesignature, filesignaturec] = fread(f, 4, "char");
-	[version, versionc] = fread(f, 1, "unsigned int");
-	[infosize, infosizec] = fread(f, 1, "int");
-	[reserved, reservedc] = fread(f, 2, "int");
-	[fskHz, fskHzc] = fread(f, 1, "float");
-	[fs, fsc] = fread(f, 1, "int");
-	[pirlength, pirlengthc] = fread(f, 1, "int");
-	[inputdevice, inputdevicec] = fread(f, 1, "int");
-	[devicesens, devicesensc] = fread(f, 1, "float");
-	[various_int, various_intc] = fread(f, 5, "int");
-	[various_float, various_floatc] = fread(f, 5, "float");
-	[pir, pirc] = fread(f, pirlength, "float");
-	% Don't read text
-	fclose(f);
-	
+    f = fopen(fname,"rb");
+    [filesignature, filesignaturec] = fread(f, 4, "char");
+    [version, versionc] = fread(f, 1, "unsigned int");
+    [infosize, infosizec] = fread(f, 1, "int");
+    [reserved, reservedc] = fread(f, 2, "int");
+    [fskHz, fskHzc] = fread(f, 1, "float");
+    [fs, fsc] = fread(f, 1, "int");
+    [pirlength, pirlengthc] = fread(f, 1, "int");
+    [inputdevice, inputdevicec] = fread(f, 1, "int");
+    [devicesens, devicesensc] = fread(f, 1, "float");
+    [various_int, various_intc] = fread(f, 5, "int");
+    [various_float, various_floatc] = fread(f, 5, "float");
+    [pir, pirc] = fread(f, pirlength, "float");
+    % Don't read text
+    fclose(f);
+    
 endfunction

@@ -1,8 +1,10 @@
 %% This file is part of DSD
 %%
-%% DSD A GNU-Octave set of scripts for calculating
+%% DSD
+%%
+%% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
-%% Copyright (C) 2012-2018 Roberto Ripio
+%% Copyright (C) 2012-2019 Roberto Ripio
 %%
 %% DSD is free software: you can redistribute it and/or modify
 %% it under the terms of the GNU General Public License as published by
@@ -19,7 +21,7 @@
 
 %% usage: [mag, phase] = RoomGain (f, gain_dBS, fs)
 %%
-%% Obtiene los valores de la ecualización Room Gain sobre un vector de frecuencias f.
+%% Obtiene los valores de la ecualizaciÃ³n Room Gain sobre un vector de frecuencias f.
 %%
 %% mag = Vector de magnitudes.
 %% pha = Vector de fases.
@@ -29,15 +31,15 @@
 
 function [mag, phase] = RoomGain (F, gain_dBS, fs);
 
-	if ! iscolumn(F)
-		error ("F must be a column vector")
-	end
+    if ! iscolumn(F)
+        error ("F must be a column vector")
+    end
 
     f1 = 120;
     Q = 0.707;
     [b,a] = biquad (fs, f1, Q, "lowShelf", gain_dBS);
     h = freqz(b, a, F, fs);
     mag = mag2dB(abs(h)); mag -= max(mag);
-	phase = arg(h)*180/pi;
+    phase = arg(h)*180/pi;
     
 endfunction

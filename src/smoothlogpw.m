@@ -1,8 +1,10 @@
 %% This file is part of DSD
 %%
-%% DSD A GNU-Octave set of scripts for calculating
+%% DSD
+%%
+%% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
-%% Copyright (C) 2012-2018 Roberto Ripio
+%% Copyright (C) 2012-2019 Roberto Ripio
 %%
 %% DSD is free software: you can redistribute it and/or modify
 %% it under the terms of the GNU General Public License as published by
@@ -19,50 +21,50 @@
 
 %% usage: xs = smoothlogpw (x,ppo,ppoSm)
 %%
-%% Suaviza em potencia un espectro logarítmico con un ancho dado en fracción de octava.
+%% Suaviza em potencia un espectro logarÃ­tmico con un ancho dado en fracciÃ³n de octava.
 %%
-%% xs = Vector columna con el espectro logarítmico suavizado.
-%% x = Vector columna de valores reales con el espectro logarítmico.
-%% ppo = Fracción de octava del intervalo de frecuencias. 
-%% ppoSm = Fracción de octava del suavizado.
+%% xs = Vector columna con el espectro logarÃ­tmico suavizado.
+%% x = Vector columna de valores reales con el espectro logarÃ­tmico.
+%% ppo = FracciÃ³n de octava del intervalo de frecuencias. 
+%% ppoSm = FracciÃ³n de octava del suavizado.
 
 function xs=smoothlogpw(x,ppo,ppoSm);
 
-	if ! iscolumn(x)
-		error ("x must be a column vector")
-	end
+    if ! iscolumn(x)
+        error ("x must be a column vector")
+    end
 
-	l = size(x,1);
-	w = ppo/ppoSm;
+    l = size(x,1);
+    w = ppo/ppoSm;
 
-	if w<3
-		error("Smoothing step must at least tree times greater than frequency step.\n");
-	elseif (ppoSm <= 0)|(ppo <= 0) 
-		error("Steps must be positive");
-	end
-	
-	window = buttwindow(2*l,ppo,ppoSm);
-	lw = length(window);
-	% lw %%%%%%
-	if mod(lw,2)==1 % if lw odd
-		wInt = lw;
-	else % if lw not odd, make it odd
-		window=[window; 0];
-		wInt = lw+1;
-	end
-	excess = floor(wInt/2);
+    if w<3
+        error("Smoothing step must at least tree times greater than frequency step.\n");
+    elseif (ppoSm <= 0)|(ppo <= 0) 
+        error("Steps must be positive");
+    end
+    
+    window = buttwindow(2*l,ppo,ppoSm);
+    lw = length(window);
+    % lw %%%%%%
+    if mod(lw,2)==1 % if lw odd
+        wInt = lw;
+    else % if lw not odd, make it odd
+        window=[window; 0];
+        wInt = lw+1;
+    end
+    excess = floor(wInt/2);
 
-	xs = sqrt(conv(x.^2,window)/sum(window));
-	xs = xs(excess+1:excess+l);
+    xs = sqrt(conv(x.^2,window)/sum(window));
+    xs = xs(excess+1:excess+l);
 
-	for i=1:excess+1
-		win_temp = window(excess+2-i:end);
-		win_sum = sum(win_temp);
-		xs(i) = sqrt(sum((x(1:excess+i).^2) .* win_temp)/win_sum);
-	end
-	for i=1:excess+1
-		win_temp = window(1:end-i+1);
-		win_sum = sum(win_temp);
-		xs(end-(excess+1)+i) = sqrt(sum((x(end-wInt+i:end).^2) .* win_temp) /win_sum);
-	end
+    for i=1:excess+1
+        win_temp = window(excess+2-i:end);
+        win_sum = sum(win_temp);
+        xs(i) = sqrt(sum((x(1:excess+i).^2) .* win_temp)/win_sum);
+    end
+    for i=1:excess+1
+        win_temp = window(1:end-i+1);
+        win_sum = sum(win_temp);
+        xs(end-(excess+1)+i) = sqrt(sum((x(end-wInt+i:end).^2) .* win_temp) /win_sum);
+    end
 end

@@ -1,8 +1,10 @@
 %% This file is part of DSD
 %%
-%% DSD A GNU-Octave set of scripts for calculating
+%% DSD
+%%
+%% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
-%% Copyright (C) 2012-2018 Roberto Ripio
+%% Copyright (C) 2012-2019 Roberto Ripio
 %%
 %% DSD is free software: you can redistribute it and/or modify
 %% it under the terms of the GNU General Public License as published by
@@ -26,16 +28,16 @@
 
 function ssp = semisp (sp)
 
-	if ! iscolumn(sp)
-		error ("sp must be a column vector")
-	end
+    if ! iscolumn(sp)
+        error ("sp must be a column vector")
+    end
 
-	m = length (sp);
-	
-	if (mod(m,2) != 0)
-		error ("semisp: Spectrum length must be even");
-	end
-	
-	ssp = sp(1:m/2+1);
-	
+    m = length (sp);
+    
+    if (mod(m,2) != 0)
+        error ("semisp: Spectrum length must be even");
+    end
+    
+    ssp = sp(1:m/2+1);
+    
 endfunction

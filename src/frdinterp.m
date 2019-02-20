@@ -1,8 +1,10 @@
 %% This file is part of DSD
 %%
-%% DSD A GNU-Octave set of scripts for calculating
+%% DSD
+%%
+%% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
-%% Copyright (C) 2012-2018 Roberto Ripio
+%% Copyright (C) 2012-2019 Roberto Ripio
 %%
 %% DSD is free software: you can redistribute it and/or modify
 %% it under the terms of the GNU General Public License as published by
@@ -21,15 +23,15 @@
 %%
 %% Obtiene la magnitud en decibelios sobre el semiespectro a partir de un archivo .frd.
 %%
-%% magdB	 = Magnitud en dB sobre el semiespectro.
+%% magdB     = Magnitud en dB sobre el semiespectro.
 %% filename = Nombre del archivo .frd.
-%% m	 = Longitud del espectro completo (debe ser par).
-%% fs	 = Frecuencia de muestreo.
+%% m     = Longitud del espectro completo (debe ser par).
+%% fs     = Frecuencia de muestreo.
 
 function magdB = frdinterp (filename, m, Fs)
 
-	a=load(filename);
-	fa=a(:,1); maga=a(:,2); clear a;
-	magdB = lininterp (fa, maga, m, Fs);
-	
+    a=load(filename);
+    fa=a(:,1); maga=a(:,2); clear a;
+    magdB = lininterp (fa, maga, m, Fs);
+    
 endfunction

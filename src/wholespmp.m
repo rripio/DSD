@@ -1,8 +1,10 @@
 %% This file is part of DSD
 %%
-%% DSD A GNU-Octave set of scripts for calculating
+%% DSD
+%%
+%% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
-%% Copyright (C) 2012-2018 Roberto Ripio
+%% Copyright (C) 2012-2019 Roberto Ripio
 %%
 %% DSD is free software: you can redistribute it and/or modify
 %% it under the terms of the GNU General Public License as published by
@@ -19,22 +21,23 @@
 
 %% usage: wsp = wholespmp (ssp)
 %%
-%% Obtiene el espectro causal completo a partir del espectro de las frecuencias positivas.
+%% Obtiene el espectro causal completo a partir del
+%% espectro de las frecuencias positivas.
 %%
 %% ssp = Espectro de las frecuencias positivas entre 0 y m/2.
 %% wsp = Espectro completo entre 0 y m-1 (m par).
 
 function wsp = wholespmp (ssp)
 
-	if ! iscolumn(ssp)
-		error ("ssp must be a column vector")
-	end
+    if ! iscolumn(ssp)
+        error ("ssp must be a column vector")
+    end
 
-	m = length (ssp); 
-	if (mod(m,2) == 0)
-		error ("wholespmp: Spectrum length must be odd");
-	end
-	nsp = flipud(conj(ssp(2:m-1)));
-	wsp = [ssp;nsp];
-	
+    m = length (ssp); 
+    if (mod(m,2) == 0)
+        error ("wholespmp: Spectrum length must be odd");
+    end
+    nsp = flipud(conj(ssp(2:m-1)));
+    wsp = [ssp;nsp];
+    
 endfunction

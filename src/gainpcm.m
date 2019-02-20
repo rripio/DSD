@@ -1,8 +1,10 @@
 %% This file is part of DSD
 %%
-%% DSD A GNU-Octave set of scripts for calculating
+%% DSD
+%%
+%% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
-%% Copyright (C) 2012-2018 Roberto Ripio
+%% Copyright (C) 2012-2019 Roberto Ripio
 %%
 %% DSD is free software: you can redistribute it and/or modify
 %% it under the terms of the GNU General Public License as published by
@@ -21,14 +23,14 @@
 %%
 %% Aplica una cierta ganancia en dB a un archivo pcm y lo guarda.
 %%
-%% filename	= Nombres del archivo pcm.
-%% gaindB	= Ganancia a aplicar (dB).
+%% filename    = Nombres del archivo pcm.
+%% gaindB    = Ganancia a aplicar (dB).
 
 function gainpcm (filename, gaindB)
 
-	imp = loadpcm(filename);
-	gain = dB2mag(gaindB);
-	imp = imp * gain;
-	savepcm(imp,filename);
+    imp = loadpcm(filename);
+    gain = dB2mag(gaindB);
+    imp = imp * gain;
+    savepcm(imp,filename);
 
 endfunction

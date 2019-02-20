@@ -1,8 +1,10 @@
 %% This file is part of DSD
 %%
-%% DSD A GNU-Octave set of scripts for calculating
+%% DSD
+%%
+%% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
-%% Copyright (C) 2012-2018 Roberto Ripio
+%% Copyright (C) 2012-2019 Roberto Ripio
 %%
 %% DSD is free software: you can redistribute it and/or modify
 %% it under the terms of the GNU General Public License as published by
@@ -23,7 +25,7 @@
 %%
 %% imp = Coeficientes del filtro FIR.
 %% Fs = Frecuencia de muestreo.
-%% m = Número de muestras.
+%% m = NÃºmero de muestras.
 %% nl = Orden del filtro pasaaltos.
 %% fl = Frecuencia de corte inferior (pasaaltos). 0 para pasabajos.
 %% nh = Orden del filtro pasabajos.

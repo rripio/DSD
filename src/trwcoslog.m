@@ -1,8 +1,10 @@
 %% This file is part of DSD
 %%
-%% DSD A GNU-Octave set of scripts for calculating
+%% DSD
+%%
+%% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
-%% Copyright (C) 2012-2018 Roberto Ripio
+%% Copyright (C) 2012-2019 Roberto Ripio
 %%
 %% DSD is free software: you can redistribute it and/or modify
 %% it under the terms of the GNU General Public License as published by
@@ -19,13 +21,13 @@
 
 %% usage: [trw1,trw2] = trwcoslog(n1,n2)
 %%
-%% Genera ventanas de transici髇 complementarias en un intervalo dado, seg鷑 una funci髇
-%% 'raised cosine'. Los datos de entrada han de estar en magnitudes logar韙micas, tanto en frecuencia como en valor.
+%% Genera ventanas de transici贸n complementarias en un intervalo dado, seg煤n una funci贸n
+%% 'raised cosine'. Los datos de entrada han de estar en magnitudes logar铆tmicas, tanto en frecuencia como en valor.
 %%
-%% trw1	= Ventana de transici髇 de izquierda a derecha.
-%% trw2	= Ventana de transici髇 de derecha a izquierda.
-%% n1	= 蚽dice del extremo izquierdo de la ventana.
-%% n2	= 蚽dice del extremo derecho de la ventana.
+%% trw1    = Ventana de transici贸n de izquierda a derecha.
+%% trw2    = Ventana de transici贸n de derecha a izquierda.
+%% n1    = 脥ndice del extremo izquierdo de la ventana.
+%% n2    = 脥ndice del extremo derecho de la ventana.
 
 function [trw1,trw2] = trwcoslog(n1,n2)
 

@@ -1,8 +1,10 @@
 %% This file is part of DSD
 %%
-%% DSD A GNU-Octave set of scripts for calculating
+%% DSD
+%%
+%% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
-%% Copyright (C) 2012-2018 Roberto Ripio
+%% Copyright (C) 2012-2019 Roberto Ripio
 %%
 %% DSD is free software: you can redistribute it and/or modify
 %% it under the terms of the GNU General Public License as published by
@@ -24,7 +26,7 @@
 %%
 %% imp = Coeficientes del filtro FIR.
 %% Fs = Frecuencia de muestreo.
-%% m = Número de muestras.
+%% m = NÃºmero de muestras.
 %% nl = Orden del filtro pasaaltos.
 %% fl = Frecuencia de corte inferior (pasaaltos). 0 para pasabajos.
 %% nh = Orden del filtro pasabajos.
@@ -34,32 +36,32 @@ function imp=crossButterworthLP(fs,m,nl,fl,nh,fh);
     
     wl=fl/(fs/2);
     wh=fh/(fs/2);
-	mLow = fs/m;						% low freq, freq jump
-	ssK = 0:m/2;						% indexes of non aliased frequency vector
-	ssF = mLow*(ssK);					% non aliased frequency vector
+    mLow = fs/m;                        % low freq, freq jump
+    ssK = 0:m/2;                        % indexes of non aliased frequency vector
+    ssF = mLow*(ssK);                    % non aliased frequency vector
 
-	% Lowpass
+    % Lowpass
     if (fl==0) & (fh>0)
         [b,a]=butter(nh,wh);
-		mag = abs(freqz(b,a,ssF,fs));
+        mag = abs(freqz(b,a,ssF,fs));
     % Highpass
     elseif (fl>0) & (fh==0)
         [b,a]=butter(nl,wl,'high');
-		mag = abs(freqz(b,a,ssF,fs));
-	% Bandpass
-	elseif (fl>0) & (fh>0)
-		[b,a]=butter(nh,wh);
-		magh = abs(freqz(b,a,ssF,fs));
-		[b,a]=butter(nl,wl,'high');
-		magl = abs(freqz(b,a,ssF,fs));
-		mag=magh.*magl;
-	% Delta
+        mag = abs(freqz(b,a,ssF,fs));
+    % Bandpass
+    elseif (fl>0) & (fh>0)
+        [b,a]=butter(nh,wh);
+        magh = abs(freqz(b,a,ssF,fs));
+        [b,a]=butter(nl,wl,'high');
+        magl = abs(freqz(b,a,ssF,fs));
+        mag=magh.*magl;
+    % Delta
     elseif (fl==0) & (fh==0)
-		imp=centerimp(deltacentered(m-1),m);
-		return;
-	end
-	
-	% mag = freqz(b,a,ssF,fs);
+        imp=centerimp(deltacentered(m-1),m);
+        return;
+    end
+    
+    % mag = freqz(b,a,ssF,fs);
     imp = circshift(real(ifft(wholesplp(mag'))),m/2);
-	imp = blackmanharris (m) .* imp;
+    imp = blackmanharris (m) .* imp;
 end

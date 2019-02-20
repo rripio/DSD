@@ -1,8 +1,10 @@
 %% This file is part of DSD
 %%
-%% DSD A GNU-Octave set of scripts for calculating
+%% DSD
+%%
+%% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
-%% Copyright (C) 2012-2018 Roberto Ripio
+%% Copyright (C) 2012-2019 Roberto Ripio
 %%
 %% DSD is free software: you can redistribute it and/or modify
 %% it under the terms of the GNU General Public License as published by
@@ -19,7 +21,7 @@
 
 %% usage: imp = centerimp(imporig,m)
 %%
-%% Aumenta la longitud de un impulso centrándolo.
+%% Aumenta la longitud de un impulso centrÃ¡ndolo.
 %% El impulso original debe tener longitud impar.
 %%
 %% imp = Coeficientes del filtro FIR.
@@ -27,13 +29,13 @@
 %% m= Longitud final del impulso.
 
 function imp=centerimp(imporig,m);
-	l = length(imporig);
-	if l > m
-		error ("centerimp: impulse length must be equal or less than m");
-	end
-	if (mod(l,2) == 0)
-		error ("centerimp: Impulse length must be odd");
-	end
-	imp=prepad(imporig, l+floor((m-l)/2));
-	imp=postpad(imp,m);
+    l = length(imporig);
+    if l > m
+        error ("centerimp: impulse length must be equal or less than m");
+    end
+    if (mod(l,2) == 0)
+        error ("centerimp: Impulse length must be odd");
+    end
+    imp=prepad(imporig, l+floor((m-l)/2));
+    imp=postpad(imp,m);
 end

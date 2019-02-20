@@ -1,8 +1,10 @@
 %% This file is part of DSD
 %%
-%% DSD A GNU-Octave set of scripts for calculating
+%% DSD
+%%
+%% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
-%% Copyright (C) 2012-2018 Roberto Ripio
+%% Copyright (C) 2012-2019 Roberto Ripio
 %%
 %% DSD is free software: you can redistribute it and/or modify
 %% it under the terms of the GNU General Public License as published by
@@ -22,7 +24,7 @@
 %% Obtiene un impulso de longitud m con valor uno en su primera muestra.
 %%
 %% imp = Coeficientes del filtro FIR.
-%% m = Número de muestras.
+%% m = NÃºmero de muestras.
 
 function imp=delta(m);
     imp=zeros(m,1);

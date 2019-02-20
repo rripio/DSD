@@ -1,8 +1,10 @@
 %% This file is part of DSD
 %%
-%% DSD A GNU-Octave set of scripts for calculating
+%% DSD
+%%
+%% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
-%% Copyright (C) 2012-2018 Roberto Ripio
+%% Copyright (C) 2012-2019 Roberto Ripio
 %%
 %% DSD is free software: you can redistribute it and/or modify
 %% it under the terms of the GNU General Public License as published by
@@ -19,19 +21,19 @@
 
 %% usage: [minph, excph] = minexcphsp (sp)
 %%
-%% Obtiene el espectro de fase mínima y el pasa-todo con el exceso de fase a partir de un espectro completo.
+%% Obtiene el espectro de fase mÃ­nima y el pasa-todo con el exceso de fase a partir de un espectro completo.
 %%
-%% minph 	= Espectro completo de fase mínima con la misma magnitud de espectro que imp.
-%% excph 	= Espectro pasatodo de exceso de fase.
-%% sp 		= Espectro completo. Longitud par.
+%% minph     = Espectro completo de fase mÃ­nima con la misma magnitud de espectro que imp.
+%% excph     = Espectro pasatodo de exceso de fase.
+%% sp         = Espectro completo. Longitud par.
 
 function [minph, excph] = minexcphsp (sp)
 
-	if ! iscolumn(sp)
-		error ("sp must be a column vector")
-	end
+    if ! iscolumn(sp)
+        error ("sp must be a column vector")
+    end
 
-	minph = minphsp (sp);
-	excph = sp ./ minph;
+    minph = minphsp (sp);
+    excph = sp ./ minph;
 
 endfunction

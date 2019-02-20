@@ -1,8 +1,10 @@
 %% This file is part of DSD
 %%
-%% DSD A GNU-Octave set of scripts for calculating
+%% DSD
+%%
+%% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
-%% Copyright (C) 2012-2018 Roberto Ripio
+%% Copyright (C) 2012-2019 Roberto Ripio
 %%
 %% DSD is free software: you can redistribute it and/or modify
 %% it under the terms of the GNU General Public License as published by
@@ -20,7 +22,7 @@
 %% usage: [b,a] = biqshelving(fs, f1, f2, type)
 %%
 %% Obtiene los coeficientes del filtro IIR asociado a un filtro shelving tal como se define en www.linkwitzlab.com.
-%% La pendiente se limita a la ausencia de overshoot, con un m·ximo de 6 dB/oct.
+%% La pendiente se limita a la ausencia de overshoot, con un m√°ximo de 6 dB/oct.
 %%
 %% [b,a] = Coeficientes del filtro IIR.
 %% fs = Frecuencia de muestreo.
@@ -31,7 +33,7 @@
 function [b,a] = biqshelving(fs, f1, f2, type);
 
 if (f2 <= f1)
-	error ("f2 must be grater than f1")
+    error ("f2 must be grater than f1")
 end
 
 s = 6; % linkwitz shelvings, 6 dB/oct

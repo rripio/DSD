@@ -1,8 +1,10 @@
 %% This file is part of DSD
 %%
-%% DSD A GNU-Octave set of scripts for calculating
+%% DSD
+%%
+%% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
-%% Copyright (C) 2012-2018 Roberto Ripio
+%% Copyright (C) 2012-2019 Roberto Ripio
 %%
 %% DSD is free software: you can redistribute it and/or modify
 %% it under the terms of the GNU General Public License as published by
@@ -19,17 +21,17 @@
 
 %% usage: xs = smoothpw (xws,ppo)
 %%
-%% Suaviza en potencia un semiespectro real con un ancho dado en fracción de octava.
+%% Suaviza en potencia un semiespectro real con un ancho dado en fracciÃ³n de octava.
 %%
 %% xsss = Vector columna con el semiespectro suavizado.
-%% xws = Vector columna de valores reales (magnitud o fase) del	semiespectro.
-%% ppo = Fracción de octava del suavizado.
+%% xws = Vector columna de valores reales (magnitud o fase) del    semiespectro.
+%% ppo = FracciÃ³n de octava del suavizado.
 
 function xwss=smoothpw(xws,ppo);
 
-	if ! iscolumn(xws)
-		error ("xws must be a column vector")
-	end
+    if ! iscolumn(xws)
+        error ("xws must be a column vector")
+    end
 
     xws = xws.^2;
     xwss = smooth(xws,ppo);
