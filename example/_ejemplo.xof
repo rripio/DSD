@@ -22,7 +22,7 @@ CFLowF=[2700 45] ;                          % Crossover point frequency Low (Hz)
 CFLowAsMP=false;                            % If CFClass = 'lp' and CFLowType="Butterworth", mimics the magnitude
                                             % of a Butterwoth high pass
                             
-CFHighType="LinkwitzRiley";                 % Crossover type
+CFHighType="LR";                            % Crossover type
 CFHighOrder=4;                              % High feq. crossover order (for minimum phase varieties)
 CFHighF=0;                                  % Crossover point frequency High (Hz)
 
