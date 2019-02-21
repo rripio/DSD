@@ -28,9 +28,9 @@
 %% bottom   = Mínimo de la magnitud (dB).
 %% top      = Máximo de la magnitud (dB).
 %% step     = Escalones de dB a efectos de rejilla y rotulación.
-%% f_low    = Low frequency limit.
-%% f_high   = High frequency limit.
-%% plotitle = TÍtulo de la gráfica.
+%% f_low    = Límite inferior de frecuencias (Hz).
+%% f_high   = Límite superior de frecuencias (Hz).
+%% plotitle = Título de la gráfica.
 
 function audioplot( F,
                     dBmag,
