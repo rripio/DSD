@@ -1,12 +1,13 @@
-%% usage: magdB = frdinterp (filename, m, Fs)
+%% usage: [freq, magdB, pha] = loadfrd (filename)
 %%
-%% Obtiene la magnitud en decibelios sobre el semiespectro
-%% a partir de un archivo .frd.
+%% Reads frequency response data from a .frd file.
 %%
-%% magdB    = Magnitud en dB sobre el semiespectro.
-%% filename = Nombre del archivo .frd.
-%% m        = Longitud del espectro completo (debe ser par).
-%% fs       = Frecuencia de muestreo.
+%% Lines with non numeric data are discarded.
+%%
+%% freq     = Frequency vector.
+%% magdB    = dB magnitude.
+%% pha      = Phase.
+%% filename = .frd file full name.
 
 %% This file is part of DSD
 %%
@@ -28,9 +29,24 @@
 %% You should have received a copy of the GNU General Public License
 %% along with DSD.  If not, see <https://www.gnu.org/licenses/>.
 
-function magdB = frdinterp (filename, m, Fs)
+function [freq, magdB, pha] = loadfrd (filename)
 
-    [fa, maga] =loadfrd(filename);
-    magdB = lininterp (fa, maga, m, Fs);
-    
+    result = [];
+
+    fid=fopen(filename);
+    while 1
+        tline = fgetl(fid);
+        if ~ischar(tline), break, end
+        celldata = textscan(tline,'%f %f %f');
+        matdata = cell2mat(celldata);
+        % match fails for text lines, textscan returns empty cells
+        result = [result ; matdata];
+    end
+    fclose(fid);
+
+    freq  = result(:,1);
+    magdB = result(:,2);
+    pha   = result(:,3);
+
 endfunction
+
