@@ -1,7 +1,15 @@
+%% usage pcm = loadpcm(fname)
+%%
+%% load a pcm raw file created by DRC
+%%
+%% pcm    = Impulse column vector
+%% fname  = pcm file name
+%%
+%% The file must be in 32 bit floating point format
+
 %% This file is part of DSD
 %%
 %% DSD
-%%
 %% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
 %% Copyright (C) 2012-2019 Roberto Ripio
@@ -18,14 +26,6 @@
 %%
 %% You should have received a copy of the GNU General Public License
 %% along with DSD.  If not, see <https://www.gnu.org/licenses/>.
-
-%% usage pcm = loadpcm(fname)
-%%
-%% load a pcm raw file created by DRC
-%%
-%% pcm    = Impulse column vector
-%% fname = pcm file name
-%% the file must be in 32 bit floating point format
 
 function pcm = loadpcm(fname)
 

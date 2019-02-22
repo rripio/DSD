@@ -1,7 +1,18 @@
+%% usage: [mag, pha] = HouseCurve (F, f_corner, house_atten, fs)
+%%
+%% Obtiene los valores de la ecualización House Curve sobre un
+%% vector de frecuencias f.
+%%
+%% mag         = Vector de magnitudes (dB).
+%% pha         = Vector de fases (deg).
+%% F           = Vector de frecuencias.
+%% f_corner    = Frecuencia en la que empieza a bajar la curva.
+%% house_atten = Atenuación a 20kHz.
+%% fs          = Frecuencia de muestreo.
+
 %% This file is part of DSD
 %%
 %% DSD
-%%
 %% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
 %% Copyright (C) 2012-2019 Roberto Ripio
@@ -18,17 +29,6 @@
 %%
 %% You should have received a copy of the GNU General Public License
 %% along with DSD.  If not, see <https://www.gnu.org/licenses/>.
-
-%% usage: [mag, pha] = HouseCurve (F, f_corner, house_atten, fs)
-%%
-%% Obtiene los valores de la ecualización House Curve sobre un vector de frecuencias f.
-%%
-%% mag = Vector de magnitudes (dB).
-%% pha = Vector de fases (deg).
-%% F = Vector de frecuencias.
-%% f_corner = Frecuencia en la que empieza a bajar la curva.
-%% house_atten = Atenuación a 20kHz.
-%% fs = Frecuencia de muestreo.
 
 function [mag, pha] = HouseCurve (F, f_corner, house_atten, fs);
 

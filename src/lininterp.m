@@ -1,7 +1,16 @@
+%% usage: maglin = lininterp (F,mag,m,fs)
+%%
+%% Obtiene la valores interpolados sobre el semiespectro.
+%%
+%% maglin = Magnitud interpolada.
+%% mag    = Magnitud a interpolar.
+%% F      = Vector de frecuencias.
+%% m      = Longitud del espectro completo (debe ser par).
+%% fs     = Frecuencia de muestreo.
+
 %% This file is part of DSD
 %%
 %% DSD
-%%
 %% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
 %% Copyright (C) 2012-2019 Roberto Ripio
@@ -18,16 +27,6 @@
 %%
 %% You should have received a copy of the GNU General Public License
 %% along with DSD.  If not, see <https://www.gnu.org/licenses/>.
-
-%% usage: maglin = lininterp (F,mag,m,fs)
-%%
-%% Obtiene la valores interpolados sobre el semiespectro.
-%%
-%% maglin = Magnitud interpolada.
-%% mag    = Magnitud a interpolar.
-%% F      = Vector de frecuencias.
-%% m      = Longitud del espectro completo (debe ser par).
-%% fs      = Frecuencia de muestreo.
 
 function maglin = lininterp (F, mag, m, fs)
 

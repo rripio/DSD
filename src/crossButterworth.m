@@ -1,7 +1,18 @@
+%% usage: imp = crossButterworth(Fs,m,n,fl,fh)
+%%
+%% Obtiene el filtro FIR de un filtro butterworth de orden n.
+%%
+%% imp = Coeficientes del filtro FIR.
+%% Fs  = Frecuencia de muestreo.
+%% m   = Número de muestras.
+%% nl  = Orden del filtro pasaaltos.
+%% fl  = Frecuencia de corte inferior (pasaaltos). 0 para pasabajos.
+%% nh  = Orden del filtro pasabajos.
+%% fh  = Frecuencia de corte superior (pasabajos). 0 para pasaaltos.
+
 %% This file is part of DSD
 %%
 %% DSD
-%%
 %% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
 %% Copyright (C) 2012-2019 Roberto Ripio
@@ -18,18 +29,6 @@
 %%
 %% You should have received a copy of the GNU General Public License
 %% along with DSD.  If not, see <https://www.gnu.org/licenses/>.
-
-%% usage: imp = crossButterworth(Fs,m,n,fl,fh)
-%%
-%% Obtiene el filtro FIR de un filtro butterworth de orden n.
-%%
-%% imp = Coeficientes del filtro FIR.
-%% Fs = Frecuencia de muestreo.
-%% m = Número de muestras.
-%% nl = Orden del filtro pasaaltos.
-%% fl = Frecuencia de corte inferior (pasaaltos). 0 para pasabajos.
-%% nh = Orden del filtro pasabajos.
-%% fh = Frecuencia de corte superior (pasabajos). 0 para pasaaltos.
 
 function imp=crossButterworth(fs,m,nl,fl,nh,fh);
     

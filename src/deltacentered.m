@@ -1,7 +1,13 @@
+%% usage: imp = deltacentered(m)
+%%
+%% Obtiene un impulso de longitud m con valor uno en su muestra central.
+%%
+%% imp = Coeficientes del filtro FIR.
+%% m = Número de muestras. Debe ser impar.
+
 %% This file is part of DSD
 %%
 %% DSD
-%%
 %% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
 %% Copyright (C) 2012-2019 Roberto Ripio
@@ -18,13 +24,6 @@
 %%
 %% You should have received a copy of the GNU General Public License
 %% along with DSD.  If not, see <https://www.gnu.org/licenses/>.
-
-%% usage: imp = deltacentered(m)
-%%
-%% Obtiene un impulso de longitud m con valor uno en su muestra central.
-%%
-%% imp = Coeficientes del filtro FIR.
-%% m = Número de muestras. Debe ser impar.
 
 function imp=deltacentered(m);
     if (mod(m,2) == 0)

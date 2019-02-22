@@ -1,7 +1,19 @@
+%% usage: imp=crossButterworthLP(fs,m,nl,fl,nh,fh)
+%%
+%% Obtiene el filtro FIR de fase lineal con la magnitud
+%% de un filtro butterworth de orden n.
+%%
+%% imp = Coeficientes del filtro FIR.
+%% Fs = Frecuencia de muestreo.
+%% m = Número de muestras.
+%% nl = Orden del filtro pasaaltos.
+%% fl = Frecuencia de corte inferior (pasaaltos). 0 para pasabajos.
+%% nh = Orden del filtro pasabajos.
+%% fh = Frecuencia de corte superior (pasabajos). 0 para pasaaltos.
+
 %% This file is part of DSD
 %%
 %% DSD
-%%
 %% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
 %% Copyright (C) 2012-2019 Roberto Ripio
@@ -19,26 +31,16 @@
 %% You should have received a copy of the GNU General Public License
 %% along with DSD.  If not, see <https://www.gnu.org/licenses/>.
 
-%% usage: imp=crossButterworthLP(fs,m,nl,fl,nh,fh)
-%%
-%% Obtiene el filtro FIR de fase lineal con la magnitud
-%% de un filtro butterworth de orden n.
-%%
-%% imp = Coeficientes del filtro FIR.
-%% Fs = Frecuencia de muestreo.
-%% m = Número de muestras.
-%% nl = Orden del filtro pasaaltos.
-%% fl = Frecuencia de corte inferior (pasaaltos). 0 para pasabajos.
-%% nh = Orden del filtro pasabajos.
-%% fh = Frecuencia de corte superior (pasabajos). 0 para pasaaltos.
-
 function imp=crossButterworthLP(fs,m,nl,fl,nh,fh);
     
     wl=fl/(fs/2);
     wh=fh/(fs/2);
-    mLow = fs/m;                        % low freq, freq jump
-    ssK = 0:m/2;                        % indexes of non aliased frequency vector
-    ssF = mLow*(ssK);                    % non aliased frequency vector
+    % low freq, freq jump
+    mLow = fs/m;
+    % indexes of non aliased frequency vector
+    ssK = 0:m/2;
+    % non aliased frequency vector
+    ssF = mLow*(ssK);
 
     % Lowpass
     if (fl==0) & (fh>0)

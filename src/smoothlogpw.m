@@ -1,7 +1,16 @@
+%% usage: xs = smoothlogpw (x,ppo,ppoSm)
+%%
+%% Suaviza em potencia un espectro logarítmico con un ancho dado
+%% en fracción de octava.
+%%
+%% xs = Vector columna con el espectro logarítmico suavizado.
+%% x = Vector columna de valores reales con el espectro logarítmico.
+%% ppo = Fracción de octava del intervalo de frecuencias. 
+%% ppoSm = Fracción de octava del suavizado.
+
 %% This file is part of DSD
 %%
 %% DSD
-%%
 %% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
 %% Copyright (C) 2012-2019 Roberto Ripio
@@ -18,15 +27,6 @@
 %%
 %% You should have received a copy of the GNU General Public License
 %% along with DSD.  If not, see <https://www.gnu.org/licenses/>.
-
-%% usage: xs = smoothlogpw (x,ppo,ppoSm)
-%%
-%% Suaviza em potencia un espectro logarítmico con un ancho dado en fracción de octava.
-%%
-%% xs = Vector columna con el espectro logarítmico suavizado.
-%% x = Vector columna de valores reales con el espectro logarítmico.
-%% ppo = Fracción de octava del intervalo de frecuencias. 
-%% ppoSm = Fracción de octava del suavizado.
 
 function xs=smoothlogpw(x,ppo,ppoSm);
 

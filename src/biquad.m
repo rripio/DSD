@@ -1,7 +1,20 @@
+%% usage: [b,a] = biquad(fs,f0,Q,type,dBgain)
+%%
+%% Obtiene los coeficientes del filtro IIR asociado a un biquad.
+%%
+%% [b,a] = Coeficientes del filtro IIR.
+%% fs    = Frecuencia de muestreo.
+%% f0    = Frecuencia central del filtro.
+%% Q     = Definido en "DSP EQ cookbook".
+%%         En "peakingEQ" el ancho de banda es
+%%         entre puntos de ganancia mitad.
+%% type  = Valor de cadena entre:
+%%         LPF, HPF, notch, peakingEQ, lowShelf o highShelf.
+%% dBgain = Solo para peakingEQ, lowShelf o highShelf.
+
 %% This file is part of DSD
 %%
 %% DSD
-%%
 %% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
 %% Copyright (C) 2012-2019 Roberto Ripio
@@ -18,18 +31,6 @@
 %%
 %% You should have received a copy of the GNU General Public License
 %% along with DSD.  If not, see <https://www.gnu.org/licenses/>.
-
-%% usage: [b,a] = biquad(fs,f0,Q,type,dBgain)
-%%
-%% Obtiene los coeficientes del filtro IIR asociado a un biquad.
-%%
-%% [b,a] = Coeficientes del filtro IIR.
-%% fs = Frecuencia de muestreo.
-%% f0 = Frecuencia central del filtro.
-%% Q = Definido en "DSP EQ cookbook". En "peakingEQ" el ancho de banda es entre
-%%        puntos de ganancia mitad.
-%% type = Valor de cadena entre: LPF, HPF, notch, peakingEQ, lowShelf o highShelf.
-%% dBgain = Solo para peakingEQ, lowShelf o highShelf.
 
 function [b,a]=biquad(fs,f0,Q,type,dBgain);
     

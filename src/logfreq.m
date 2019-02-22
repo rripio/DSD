@@ -1,7 +1,15 @@
+%% usage logf = logfreq(m,fs,ppo)
+%%
+%% Genera un vector de frecuencias espaciado logaritmicamente,
+%% entre el bin menor no nulo del fft y fs/2.
+%%
+%% m   = Longitud del fft original.
+%% fs  = Frecuencia de muestreo.
+%% ppo = Fracción de octava del intervalo de frecuencias.
+
 %% This file is part of DSD
 %%
 %% DSD
-%%
 %% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
 %% Copyright (C) 2012-2019 Roberto Ripio
@@ -18,14 +26,6 @@
 %%
 %% You should have received a copy of the GNU General Public License
 %% along with DSD.  If not, see <https://www.gnu.org/licenses/>.
-
-%% usage logf = logfreq(m,fs,ppo)
-%%
-%% Genera un vector de frecuencias espaciado logaritmicamente, entre el bin menor no nulo del fft y fs/2.
-%%
-%% m    = Longitud del fft original.
-%% fs    = Frecuencia de muestreo.
-%% ppo    = Fracción de octava del intervalo de frecuencias.
 
 function logf=logfreq(m,fs,ppo);
 

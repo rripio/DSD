@@ -1,7 +1,13 @@
+%% usage: b = dB2pow(a)
+%%
+%% Pasa decibelios a potencia.
+%%
+%% b    = Potencia.
+%% a    = Decibelios.
+
 %%% This file is part of DSD
 %%
 %% DSD
-%%
 %% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
 %% Copyright (C) 2012-2019 Roberto Ripio
@@ -18,13 +24,6 @@
 %%
 %% You should have received a copy of the GNU General Public License
 %% along with DSD.  If not, see <https://www.gnu.org/licenses/>.
-
-%% usage: b = dB2pow(a)
-%%
-%% Pasa decibelios a potencia.
-%%
-%% b    = Potencia.
-%% a    = Decibelios.
 
 function b = dB2pow(a)
 

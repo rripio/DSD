@@ -1,7 +1,16 @@
+%% usage: [minph, excph] = minexcphsp (sp)
+%%
+%% Obtiene el espectro de fase mínima y el pasa-todo con el exceso de fase
+%% a partir de un espectro completo.
+%%
+%% minph = Espectro completo de fase mínima con la misma
+%%         magnitud de espectro que imp.
+%% excph = Espectro pasatodo de exceso de fase.
+%% sp    = Espectro completo. Longitud par.
+
 %% This file is part of DSD
 %%
 %% DSD
-%%
 %% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
 %% Copyright (C) 2012-2019 Roberto Ripio
@@ -18,14 +27,6 @@
 %%
 %% You should have received a copy of the GNU General Public License
 %% along with DSD.  If not, see <https://www.gnu.org/licenses/>.
-
-%% usage: [minph, excph] = minexcphsp (sp)
-%%
-%% Obtiene el espectro de fase mínima y el pasa-todo con el exceso de fase a partir de un espectro completo.
-%%
-%% minph     = Espectro completo de fase mínima con la misma magnitud de espectro que imp.
-%% excph     = Espectro pasatodo de exceso de fase.
-%% sp         = Espectro completo. Longitud par.
 
 function [minph, excph] = minexcphsp (sp)
 

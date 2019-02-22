@@ -1,7 +1,18 @@
+%% usage: imp = [mag, phase] = DSS (F,fs)
+%%
+%% Obtiene los valores de la ecualización DSS sobre un vector de frecuencias f.
+%% ' Let's call this filter DSS (yes, it also de-esses),
+%% short for "Don & Siegfried's Shelf" '
+%% http://www.linkwitzlab.com/frontiers_7.htm#A2
+%%
+%% mag   = Vector de magnitudes (dB).
+%% phase = Vector de fases (deg).
+%% F     = Vector de frecuencias.
+%% fs    = Frecuencia de muestreo.
+
 %% This file is part of DSD
 %%
 %% DSD
-%%
 %% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
 %% Copyright (C) 2012-2019 Roberto Ripio
@@ -18,17 +29,6 @@
 %%
 %% You should have received a copy of the GNU General Public License
 %% along with DSD.  If not, see <https://www.gnu.org/licenses/>.
-
-%% usage: imp = [mag, phase] = DSS (F,fs)
-%%
-%% Obtiene los valores de la ecualización DSS sobre un vector de frecuencias f.
-%% ' Let's call this filter DSS (yes, it also de-esses), short for "Don & Siegfried's Shelf" '
-%% http://www.linkwitzlab.com/frontiers_7.htm#A2
-%%
-%% mag = Vector de magnitudes (dB).
-%% phase = Vector de fases (deg).
-%% F = Vector de frecuencias.
-%% fs = Frecuencia de muestreo.
 
 function [mag, phase] = DSS (F,fs);
 

@@ -1,7 +1,17 @@
+%% usage: imp = crossLinear(fs,m,nc,fl,fh)
+%%
+%% Obtiene el filtro FIR de fase lineal y alta pendiente.
+%%
+%% imp = Coeficientes del filtro FIR.
+%% fs = Frecuencia de muestreo.
+%% m = Número de muestras.
+%% nc = Número de ciclos del impulso.
+%% fl = Frecuencia de corte inferior (pasaaltos). 0 para pasabajos.
+%% fh = Frecuencia de corte superior (pasabajos). 0 para pasaaltos.
+
 %% This file is part of DSD
 %%
 %% DSD
-%%
 %% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
 %% Copyright (C) 2012-2019 Roberto Ripio
@@ -18,17 +28,6 @@
 %%
 %% You should have received a copy of the GNU General Public License
 %% along with DSD.  If not, see <https://www.gnu.org/licenses/>.
-
-%% usage: imp = crossLinear(fs,m,nc,fl,fh)
-%%
-%% Obtiene el filtro FIR de fase lineal y alta pendiente.
-%%
-%% imp = Coeficientes del filtro FIR.
-%% fs = Frecuencia de muestreo.
-%% m = Número de muestras.
-%% nc = Número de ciclos del impulso.
-%% fl = Frecuencia de corte inferior (pasaaltos). 0 para pasabajos.
-%% fh = Frecuencia de corte superior (pasabajos). 0 para pasaaltos.
 
 function imp=crossLinear(fs,m,nc,fl,fh);
     

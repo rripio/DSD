@@ -1,7 +1,19 @@
+%% usage: [b,a] = biqshelving(fs, f1, f2, type)
+%%
+%% Obtiene los coeficientes del filtro IIR asociado a un filtro shelving
+%% tal como se define en www.linkwitzlab.com.
+%% La pendiente se limita a la ausencia de overshoot,
+%% con un máximo de 6 dB/oct.
+%%
+%% [b,a] = Coeficientes del filtro IIR.
+%% fs    = Frecuencia de muestreo.
+%% f1    = Frecuencia de inicio de la pendiente.
+%% f2    = Frecuencia final de la pendiente.
+%% type  = Valor de cadena entre: lowShelf o highShelf.
+
 %% This file is part of DSD
 %%
 %% DSD
-%%
 %% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
 %% Copyright (C) 2012-2019 Roberto Ripio
@@ -18,17 +30,6 @@
 %%
 %% You should have received a copy of the GNU General Public License
 %% along with DSD.  If not, see <https://www.gnu.org/licenses/>.
-
-%% usage: [b,a] = biqshelving(fs, f1, f2, type)
-%%
-%% Obtiene los coeficientes del filtro IIR asociado a un filtro shelving tal como se define en www.linkwitzlab.com.
-%% La pendiente se limita a la ausencia de overshoot, con un máximo de 6 dB/oct.
-%%
-%% [b,a] = Coeficientes del filtro IIR.
-%% fs = Frecuencia de muestreo.
-%% f1 = Frecuencia de inicio de la pendiente.
-%% f2 = Frecuencia final de la pendiente.
-%% type = Valor de cadena entre: lowShelf o highShelf.
 
 function [b,a] = biqshelving(fs, f1, f2, type);
 

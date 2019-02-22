@@ -1,7 +1,13 @@
+%% usage pcm = loadpir(fname)
+%%
+%% load a pir file created by ARTA
+%%
+%% pcm    = Vector columna del impulso
+%% fname = pir file name
+
 %% This file is part of DSD
 %%
 %% DSD
-%%
 %% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
 %% Copyright (C) 2012-2019 Roberto Ripio
@@ -18,13 +24,6 @@
 %%
 %% You should have received a copy of the GNU General Public License
 %% along with DSD.  If not, see <https://www.gnu.org/licenses/>.
-
-%% usage pcm = loadpir(fname)
-%%
-%% load a pir file created by ARTA
-%%
-%% pcm    = Vector columna del impulso
-%% fname = pir file name
 
 function [pir, fs] = loadpir(fname)
 

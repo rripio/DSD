@@ -1,7 +1,14 @@
+%% usage: xs = smooth (xws,ppo)
+%%
+%% Suaviza un semiespectro real con un ancho dado en fracción de octava.
+%%
+%% xsss = Vector columna con el semiespectro suavizado.
+%% xws  = Vector columna de valores reales (magnitud o fase) del semiespectro.
+%% ppo  = Fracción de octava del suavizado.
+
 %% This file is part of DSD
 %%
 %% DSD
-%%
 %% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
 %% Copyright (C) 2012-2019 Roberto Ripio
@@ -18,14 +25,6 @@
 %%
 %% You should have received a copy of the GNU General Public License
 %% along with DSD.  If not, see <https://www.gnu.org/licenses/>.
-
-%% usage: xs = smooth (xws,ppo)
-%%
-%% Suaviza un semiespectro real con un ancho dado en fracción de octava.
-%%
-%% xsss = Vector columna con el semiespectro suavizado.
-%% xws = Vector columna de valores reales (magnitud o fase) del semiespectro.
-%% ppo = Fracción de octava del suavizado.
 
 function xsss=smooth(xws,ppo);
 

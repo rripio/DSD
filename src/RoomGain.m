@@ -1,7 +1,17 @@
+%% usage: [mag, phase] = RoomGain (f, gain_dBS, fs)
+%%
+%% Obtiene los valores de la ecualización Room Gain
+%% sobre un vector de frecuencias f.
+%%
+%% mag      = Vector de magnitudes.
+%% pha      = Vector de fases.
+%% F        = Vector de frecuencias.
+%% gain_dBS = Ganancia total a DC sobre la respuesta plana.
+%% fs       = Frecuencia de muestreo.
+
 %% This file is part of DSD
 %%
 %% DSD
-%%
 %% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
 %% Copyright (C) 2012-2019 Roberto Ripio
@@ -18,16 +28,6 @@
 %%
 %% You should have received a copy of the GNU General Public License
 %% along with DSD.  If not, see <https://www.gnu.org/licenses/>.
-
-%% usage: [mag, phase] = RoomGain (f, gain_dBS, fs)
-%%
-%% Obtiene los valores de la ecualización Room Gain sobre un vector de frecuencias f.
-%%
-%% mag = Vector de magnitudes.
-%% pha = Vector de fases.
-%% F = Vector de frecuencias.
-%% gain_dBS = Ganancia total a DC sobre la respuesta plana.
-%% fs = Frecuencia de muestreo.
 
 function [mag, phase] = RoomGain (F, gain_dBS, fs);
 

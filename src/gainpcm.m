@@ -1,7 +1,13 @@
+%% usage: gainpcm (filename, gaindB)
+%%
+%% Aplica una cierta ganancia en dB a un archivo pcm y lo guarda.
+%%
+%% filename    = Nombres del archivo pcm.
+%% gaindB    = Ganancia a aplicar (dB).
+
 %% This file is part of DSD
 %%
 %% DSD
-%%
 %% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
 %% Copyright (C) 2012-2019 Roberto Ripio
@@ -18,13 +24,6 @@
 %%
 %% You should have received a copy of the GNU General Public License
 %% along with DSD.  If not, see <https://www.gnu.org/licenses/>.
-
-%% usage: gainpcm (filename, gaindB)
-%%
-%% Aplica una cierta ganancia en dB a un archivo pcm y lo guarda.
-%%
-%% filename    = Nombres del archivo pcm.
-%% gaindB    = Ganancia a aplicar (dB).
 
 function gainpcm (filename, gaindB)
 

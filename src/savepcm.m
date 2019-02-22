@@ -1,7 +1,13 @@
+%% usage: savepcm(pcm,fname)
+%%
+%% savepcm: saves a pcm raw file in DRC format
+%%
+%% pcm   = pcm raw signal
+%% fname = pcm file name
+
 %% This file is part of DSD
 %%
 %% DSD
-%%
 %% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
 %% Copyright (C) 2012-2019 Roberto Ripio
@@ -18,13 +24,6 @@
 %%
 %% You should have received a copy of the GNU General Public License
 %% along with DSD.  If not, see <https://www.gnu.org/licenses/>.
-
-%% usage: savepcm(pcm,fname)
-%%
-%% savepcm: saves a pcm raw file in DRC format
-%%
-%% pcm = pcm raw signal
-%% fname = pcm file name
 
 function savepcm(pcm,fname);
 

@@ -1,7 +1,14 @@
+%% usage: wsp = wholesplp (ssp)
+%%
+%% Obtiene el espectro simétrico completo a partir del
+%% espectro de las frecuencias positivas.
+%%
+%% ssp = Espectro de las frecuencias positivas entre 0 y m/2.
+%% wsp = Espectro completo entre 0 y m-1 (m par).
+
 %% This file is part of DSD
 %%
 %% DSD
-%%
 %% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
 %% Copyright (C) 2012-2019 Roberto Ripio
@@ -18,13 +25,6 @@
 %%
 %% You should have received a copy of the GNU General Public License
 %% along with DSD.  If not, see <https://www.gnu.org/licenses/>.
-
-%% usage: wsp = wholesplp (ssp)
-%%
-%% Obtiene el espectro simétrico completo a partir del espectro de las frecuencias positivas.
-%%
-%% ssp = Espectro de las frecuencias positivas entre 0 y m/2.
-%% wsp = Espectro completo entre 0 y m-1 (m par).
 
 function wsp = wholesplp (ssp)
 

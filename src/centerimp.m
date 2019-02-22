@@ -1,7 +1,15 @@
+%% usage: imp = centerimp(imporig,m)
+%%
+%% Aumenta la longitud de un impulso centrándolo.
+%% El impulso original debe tener longitud impar.
+%%
+%% imp     = Coeficientes del filtro FIR.
+%% imporig = Impulso a centrar. Debe ser de longitud impar.
+%% m       = Longitud final del impulso.
+
 %% This file is part of DSD
 %%
 %% DSD
-%%
 %% A GNU-Octave set of scripts for calculating
 %% digital loudspeaker crossovers and room correction filters
 %% Copyright (C) 2012-2019 Roberto Ripio
@@ -18,15 +26,6 @@
 %%
 %% You should have received a copy of the GNU General Public License
 %% along with DSD.  If not, see <https://www.gnu.org/licenses/>.
-
-%% usage: imp = centerimp(imporig,m)
-%%
-%% Aumenta la longitud de un impulso centrándolo.
-%% El impulso original debe tener longitud impar.
-%%
-%% imp = Coeficientes del filtro FIR.
-%% imporig= Impulso a centrar. Debe ser de longitud impar.
-%% m= Longitud final del impulso.
 
 function imp=centerimp(imporig,m);
     l = length(imporig);
