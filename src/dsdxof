@@ -259,9 +259,6 @@ hold on;
 % Generates frequencies vector
 F_ls=linspace(0,mh_ls,m2_ls+1);
 
-% define plot axis
-axe=audioaxe(PSVTop,PSVRange,PSVStep,PSFLow,PSFHigh,FSOutName);
-
 % plots original response
 semilogx(F_ls,LSdB,strcat("1",";",'Original',";"));
 % plots target response
@@ -271,6 +268,8 @@ semilogx(F_ls,CFdB,strcat("4",";",'Filter',";"));
 % plots final response
 semilogx(F_ls,OUTdB,strcat("3",";",'Result',";"));
 
+% define plot axis
+axe=audioaxe(PSVTop,PSVRange,PSVStep,PSFLow,PSFHigh,FSOutName);
 % saves plot image
 print (strcat(FSOutDir,FSOutName,".png"), "-dpng");
 

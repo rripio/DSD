@@ -40,9 +40,9 @@ function audioplot( F,
                     magstep=3,
                     flow=10,
                     fhigh=30000,
-                    plotitle="Frequency response")
+                    plotitle="Frequency response" )
 
-axe=audioaxe(magtop,magrange,magstep,flow,fhigh,plotitle);
 semilogx(F,dBmag);
+audioaxe(magtop,magrange,magstep,flow,fhigh,plotitle);
 
 endfunction
