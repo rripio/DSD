@@ -1,10 +1,9 @@
-%% usage: audioplot(...
-%%          F, dBmag, magtop, magrange, magstep, flow, fhigh, plotitle)
+%% usage: axe = audioaxe(...
+%%                  magtop, magrange, magstep, flow, fhigh, plotitle)
 %%
 %% Dibuja una gráfica de respuesta en frecuencia con un formato convencional.
 %%
-%% F        = Vector de frecuencias.
-%% dBmag    = Vector de magnitudes en dB.
+%% axe      = Ejes de la figura.
 %% magtop   = Máximo de la magnitud (dB).
 %% magrange = Rango visible de la magnitud (dB).
 %% magstep  = Escalones de dB a efectos de rejilla y rotulación.
@@ -33,16 +32,30 @@
 %% along with DSD.  If not, see <https://www.gnu.org/licenses/>.
 %%
 
-function audioplot( F,
-                    dBmag,
-                    magtop=+6,
-                    magrange=24,
-                    magstep=3,
-                    flow=10,
-                    fhigh=30000,
-                    plotitle="Frequency response")
+function axe = audioaxe( magtop=+6,
+                         magrange=24,
+                         magstep=3,
+                         flow=10,
+                         fhigh=30000,
+                         plotitle="Frequency response")
 
-axe=audioaxe(magtop,magrange,magstep,flow,fhigh,plotitle);
-semilogx(F,dBmag);
+magbottom=magtop-magrange;
+axe=gca();
+
+set(axe, "title", plotitle);
+set(axe, "xlabel", "Frequency (Hz)");
+set(axe, "ylabel", "Magnitude (dB)");
+set(axe, "xlim", [flow,fhigh]);
+set(axe, "ylim", [magbottom,magtop]);
+set(axe, "xgrid", "on");
+set(axe, "ygrid", "on");
+set(axe, "xtick", ...
+    [1;5;10;20;30;50;100;200;...
+    300;500;1000;2000;3000;...
+    5000;10000;20000;30000]);
+set(axe, "xticklabel", ...
+    ['1';'5';'10';'20';'30';'50';'100';'200';'300';...
+    '500';'1k';'2k';'3k';'5k';'10k';'20k';'30k']);
+set(axe, "ytick", (magbottom-(100-mod(100,magstep)):magstep:magtop+100));
 
 endfunction

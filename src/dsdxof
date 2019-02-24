@@ -259,34 +259,20 @@ hold on;
 % Generates frequencies vector
 F_ls=linspace(0,mh_ls,m2_ls+1);
 
-% Defines abscissae range
-%PSVTop=max(LSdB); PSVTop=PSVTop+PSVStep*2-mod(PSVTop,PSVStep);
-PSVBottom=PSVTop-PSVRange;
-
-axe=gca();
-
-set(axe, "title", FSOutName);
-set(axe, "xlabel", "Frequency (KHz)");
-set(axe, "ylabel", "Magnitude (dB)");
-set(axe, "xlim", [(PSFLow/1000),(PSFHigh/1000)]);
-set(axe, "ylim", [PSVBottom,PSVTop]);
-set(axe, "xgrid", "on");
-set(axe, "ygrid", "on");
-set(axe, "xtick", [0.01;0.02;0.03;0.05;0.1;0.2;0.3;0.5;1;2;3;5;10;20]);
-set(axe, "xticklabel", ...
-    ['.01';'.02';'.03';'.05';'.1';'.2';'.3';'.5';'1';'2';'3';'5';'10';'20']);
-set(axe, "ytick", (PSVBottom:PSVStep:PSVTop));
+% define plot axis
+axe=audioaxe(PSVTop,PSVRange,PSVStep,PSFLow,PSFHigh,FSOutName);
 
 % plots original response
-semilogx(F_ls/1000,LSdB,strcat("1",";",'Original',";"));
+semilogx(F_ls,LSdB,strcat("1",";",'Original',";"));
 % plots target response
-semilogx(F_ls/1000,TFRdB,strcat("2",";",'Target',";"));
+semilogx(F_ls,TFRdB,strcat("2",";",'Target',";"));
 % plots CF response
-semilogx(F_ls/1000,CFdB,strcat("4",";",'Filter',";"));
+semilogx(F_ls,CFdB,strcat("4",";",'Filter',";"));
 % plots final response
-semilogx(F_ls/1000,OUTdB,strcat("3",";",'Result',";"));
+semilogx(F_ls,OUTdB,strcat("3",";",'Result',";"));
 
-print (strcat(FSOutDir,FSOutName,".png"), "-dpng")
+% saves plot image
+print (strcat(FSOutDir,FSOutName,".png"), "-dpng");
 
 
 
@@ -309,6 +295,7 @@ disp ("\n");
 fputs(fid,[FSOutName, "\n"]);
 fputs(fid,[normfactor_dB_str, "\n\n"]);
 fclose(fid);
+
 
 
 %% finis coronat opus
