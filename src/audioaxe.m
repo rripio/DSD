@@ -1,9 +1,7 @@
-%% usage: axe = audioaxe(...
-%%                  magtop, magrange, magstep, flow, fhigh, plotitle)
+%% usage: audioaxe(magtop, magrange, magstep, flow, fhigh, plotitle)
 %%
 %% Dibuja una gráfica de respuesta en frecuencia con un formato convencional.
 %%
-%% axe      = Ejes de la figura.
 %% magtop   = Máximo de la magnitud (dB).
 %% magrange = Rango visible de la magnitud (dB).
 %% magstep  = Escalones de dB a efectos de rejilla y rotulación.

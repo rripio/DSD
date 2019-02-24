@@ -269,7 +269,7 @@ semilogx(F_ls,CFdB,strcat("4",";",'Filter',";"));
 semilogx(F_ls,OUTdB,strcat("3",";",'Result',";"));
 
 % define plot axis
-axe=audioaxe(PSVTop,PSVRange,PSVStep,PSFLow,PSFHigh,FSOutName);
+audioaxe(PSVTop,PSVRange,PSVStep,PSFLow,PSFHigh,FSOutName);
 % saves plot image
 print (strcat(FSOutDir,FSOutName,".png"), "-dpng");
 
