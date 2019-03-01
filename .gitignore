@@ -1,0 +1,16 @@
+doc/octave-install_es.pdf
+doc/other octave functions_es.pdf
+doc_src/Roberto DSD English.docx
+doc_src/octave-install_es.odt
+doc_src/other octave functions_es.odt
+example/FIRtro.ods
+*.swp
+_files*.txt
+*.save
+
+.~lock.*
+
+32000/
+44100/
+48000/
+96000/
