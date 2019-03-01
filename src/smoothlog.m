@@ -38,7 +38,7 @@ function xs=smoothlog(x,ppo,ppoSm);
 
     if w<3
         error("Smoothing step must at least tree times greater than frequency step.\n");
-    elseif (ppoSm <= 0)|(ppo <= 0) 
+    elseif (ppoSm <= 0) || (ppo <= 0) 
         error("Steps must be positive");
     end
     
