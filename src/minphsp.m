@@ -3,7 +3,7 @@
 %% Obtiene el espectro de fase mínima a partir de un espectro completo.
 %%
 %% minph = Espectro completo de fase mínima con la misma magnitud
-           de espectro que imp.
+%%         de espectro que imp.
 %% sp    = Espectro completo. Longitud par.
 
 %% This file is part of DSD
