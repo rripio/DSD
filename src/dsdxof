@@ -22,6 +22,11 @@
 
 
 
+% Some variable prefixes:
+% TFR Target Frequency Response
+% IFR Inverted target Frequency Response
+% LS  LoudSpeaker frequency response
+
 %% prepare
 
 
@@ -50,11 +55,9 @@ catch
     disp( "Error:");
     disp(["Incorrect command line parameters. " ...
              "Cannot continue: exiting...\n"]);
-    quit();            
+#    quit();   
+    return         
 end_try_catch
-
-% begin chronometer for calculation time asessment
-t1=time;
 
 % check for default config file and sources it
 configDefaults=[mfilename("fullpath") ".ini"];
@@ -104,9 +107,9 @@ FSOutName = ["xo-" CFClass "-" FSOutSuffix];
 % Some advertizing on screen
 GSFs
 FSOutName
-disp ("\n");
-% MS Message Settings
-MSOk = "OK\n"; % End of routine confirmation
+
+% begin chronometer for calculation time asessment
+t1=time;
 
 
 
@@ -123,7 +126,7 @@ m=2^GSLExp; m2=m/2; % Final filter length
 m_ls=m/2; m2_ls=m2/2; % Speaker correction length
 
 %%% Loudspeaker frequency response inversion %%%
-% Reads magnitude response from .frd file
+% LSdB, magnitude response from .frd file
 LSdB = frdinterp(FSInputFile,m_ls,GSFs);
 
 ml_ls=GSFs/m_ls; % low freq, freq jump
@@ -170,15 +173,17 @@ TFRdB=frjoin(TWLowdB,LSdB,TWLowK1,TWLowK2);
 TFRdB=frjoin(TFRdB,TWHighdB,TWHighK1,TWHighK2);
 % dB values untouched, for plotting
 TFRMag=dB2mag(TFRdB);
+% IFR Inverted target Frequency Response
 IFRMag=1./TFRMag; % Response inversion
+
 % Normalize response (attenuation only)
-% Calculates band limits
+% Calculates Band Limits
 BLLowF = CFLowF(1);
 if BLLowF==0 BLLowF=TWLimitLowF2; end
 BLLowK=round(BLLowF/ml_ls)+1;
+
 BLHighF = CFHighF;
 if BLHighF==0 BLHighF=TWLimitHighF1; end
-% BLHighK=round(CFHighF/ml_ls)+1;
 BLHighK=round(BLHighF/ml_ls)+1;
 if BLHighF>mh_ls BLHighF=mh_ls; end;
 
@@ -190,13 +195,13 @@ IFRImp=semiblackman(m_ls).*IFRImp(1:m_ls);
 
 switch(CFClass)
     case "lp"
-        if CFLowAsMP & strcmp (CFLowType{1}, "B") & (CFLowF(1) > 0)
+        if CFLowAsMP && strcmp (CFLowType{1}, "B") && (CFLowF(1) > 0)
             CFLowImp = crossButterworthLP(GSFs,m_ls/2,CFLowOrder(1)...
                                                     ,CFLowF(1),0,0);
             CFHighImp = crossLinear(GSFs,m_ls/2,CFLenghthFactor,0,CFHighF);
             % both already windowed
             CFImp=postpad(fftconv(CFLowImp,CFHighImp), m_ls);
-        elseif (CFHighF > 0 | CFLowF(1) > 0) % Crossover filter
+        elseif (CFHighF > 0 || CFLowF(1) > 0) % Crossover filter
             CFImp = crossLinear(GSFs,m_ls,CFLenghthFactor,CFLowF(1),CFHighF);
         else
             CFImp=delta(m_ls);
@@ -209,9 +214,11 @@ switch(CFClass)
             if CFLowF(i) > 0
                 switch(CFLowType{i})
                     case "B"
-                        CFLowImpTemp = crossButterworth(GSFs,m_ls,CFLowOrder(i),CFLowF(i),0,0);
+                        CFLowImpTemp =  crossButterworth(
+                            GSFs,m_ls,CFLowOrder(i),CFLowF(i),0,0);
                     case "LR"
-                        CFLowImpTemp = crossLinkwitzRiley(GSFs,m_ls,CFLowOrder(i),CFLowF(i),0,0);
+                        CFLowImpTemp = crossLinkwitzRiley(
+                            GSFs,m_ls,CFLowOrder(i),CFLowF(i),0,0);
                 end
             else
                 CFLowImpTemp=delta(m_ls);
@@ -222,9 +229,11 @@ switch(CFClass)
         if CFHighF > 0
             switch(CFHighType)
                 case "B"
-                    CFHighImp = crossButterworth(GSFs,m_ls,0,0,CFHighOrder,CFHighF);
+                    CFHighImp = crossButterworth(
+                        GSFs,m_ls,0,0,CFHighOrder,CFHighF);
                 case "LR"
-                    CFHighImp = crossLinkwitzRiley(GSFs,m_ls,0,0,CFHighOrder,CFHighF);
+                    CFHighImp = crossLinkwitzRiley(
+                        GSFs,m_ls,0,0,CFHighOrder,CFHighF);
             end
         else
             CFHighImp=delta(m_ls);
@@ -247,6 +256,13 @@ savepcm(CFEqImp, [FSOutDir FSOutName '.pcm']);
 audiowrite([FSOutDir FSOutName '.wav'],
             CFEqImp, GSFs, 'BitsPerSample', FSOutWavDepth);
 
+% some indications
+normfactor_dB = mag2dB(normfactor)
+t2=time;
+disp ('');
+disp (['Calculated in ', num2str(t2-t1), ' s']);
+disp ('');
+
 
 
 %% plot
@@ -260,41 +276,41 @@ hold on;
 F_ls=linspace(0,mh_ls,m2_ls+1);
 
 % plots original response
-semilogx(F_ls,LSdB,strcat("1",";",'Original',";"));
+semilogx(
+    F_ls(2:end),LSdB(2:end) + normfactor_dB,strcat("1",";",'Original',";"));
 % plots target response
-semilogx(F_ls,TFRdB,strcat("2",";",'Target',";"));
+semilogx(
+    F_ls(2:end),TFRdB(2:end) + normfactor_dB,strcat("2",";",'Model',";"));
 % plots CF response
-semilogx(F_ls,CFdB,strcat("4",";",'Filter',";"));
+semilogx(
+    F_ls(2:end),CFdB(2:end),strcat("4",";",'Filter',";"));
 % plots final response
-semilogx(F_ls,OUTdB,strcat("3",";",'Result',";"));
+semilogx(
+    F_ls(2:end),OUTdB(2:end) + normfactor_dB,strcat("3",";",'Result',";"));
+
+legend("boxoff")
+legend("location", "north", "orientation", "horizontal");
 
 % define plot axis
 audioaxe(PSVTop,PSVRange,PSVStep,PSFLow,PSFHigh,FSOutName);
 % saves plot image
-print (strcat(FSOutDir,FSOutName,".png"), "-dpng");
+% print (strcat(FSOutDir,FSOutName,".png"), "-dpng");
+print (strcat(FSOutDir,FSOutName,".svg"), "-dsvg");
 
 
 
 %% log
 
 
-% indicates calculation time
-t2=time;
-disp ("\n");
-disp (strcat ('Calculated in: ' , num2str(t2-t1) , ' s'));
-disp ("\n");
-
 % save normalization factor
-normfactor_dB_str=num2str(-mag2dB(normfactor));
+normfactor_dB_str=num2str(normfactor_dB);
 normfile = [FSOutDir FSNormFile];
 % unlink(normfile); % only once for each fs
 fid=fopen(normfile, "a+t");
-disp ("\n");
-
-fputs(fid,[FSOutName, "\n"]);
+fputs(fid,[FSOutName, "\t\t"]);
 fputs(fid,[normfactor_dB_str, "\n\n"]);
 fclose(fid);
 
-
+pause();
 
 %% finis coronat opus

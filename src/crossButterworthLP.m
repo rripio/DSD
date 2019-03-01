@@ -43,22 +43,22 @@ function imp=crossButterworthLP(fs,m,nl,fl,nh,fh);
     ssF = mLow*(ssK);
 
     % Lowpass
-    if (fl==0) & (fh>0)
+    if (fl==0) && (fh>0)
         [b,a]=butter(nh,wh);
         mag = abs(freqz(b,a,ssF,fs));
     % Highpass
-    elseif (fl>0) & (fh==0)
+    elseif (fl>0) && (fh==0)
         [b,a]=butter(nl,wl,'high');
         mag = abs(freqz(b,a,ssF,fs));
     % Bandpass
-    elseif (fl>0) & (fh>0)
+    elseif (fl>0) && (fh>0)
         [b,a]=butter(nh,wh);
         magh = abs(freqz(b,a,ssF,fs));
         [b,a]=butter(nl,wl,'high');
         magl = abs(freqz(b,a,ssF,fs));
         mag=magh.*magl;
     % Delta
-    elseif (fl==0) & (fh==0)
+    elseif (fl==0) && (fh==0)
         imp=centerimp(deltacentered(m-1),m);
         return;
     end

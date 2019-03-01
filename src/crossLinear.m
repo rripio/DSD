@@ -54,13 +54,13 @@ function imp=crossLinear(fs,m,nc,fl,fh);
     end
     
     
-    if (fh == 0 & fl != 0) % high-pass filter
+    if (fh == 0 && fl != 0) % high-pass filter
         imp=centerimp(deltacentered(ll),m)-impl;
-    elseif (fh != 0 & fl == 0) % low-pass filter
+    elseif (fh != 0 && fl == 0) % low-pass filter
         imp=imph;
-    elseif (fh != 0 & fl != 0) % band-pass filter
+    elseif (fh != 0 && fl != 0) % band-pass filter
         imp=imph-impl;
-    elseif (fh == 0 & fl == 0) % no filter (delta)
+    elseif (fh == 0 && fl == 0) % no filter (delta)
         imp=centerimp(deltacentered(m-1),m);
     end;
     % imp=imp(:); %force column vector
