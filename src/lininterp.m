@@ -35,8 +35,6 @@ if ! iscolumn(F)
 end
 
     fnew = (0:m/2)'*fs/m; % column vector
-    maglin = interp1(F, mag, fnew, "spline");
-    maglin(fnew<F(1)  )=mag(1);
-    maglin(fnew>F(end))=mag(end);
+    maglin = interp1(F, mag, fnew, "spline","extrap");
     
 endfunction
