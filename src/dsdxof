@@ -282,9 +282,13 @@ CFEqdB=mag2dB(abs(semisp(fft(CFEqImp))));
 OUTdB=CFEqdB+LSdB;
 
 % Saves complete filter
-savepcm(CFEqImp, [FSOutDir FSOutName '.pcm']);
-audiowrite([FSOutDir FSOutName '.wav'],
+if FSOutPcmFilter
+    savepcm(CFEqImp, [FSOutDir FSOutName '.pcm']);
+end
+if FSOutWavFilter
+    audiowrite([FSOutDir FSOutName '.wav'],
             CFEqImp, GSFs, 'BitsPerSample', FSOutWavDepth);
+end
 
 % some indications
 normfactor_dB = mag2dB(normfactor)
@@ -316,12 +320,15 @@ legend("location", "north", "orientation", "horizontal");
 
 % define plot axis
 audioaxe(PSVTop,PSVRange,PSVStep,PSFLow,PSFHigh,FSOutName);
+
 % saves plot image
-% print (strcat(FSOutDir,FSOutName,".png"), "-dpng");
-print (strcat(FSOutDir,FSOutName,".svg"), "-dsvg");
-
+if PSOutRaster
+    print ([FSOutDir, FSOutName, ".", PSOutRasterExt]);
+end
+if PSOutVector
+    print ([FSOutDir, FSOutName, ".", PSOutVectorExt]);
+end
 figure(1,'units','normalized','position',[0,1,0.5,0.5])
-
 hold off;
 
 %% log
