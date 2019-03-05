@@ -43,6 +43,8 @@ p.addRequired("script", @ischar);
 p.addParameter("fs",0,@(x) mod(str2double(x),1) == 0)
 % optional filter class as "class <lp|mp>"
 p.addParameter("class","none",@(x) any (strcmp (x, {"none","lp", "mp"})));
+% 'nopause' switch: do not show graphics on-screen
+p.addSwitch("nopause");
 try
     p.parse(argv(){:});
 catch
@@ -80,9 +82,14 @@ if p.Results.fs != 0
 end
 strGSFs = num2str(GSFs);
 
-% check for flter class as command line parameter
-if p.Results.class != "none"
+% check for filter class as command line parameter
+if ! strcmp(p.Results.class, "none")
     CFClass = p.Results.class;
+end
+
+% check for 'nopause' switch
+if p.Results.nopause
+    PSShow=false;
 end
 
 % Set file output folder and prefix
@@ -207,7 +214,7 @@ BLHighK=floor(BLHighF/fl_calc)+1;
 if BLHighF>fh_calc BLHighF=fh_calc; end;
 
 % Interpolate target at band limits
-IFRMag_lims=interp1(F_calc, IFRMag, [BLLowF;BLHighF])
+IFRMag_lims=interp1(F_calc, IFRMag, [BLLowF;BLHighF]);
 
 normfactor=max([IFRMag(BLLowK:BLHighK);IFRMag_lims]);
 % Normalized equalization filter (attenuation only)
@@ -300,7 +307,9 @@ disp (["\n" "Calculated in ", num2str(t2-t1), " s" "\n"]);
 %% plot
 
 
+figure(1,'visible','off');
 hold on;
+%gcf();
 
 % plots original response
 semilogx(
@@ -328,8 +337,10 @@ end
 if PSOutVector
     print ([FSOutDir, FSOutName, ".", PSOutVectorExt]);
 end
-figure(1,'units','normalized','position',[0,1,0.5,0.5])
+
 hold off;
+
+
 
 %% log
 
@@ -343,6 +354,11 @@ fputs(fid,[FSOutName, "\t\t"]);
 fputs(fid,[normfactor_dB_str, "\n\n"]);
 fclose(fid);
 
-pause();
+% scale the graphic and pause to examine it
+if PSShow
+    figure(1,'units','normalized','position',[0,1,0.5,0.5])
+    disp ("Press any key...\n");
+    pause()
+end
 
 %% finis coronat opus

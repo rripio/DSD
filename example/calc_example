@@ -1,0 +1,59 @@
+#! /usr/bin/octave -q
+
+%% This file is part of DSD
+%%
+%% DSD
+%% A GNU-Octave set of scripts for calculating
+%% digital loudspeaker crossovers and room correction filters
+%% Copyright (C) 2012-2019 Roberto Ripio
+%%
+%% DSD is free software: you can redistribute it and/or modify
+%% it under the terms of the GNU General Public License as published by
+%% the Free Software Foundation, either version 3 of the License, or
+%% (at your option) any later version.
+%%
+%% DSD is distributed in the hope that it will be useful,
+%% but WITHOUT ANY WARRANTY; without even the implied warranty of
+%% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%% GNU General Public License for more details.
+%%
+%% You should have received a copy of the GNU General Public License
+%% along with DSD.  If not, see <https://www.gnu.org/licenses/>.
+
+
+
+% this file calculates a set filters for every loudspeaker way specified
+% as script file, for both 48000 and 44100 fs, and of 'linear phase' and
+% 'minimum phase' class.
+
+
+
+% user data
+
+% change values to your needs,
+% but leave at least one value on every variable
+scriptfile = {'t','m', 'w'};
+fs = [44100,48000];
+filterclass = {'lp','mp'};
+
+% end user data
+
+
+
+% calculate
+
+for i_fs = 1:length(fs)
+    [err, msg]=unlink([num2str(fs(i_fs)) "/levels.txt"]);
+    disp(msg);
+
+    for i_script = 1:length(scriptfile)
+
+        for i_class = 1:length(filterclass)
+            command = [ " dsdxof " scriptfile{i_script} ...
+                        " fs " num2str(fs(i_fs)) ...
+                        " class " filterclass{i_class} ...
+                        " nopause"];
+            status = system(command);
+        end
+    end
+end
