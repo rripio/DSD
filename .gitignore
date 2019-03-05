@@ -7,7 +7,7 @@ example/FIRtro.ods
 *.swp
 _files*.txt
 *.save
-
+octave-workspace
 .~lock.*
 
 32000/
