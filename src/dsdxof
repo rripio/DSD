@@ -356,7 +356,8 @@ fclose(fid);
 
 % scale the graphic and pause to examine it
 if PSShow
-    figure(1,'units','normalized','position',[0,1,0.5,0.5])
+%    figure(1,'units','normalized','position',[0,1,0.5,0.5])
+    figure(1,'units','normalized','position',[PSPos,PSSize])
     disp ("Press any key...\n");
     pause()
 end
