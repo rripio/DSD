@@ -319,13 +319,18 @@ CFEqImp=postpad(fftconv(IFRImp,CFImp),m);
 
 
 % Prepares final response
+
 % XO magnitude
 CFEqMag=abs(semisp(fft(CFEqImp)));
 % Normalize response (attenuation only)
 normfactor=max(CFEqMag);
 CFEqMag=CFEqMag/normfactor;
 CFEqImp=CFEqImp/normfactor;
+
 % Prepare informative responses for graphics
+normfactor_dB = mag2dB(normfactor);
+LSdB=LSdB+normfactor_dB;
+TFRdB=TFRdB+normfactor_dB;
 CFEqdB=mag2dB(CFEqMag);
 OUTdB=CFEqdB+LSdB;
 
@@ -339,7 +344,6 @@ if FSOutWavFilter
 end
 
 % some indications
-normfactor_dB = mag2dB(normfactor)
 t2=time;
 disp (["\n" "Calculated in ", num2str(t2-t1), " s" "\n"]);
 
@@ -354,16 +358,16 @@ hold on;
 
 % plots original response
 semilogx(
-    F(2:end),LSdB(2:end) + normfactor_dB,strcat("1",";",'Original',";"));
+    F(2:end),LSdB(2:end),strcat("1",";",'Original',";"));
 % plots target response
 semilogx(
-    F_calc(2:end),TFRdB(2:end) + normfactor_dB,strcat("2",";",'Model',";"));
+    F_calc(2:end),TFRdB(2:end),strcat("2",";",'Model',";"));
 % plots CF response
 semilogx(
     F(2:end),CFEqdB(2:end),strcat("4",";",'Filter',";"));
 % plots final response
 semilogx(
-    F(2:end),OUTdB(2:end) + normfactor_dB,strcat("3",";",'Result',";"));
+    F(2:end),OUTdB(2:end),strcat("3",";",'Result',";"));
 
 legend("boxoff")
 legend("location", "north", "orientation", "horizontal");
