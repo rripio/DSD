@@ -387,17 +387,13 @@ hold off;
 
 
 % save normalization factor
-normfactor_dB_str=num2str(normfactor_dB);
 normfile = [FSOutDir FSNormFile];
-% unlink(normfile); % only once for each fs
 fid=fopen(normfile, "a+t");
-fputs(fid,[FSOutName, "\t\t"]);
-fputs(fid,[normfactor_dB_str, "\n\n"]);
+fputs(fid, [FSOutName, "\t\t", sprintf('% 7.2f', normfactor_dB), "\n\n"]);
 fclose(fid);
 
 % scale the graphic and pause to examine it
 if PSShow
-%    figure(1,'units','normalized','position',[0,1,0.5,0.5])
     figure(1,'units','normalized','position',[PSPos,PSSize])
     disp ("Press any key...\n");
     pause()
