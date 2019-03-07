@@ -159,26 +159,26 @@ LSdB_calc = ppval(LSdB_pp, F_calc);
 
 % Calculates transition limits
 if CFLowF(1)==0
-    TWLowF2=TWLimitLowF2;
+    TWLowF2=TWLimitFlatLow;
 else
-    TWLowF2=CFLowF(1)/(2^TWFlatInterval);
-    if TWLowF2<TWLimitLowF2 TWLowF2=TWLimitLowF2; end;
+    TWLowF2=CFLowF(1)/(2^TWFlatIntervalLow);
+    if TWLowF2<TWLimitFlatLow TWLowF2=TWLimitFlatLow; end;
 end
-TWLowF1=TWLowF2/(2^TWTransitionInterval);
-if TWLowF1<TWLimitLowF1 TWLowF1=TWLimitLowF1; end;
+TWLowF1=TWLowF2/(2^TWTransitionIntervalLow);
+if TWLowF1<TWLimitTransitionLow TWLowF1=TWLimitTransitionLow; end;
 TWLowK2=round(TWLowF2/fl_calc)+1;
 TWLowK1=round(TWLowF1/fl_calc)+1;
 if TWLowK1<2 TWLowK1=2; end;
 if TWLowK2<3 TWLowK2=3; end;
 
 if CFHighF==0
-    TWHighF1=TWLimitHighF1;
+    TWHighF1=TWLimitFlatHigh;
 else
-    TWHighF1=CFHighF*(2^TWFlatInterval);
-    if TWHighF1>TWLimitHighF1 TWHighF1=TWLimitHighF1; end;
+    TWHighF1=CFHighF*(2^TWFlatIntervalHigh);
+    if TWHighF1>TWLimitFlatHigh TWHighF1=TWLimitFlatHigh; end;
 end
-TWHighF2=TWHighF1*(2^TWTransitionInterval);
-if TWHighF2>TWLimitHighF2 TWHighF2=TWLimitHighF2; end;
+TWHighF2=TWHighF1*(2^TWTransitionIntervalHigh);
+if TWHighF2>TWLimitTransitionHigh TWHighF2=TWLimitTransitionHigh; end;
 TWHighK1=round(TWHighF1/fl_calc)+1;
 TWHighK2=round(TWHighF2/fl_calc)+1;
 if TWHighK2>mrf_calc TWHighK2=mrf_calc; end;
@@ -205,11 +205,11 @@ IFRMag=1./TFRMag; % Response inversion
 % Normalize response (attenuation only)
 % Calculates Band Limits
 BLLowF = CFLowF(1);
-if BLLowF==0 BLLowF=TWLimitLowF2; end
+if BLLowF==0 BLLowF=TWLimitFlatLow; end
 BLLowK=ceil(BLLowF/fl_calc)+1;
 
 BLHighF = CFHighF;
-if BLHighF==0 BLHighF=TWLimitHighF1; end
+if BLHighF==0 BLHighF=TWLimitFlatHigh; end
 BLHighK=floor(BLHighF/fl_calc)+1;
 if BLHighF>fh_calc BLHighF=fh_calc; end;
 
