@@ -1,6 +1,7 @@
 %% User Data for dsdxof octave script
 
 
+
 % FS File Settings
 
 % Input file
@@ -9,11 +10,13 @@ FSInputFile="w.frd";
 FSOutDir="./";
 
 
+
 % GS General Settings
 
 % Sampling frequency of final filters
 % May be omitted if given as command line parameter
 GSFs=48000;
+
 
 
 % CF Crossover Filter
@@ -38,5 +41,15 @@ CFHighType="LR";
 CFHighOrder=4;
 % Crossover point frequency High (Hz)
 CFHighF=200;
+
+
+
+% TW Transition Window
+
+
+% Absolute equalization limit (Low) (Hz)
+% If cero the value at first frequency bin is taken
+TWLimitEndLow=7;
+
 
 %% End user data

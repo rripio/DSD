@@ -73,7 +73,7 @@ else
     disp("Error:");
     disp(["Script file \"" filename "\" not found. " ...
              "Cannot continue: exiting...\n"]);
-    quit();
+    return
 end
 
 % check for fs as command line parameter
@@ -157,35 +157,84 @@ LSdB = ppval(LSdB_pp, F);
 LSdB_calc = ppval(LSdB_pp, F_calc);
 
 
-% Calculates transition limits
-if CFLowF(1)==0
-    TWLowF2=TWLimitFlatLow;
-else
-    TWLowF2=CFLowF(1)/(2^TWFlatIntervalLow);
-    if TWLowF2<TWLimitFlatLow TWLowF2=TWLimitFlatLow; end;
+% Calculate transition limits
+
+% low end
+
+% lower absolute limit
+% it must be positive
+if TWLimitEndLow<0
+    disp('TWLimitEndLow must be positive. Exiting...');
+    return
 end
-TWLowF1=TWLowF2/(2^TWTransitionIntervalLow);
-if TWLowF1<TWLimitTransitionLow TWLowF1=TWLimitTransitionLow; end;
+% if 0 use the first bin after 0.
+if TWLimitEndLow==0
+    TWLowF1=F_calc(2);
+else
+    TWLowF1=TWLimitEndLow;
+end
+
+% transition beginning
+% interval must be positive
+if TWIntervalLow<0
+    disp('TWIntervalLow must be positive. Exiting...');
+    return
+end
+% if beginning is 0 or less than end use interval
+if TWLimitBeginLow==0 || TWLimitBeginLow<TWLimitEndLow
+    TWLowF2=TWLowF1*(2^TWIntervalLow);
+else
+    TWLowF2=TWLimitBeginLow;
+end
+
+% high end
+
+% upper absolute limit
+% it must be positive
+if TWLimitEndHigh<0
+    disp('TWLimitEndHigh must be positive. Exiting...');
+    return
+end
+% it must be greater that low end limit
+if TWLimitEndHigh<TWLimitEndLow
+    disp('TWLimitEndHigh must be greater than TWLimitEndLow. Exiting...');
+    return
+end
+
+% if too high use the last bin.
+if TWLimitEndHigh>F_calc(end)
+    TWHighF2=F_calc(end);
+else
+    TWHighF2=TWLimitEndHigh;
+end
+
+% transition beginning
+% interval must be positive
+if TWIntervalHigh<0
+    disp('TWIntervalHigh must be positive. Exiting...');
+    return
+end
+% if beginning is 0 or more than end use interval
+if TWLimitBeginHigh==0 || TWLimitBeginHigh>TWLimitEndHigh
+    TWHighF1=TWHighF2/(2^TWIntervalHigh);
+else
+    TWHighF1=TWLimitBeginHigh;
+end
+
+% assign indexes to frequencies
+
 TWLowK2=round(TWLowF2/fl_calc)+1;
 TWLowK1=round(TWLowF1/fl_calc)+1;
 if TWLowK1<2 TWLowK1=2; end;
 if TWLowK2<3 TWLowK2=3; end;
 
-if CFHighF==0
-    TWHighF1=TWLimitFlatHigh;
-else
-    TWHighF1=CFHighF*(2^TWFlatIntervalHigh);
-    if TWHighF1>TWLimitFlatHigh TWHighF1=TWLimitFlatHigh; end;
-end
-TWHighF2=TWHighF1*(2^TWTransitionIntervalHigh);
-if TWHighF2>TWLimitTransitionHigh TWHighF2=TWLimitTransitionHigh; end;
 TWHighK1=round(TWHighF1/fl_calc)+1;
 TWHighK2=round(TWHighF2/fl_calc)+1;
 if TWHighK2>mrf_calc TWHighK2=mrf_calc; end;
 if TWHighK1>mrf_calc-1 TWHighK1=mrf_calc-1; end;
 
-
 % TFR Target Frequency Response
+
 k=(1:m_calc);
 logweight=[0,log((k+.5)./(k-.5))]';
 logmeanLow=sum(LSdB_calc(TWLowK1:TWLowK2).*logweight(TWLowK1:TWLowK2))/ ...
@@ -205,11 +254,13 @@ IFRMag=1./TFRMag; % Response inversion
 % Normalize response (attenuation only)
 % Calculates Band Limits
 BLLowF = CFLowF(1);
-if BLLowF==0 BLLowF=TWLimitFlatLow; end
+% if no crossover uses eq end limit 
+if BLLowF==0 BLLowF=TWLowF1; end
 BLLowK=ceil(BLLowF/fl_calc)+1;
 
 BLHighF = CFHighF;
-if BLHighF==0 BLHighF=TWLimitFlatHigh; end
+% if no crossover uses eq end limit 
+if BLHighF==0 BLHighF=TWHighF2; end
 BLHighK=floor(BLHighF/fl_calc)+1;
 if BLHighF>fh_calc BLHighF=fh_calc; end;
 

@@ -39,4 +39,14 @@ CFHighOrder=4;
 % Crossover point frequency High (Hz)
 CFHighF=0;
 
+
+
+% TW Transition Window
+
+
+% Absolute equalization limit (High) (Hz)
+% if very high the value at last bin is taken
+TWLimitEndHigh=21500;
+
+
 %% End user data
