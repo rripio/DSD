@@ -52,7 +52,7 @@ CFHighF=2000;
 TWLimitEndLow=20;
 % Absolute equalization limit (High) (Hz)
 % if very high the value at last bin is taken
-TWLimitEndHigh=20e3;
+TWLimitEndHigh=20000;
 
 
 %% End user data

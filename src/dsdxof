@@ -181,7 +181,7 @@ if TWIntervalLow<0
     return
 end
 % if beginning is 0 or less than end use interval
-if TWLimitBeginLow==0 || TWLimitBeginLow<TWLimitEndLow
+if TWLimitBeginLow==0 || TWLimitBeginLow<=TWLimitEndLow
     TWLowF2=TWLowF1*(2^TWIntervalLow);
 else
     TWLowF2=TWLimitBeginLow;
@@ -195,7 +195,7 @@ if TWLimitEndHigh<0
     disp('TWLimitEndHigh must be positive. Exiting...');
     return
 end
-% it must be greater that low end limit
+% it must be greater than low end limit
 if TWLimitEndHigh<TWLimitEndLow
     disp('TWLimitEndHigh must be greater than TWLimitEndLow. Exiting...');
     return
@@ -215,7 +215,7 @@ if TWIntervalHigh<0
     return
 end
 % if beginning is 0 or more than end use interval
-if TWLimitBeginHigh==0 || TWLimitBeginHigh>TWLimitEndHigh
+if TWLimitBeginHigh==0 || TWLimitBeginHigh>=TWLimitEndHigh
     TWHighF1=TWHighF2/(2^TWIntervalHigh);
 else
     TWHighF1=TWLimitBeginHigh;
@@ -251,26 +251,9 @@ TFRMag=dB2mag(TFRdB);
 
 % IFR Inverted target Frequency Response
 IFRMag=1./TFRMag; % Response inversion
-% Normalize response (attenuation only)
-% Calculates Band Limits
-BLLowF = CFLowF(1);
-% if no crossover uses eq end limit 
-if BLLowF==0 BLLowF=TWLowF1; end
-BLLowK=ceil(BLLowF/fl_calc)+1;
 
-BLHighF = CFHighF;
-% if no crossover uses eq end limit 
-if BLHighF==0 BLHighF=TWHighF2; end
-BLHighK=floor(BLHighF/fl_calc)+1;
-if BLHighF>fh_calc BLHighF=fh_calc; end;
-
-% Interpolate target at band limits
-IFRMag_lims=interp1(F_calc, IFRMag, [BLLowF;BLHighF]);
-
-normfactor=max([IFRMag(BLLowK:BLHighK);IFRMag_lims]);
-% Normalized equalization filter (attenuation only)
-IFRImp = ifft(minphsp(wholespmp(IFRMag)))/normfactor;
-
+% Equalization impulse, before crossover and normalization
+IFRImp = ifft(minphsp(wholespmp(IFRMag)));
 % Trims to EQ length and windows EQ correction impulse
 IFRImp=semiblackman(m_ls).*IFRImp(1:m_ls);
 
@@ -334,9 +317,16 @@ end
 %Convolves with loudspeaker correction
 CFEqImp=postpad(fftconv(IFRImp,CFImp),m);
 
+
 % Prepares final response
 % XO magnitude
-CFEqdB=mag2dB(abs(semisp(fft(CFEqImp))));
+CFEqMag=abs(semisp(fft(CFEqImp)));
+% Normalize response (attenuation only)
+normfactor=max(CFEqMag);
+CFEqMag=CFEqMag/normfactor;
+CFEqImp=CFEqImp/normfactor;
+% Prepare informative responses for graphics
+CFEqdB=mag2dB(CFEqMag);
 OUTdB=CFEqdB+LSdB;
 
 % Saves complete filter
