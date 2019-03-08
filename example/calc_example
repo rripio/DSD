@@ -22,7 +22,7 @@
 
 
 
-% this file calculates a set filters for every loudspeaker way specified
+% this file calculates a set of filters for every loudspeaker way specified
 % as script file, for both 48000 and 44100 fs, and of 'linear phase' and
 % 'minimum phase' class.
 
