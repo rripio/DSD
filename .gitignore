@@ -1,5 +1,5 @@
 .gitignore
-doc-src
+doc_src/
 example/FIRtro.ods
 *.swp
 _files*.txt
