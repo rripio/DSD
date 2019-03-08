@@ -1,4 +1,4 @@
 DSD
 ===
 
-A GNU-Octave set of scripts for calculating FIR loudspeaker crossovers.
+A set of GNU-Octave scripts for calculating FIR loudspeaker crossovers.
