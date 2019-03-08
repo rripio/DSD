@@ -34,7 +34,7 @@ function wsp = wholesplp (ssp)
 
     m = length (ssp); 
     if (mod(m,2) == 0)
-        error ("wholespmp: Spectrum length must be odd");
+        error ("wholesplp: Spectrum length must be odd");
     end
     nsp = flipud(ssp(2:m-1));
     wsp = [ssp;nsp];
