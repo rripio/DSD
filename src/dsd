@@ -30,7 +30,7 @@ ignore_function_time_stamp ("all")
 
 % say hello
 disp("\n\
-dsdxof\n\
+dsd\n\
 Loudspeaker crossover and equalizer design\n\
 Part of DSD (C) 2012-2019 Roberto Ripio\
 \n");
