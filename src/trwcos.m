@@ -1,3 +1,13 @@
+%% usage: [trw1,trw2] = trwcos(n1,n2)
+%%
+%% Genera ventanas de transición complementarias en un intervalo dado,
+%% según una función 'raised cosine' en escala de frecuencias logarítmica.
+%%
+%% trw1 = Ventana de transición de izquierda a derecha.
+%% trw2 = Ventana de transición de derecha a izquierda.
+%% n1   = Índice del extremo izquierdo de la ventana.
+%% n2   = Índice del extremo derecho de la ventana.
+
 %% This file is part of DSD
 %%
 %% DSD
@@ -17,16 +27,6 @@
 %%
 %% You should have received a copy of the GNU General Public License
 %% along with DSD.  If not, see <https://www.gnu.org/licenses/>.
-
-%% usage: [trw1,trw2] = trwcos(n1,n2)
-%%
-%% Genera ventanas de transición complementarias en un intervalo dado,
-%% según una función 'raised cosine' en escala de frecuencias logarítmica.
-%%
-%% trw1 = Ventana de transición de izquierda a derecha.
-%% trw2 = Ventana de transición de derecha a izquierda.
-%% n1   = Índice del extremo izquierdo de la ventana.
-%% n2   = Índice del extremo derecho de la ventana.
 
 function [trw1,trw2] = trwcos(n1,n2)
 
