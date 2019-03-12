@@ -1,9 +1,9 @@
 %% usage: b = dB2mag(a)
 %%
-%% Pasa decibelios a magnitud.
+%% Converts decibels to magnitude.
 %%
-%% b = Magnitud.
-%% a = Decibelios.
+%% b = Magnitude.
+%% a = Decibels.
 
 %% This file is part of DSD
 %%

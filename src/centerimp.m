@@ -1,11 +1,11 @@
 %% usage: imp = centerimp(imporig,m)
 %%
-%% Aumenta la longitud de un impulso centrándolo.
-%% El impulso original debe tener longitud impar.
+%% Centers an impulse response by increasing its length.
+%% Length of input impulse must be odd.
 %%
-%% imp     = Coeficientes del filtro FIR.
-%% imporig = Impulso a centrar. Debe ser de longitud impar.
-%% m       = Longitud final del impulso.
+%% imp     = FIR filter coefficients.
+%% imporig = Impulse to center. Length must be odd.
+%% m       = Final impulse length.
 
 %% This file is part of DSD
 %%

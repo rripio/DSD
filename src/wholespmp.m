@@ -1,10 +1,9 @@
 %% usage: wsp = wholespmp (ssp)
 %%
-%% Obtiene el espectro causal completo a partir del
-%% espectro de las frecuencias positivas.
+%% Gets the causal full spectrum from positive frequencies spectrum.
 %%
-%% ssp = Espectro de las frecuencias positivas entre 0 y m/2.
-%% wsp = Espectro completo entre 0 y m-1 (m par).
+%% wsp = Full spectrum from 0 to m-1 (m even).
+%% ssp = Positive frequencies spectrum from 0 to m/2.
 
 %% This file is part of DSD
 %%

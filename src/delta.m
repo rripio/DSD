@@ -1,9 +1,9 @@
 %% usage: imp = delta(m)
 %%
-%% Obtiene un impulso de longitud m con valor uno en su primera muestra.
+%% Gets an m length delta impulse.
 %%
-%% imp = Coeficientes del filtro FIR.
-%% m   = Número de muestras.
+%% imp = FIR filter Coefficients.
+%% m   = Number of samples.
 
 %% This file is part of DSD
 %%

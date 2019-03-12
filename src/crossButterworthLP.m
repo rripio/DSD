@@ -1,15 +1,15 @@
-%% usage: imp=crossButterworthLP(fs,m,nl,fl,nh,fh)
+%% usage: imp = crossButterworthLP(fs,m,nl,fl,nh,fh)
 %%
-%% Obtiene el filtro FIR de fase lineal con la magnitud
-%% de un filtro butterworth de orden n.
+%% Gets the linear phase FIR filter that has the magnitude
+%% of a Butterworth filter of order n.
 %%
-%% imp = Coeficientes del filtro FIR.
-%% Fs = Frecuencia de muestreo.
-%% m = Número de muestras.
-%% nl = Orden del filtro pasaaltos.
-%% fl = Frecuencia de corte inferior (pasaaltos). 0 para pasabajos.
-%% nh = Orden del filtro pasabajos.
-%% fh = Frecuencia de corte superior (pasabajos). 0 para pasaaltos.
+%% imp = FIR filter Coefficients.
+%% Fs  = Sampling frequency.
+%% m   = Number of samples.
+%% nl  = Order of highpass filter.
+%% fl  = Highpass crossover frequency. 0 if only lowpass.
+%% nh  = Order of lowpass filter.
+%% fh  = Lowpass crossover frequency. 0 if only highpass.
 
 %% This file is part of DSD
 %%

@@ -2,12 +2,12 @@
 %%
 %% Obtiene el filtro FIR de fase lineal y alta pendiente.
 %%
-%% imp = Coeficientes del filtro FIR.
-%% fs = Frecuencia de muestreo.
-%% m = Número de muestras.
-%% nc = Número de ciclos del impulso.
-%% fl = Frecuencia de corte inferior (pasaaltos). 0 para pasabajos.
-%% fh = Frecuencia de corte superior (pasabajos). 0 para pasaaltos.
+%% imp = FIR filter Coefficients.
+%% fs  = Sampling frequency.
+%% m   = Number of samples.
+%% nc  = Number of cycles of impulso.
+%% fl  = Highpass crossover frequency. 0 if only lowpass.
+%% fh  = Lowpass crossover frequency. 0 if only highpass.
 
 %% This file is part of DSD
 %%

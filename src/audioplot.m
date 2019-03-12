@@ -1,16 +1,16 @@
 %% usage: audioplot(...
 %%          F, dBmag, magtop, magrange, magstep, flow, fhigh, plotitle)
 %%
-%% Dibuja una gráfica de respuesta en frecuencia con un formato convencional.
+%% Draws a frequency response graph with a conventional format.
 %%
-%% F        = Vector de frecuencias.
-%% dBmag    = Vector de magnitudes en dB.
-%% magtop   = Máximo de la magnitud (dB).
-%% magrange = Rango visible de la magnitud (dB).
-%% magstep  = Escalones de dB a efectos de rejilla y rotulación.
-%% flow     = Límite inferior de frecuencias (Hz).
-%% fhigh    = Límite superior de frecuencias (Hz).
-%% plotitle = Título de la gráfica.
+%% F        = Frequencies vector.
+%% dBmag    = Magnitudes vector dB.
+%% magtop   = Magnitude maximum (dB).
+%% magrange = Visible range of magnitude (dB).
+%% magstep  = dB steps for grid and labeling.
+%% flow     = Frequency lower limit (Hz).
+%% fhigh    = Frequency upper limit (Hz).
+%% plotitle = Graph title.
 
 %% This file is part of DSD
 %%

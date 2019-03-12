@@ -1,9 +1,9 @@
 %% usage: imp = deltacentered(m)
 %%
-%% Obtiene un impulso de longitud m con valor uno en su muestra central.
+%% Gets an m length centered delta impulse.
 %%
-%% imp = Coeficientes del filtro FIR.
-%% m = Número de muestras. Debe ser impar.
+%% imp = FIR filter Coefficients.
+%% m = Number of samples. It must be odd.
 
 %% This file is part of DSD
 %%

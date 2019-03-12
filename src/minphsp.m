@@ -1,10 +1,10 @@
 %% usage: minph = minphsp (sp)
 %%
-%% Obtiene el espectro de fase mínima a partir de un espectro completo.
+%% Gets the minimum phase spectrum from a full spectrum.
 %%
-%% minph = Espectro completo de fase mínima con la misma magnitud
-%%         de espectro que imp.
-%% sp    = Espectro completo. Longitud par.
+%% minph = Minimum-phase full spectrum with the same
+%%         magnitude as 'sp'.
+%% sp    = Full spectrum, even lenth.
 
 %% This file is part of DSD
 %%

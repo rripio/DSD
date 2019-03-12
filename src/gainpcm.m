@@ -1,9 +1,9 @@
 %% usage: gainpcm (filename, gaindB)
 %%
-%% Aplica una cierta ganancia en dB a un archivo pcm y lo guarda.
+%% Applies gain to a raw pcm file and saves it.
 %%
-%% filename    = Nombres del archivo pcm.
-%% gaindB    = Ganancia a aplicar (dB).
+%% filename = Impulse filename.
+%% gaindB   = Gain to add (dB).
 
 %% This file is part of DSD
 %%

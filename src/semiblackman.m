@@ -1,9 +1,9 @@
 %% usage: iw=semiblackman(m)
 %%
-%% Obtiene la mitad derecha de una ventana Blackman de longitud m.
+%% Gets the right half of a m length Blackman window.
 %%
-%% w = Ventana.
-%% m = Número de muestras.
+%% w = Window.
+%% m = number of samples.
 
 %% This file is part of DSD
 %%

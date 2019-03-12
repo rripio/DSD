@@ -1,10 +1,9 @@
-%% usage: ssp = semisp (sp)
+%% usage: ssp = semisp (wsp)
 %%
-%% Obtiene el espectro de las frecuencias positivas a partir
-%% de un espectro completo.
+%% Gets the positive frequencies spectrum a from full spectrum.
 %%
-%% ssp = Espectro de las frecuencias positivas entre 0 y m/2.
-%% sp  = Espectro completo entre 0 y m-1 (m par).
+%% ssp = Positive frequencies spectrum from 0 to m/2.
+%% wsp = Full spectrum from 0 to m-1 (m even).
 
 %% This file is part of DSD
 %%
@@ -26,18 +25,18 @@
 %% You should have received a copy of the GNU General Public License
 %% along with DSD.  If not, see <https://www.gnu.org/licenses/>.
 
-function ssp = semisp (sp)
+function ssp = semisp (wsp)
 
-    if ! iscolumn(sp)
+    if ! iscolumn(wsp)
         error ("sp must be a column vector")
     end
 
-    m = length (sp);
+    m = length (wsp);
     
     if (mod(m,2) != 0)
         error ("semisp: Spectrum length must be even");
     end
     
-    ssp = sp(1:m/2+1);
+    ssp = wsp(1:m/2+1);
     
 endfunction

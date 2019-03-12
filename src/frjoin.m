@@ -1,13 +1,13 @@
 %% usage: ssp = frjoin(ssp1,ssp2,k1,k2)
 %%
-%% Une dos respuestas en magnitud sobre el semiespectro, mezclándolas
-%% en un intervalo de índices dado.
+%% Joins two magnitude frequency responses over the semispectrum,
+%% mixing them over a given index interval.
 %%
-%% ssp  = Vector columna con la magnitud de la mezcla.
-%% ssp1 = Vector columna con la respuesta a mezclar por la izquierda.
-%% ssp2 = Vector columna con la respuesta a mezclar por la derecha.
-%% k1   = Primer índice del intervalo.
-%% k2   = Segundo índice del intervalo.
+%% ssp  = Column vector with the resulting mix.
+%% ssp1 = Column vector with the left side magnitudes.
+%% ssp2 = Column vector with the right side magnitudes.
+%% k1   = First interval index.
+%% k2   = Second interval index.
 
 %% This file is part of DSD
 %%

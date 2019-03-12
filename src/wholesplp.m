@@ -1,10 +1,10 @@
 %% usage: wsp = wholesplp (ssp)
 %%
-%% Obtiene el espectro simétrico completo a partir del
-%% espectro de las frecuencias positivas.
+%% Gets the symmetric full spectrum from
+%% positive frequencies spectrum.
 %%
-%% ssp = Espectro de las frecuencias positivas entre 0 y m/2.
-%% wsp = Espectro completo entre 0 y m-1 (m par).
+%% ssp = Positive frequencies spectrum from 0 to m/2.
+%% wsp = Full spectrum from 0 to m-1 (m even).
 
 %% This file is part of DSD
 %%
