@@ -2,51 +2,29 @@
 
 
 % FS File Settings
-
-% Input file
 FSInputFile="t.frd";
-% Output directory
 FSOutDir="./";
 
-
 % GS General Settings
-
-% Sampling frequency of final filters
-% May be omitted if given as command line parameter
 GSFs=48000;
 
-
 % CF Crossover Filter
-
-% Crossover class: 'mp', minimum phase; 'lp', linear phase
-% May be omitted if given as command line parameter
 CFClass = 'lp';
-
-% Crossover type: Must be a cell array
 CFLowType={"LR" "B"};
-% Low feq. crossover order (for minimum phase varieties)
 CFLowOrder=[4 2];
-% Crossover point frequency Low (Hz)
 CFLowF=[2000 45];
-% If CFClass = 'lp' and CFLowType="Butterworth"
-% mimics the magnitude of a Butterwoth high pass
 CFLowAsMP=false;
-                            
-% Crossover type
 CFHighType="LR";
-% High feq. crossover order (for minimum phase varieties)
 CFHighOrder=4;
-% Crossover point frequency High (Hz)
 CFHighF=0;
 
+% TF Tail Fixing
+TFBeginLow=300;
+TFSlopeLow=12;
+EQLBeginLow=20;
+EQLBeginHigh=20000;
+EQLEndHigh=21800;
 
-
-% TW Transition Window
-
-
-% Absolute equalization limit (High) (Hz)
-% if very high the value at last bin is taken
-TWLimitEndHigh=21500;
 
 
 %% End user data

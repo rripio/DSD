@@ -35,6 +35,7 @@ Loudspeaker crossover and equalizer design\n\
 Part of DSD (C) 2012-2019 Roberto Ripio\
 \n");
 
+
 % parse command line
 p = inputParser;
 % mandatory script filename as first parameter
@@ -138,7 +139,6 @@ fh_calc=mrf_calc-1*fl_calc;
 F      = (0:mrf-1)'*fl;
 F_calc = (0:mrf_calc-1)'*fl_calc;
 
-
 % Some information on screen
 
 FSOutName
@@ -152,114 +152,63 @@ LSdB_pp = interp1(LSF_in, LSdB_in, 'spline','pp');
 LSdB = ppval(LSdB_pp, F);
 LSdB_calc = ppval(LSdB_pp, F_calc);
 
+% first working normalization
+
+normfactor_dB_provis = - dsd_level_estimate (fl_calc,
+                                         LSdB_calc,
+                                         CFLowF,
+                                         CFHighF,
+                                         GSLevelInterval);
+
+LSdB_calc = LSdB_calc + normfactor_dB_provis;
+
 
 
 % shape target
 
 
-% Calculate transition limits
+% fix tails
+TFRMag = dsd_fixtail (  F_calc,
+                        LSdB_calc,
+                        TFEndLow,
+                        TFBeginLow,
+                        TFIntervalLow,
+                        TFSlopeLow,
+                        TFEndHigh,
+                        TFBeginHigh,
+                        TFIntervalHigh,
+                        TFSlopeHigh);
 
-% low end
+% limit equalization (horizontal)
+TFRMag = dsd_fixtail (  F_calc,
+                        mag2dB(TFRMag),
+                        EQLEndLow,
+                        EQLBeginLow,
+                        EQLIntervalLow,
+                        % slope allways zero here
+                        0,
+                        EQLEndHigh,
+                        EQLBeginHigh,
+                        EQLIntervalHigh,
+                        % slope allways zero here
+                        0);
 
-% lower absolute limit
-% it must be positive
-if TWLimitEndLow<0
-    disp('TWLimitEndLow must be positive. Exiting...');
-    return
-end
-% if 0 use the first bin after 0.
-if TWLimitEndLow==0
-    TWLowF1=F_calc(2);
-else
-    TWLowF1=TWLimitEndLow;
-end
 
-% transition beginning
-% interval must be positive
-if TWIntervalLow<0
-    disp('TWIntervalLow must be positive. Exiting...');
-    return
-end
-% if beginning is 0 or less than end use interval
-if TWLimitBeginLow==0 || TWLimitBeginLow<=TWLimitEndLow
-    TWLowF2=TWLowF1*(2^TWIntervalLow);
-else
-    TWLowF2=TWLimitBeginLow;
-end
 
-% high end
+% target inversion
 
-% upper absolute limit
-% it must be positive
-if TWLimitEndHigh<0
-    disp('TWLimitEndHigh must be positive. Exiting...');
-    return
-end
-% it must be greater than low end limit
-if TWLimitEndHigh<TWLimitEndLow
-    disp('TWLimitEndHigh must be greater than TWLimitEndLow. Exiting...');
-    return
-end
-
-% if too high use the last bin.
-if TWLimitEndHigh>F_calc(end)
-    TWHighF2=F_calc(end);
-else
-    TWHighF2=TWLimitEndHigh;
-end
-
-% transition beginning
-% interval must be positive
-if TWIntervalHigh<0
-    disp('TWIntervalHigh must be positive. Exiting...');
-    return
-end
-% if beginning is 0 or more than end use interval
-if TWLimitBeginHigh==0 || TWLimitBeginHigh>=TWLimitEndHigh
-    TWHighF1=TWHighF2/(2^TWIntervalHigh);
-else
-    TWHighF1=TWLimitBeginHigh;
-end
-
-% assign indexes to frequencies
-
-TWLowK2=round(TWLowF2/fl_calc)+1;
-TWLowK1=round(TWLowF1/fl_calc)+1;
-if TWLowK1<2 TWLowK1=2; end;
-if TWLowK2<3 TWLowK2=3; end;
-
-TWHighK1=round(TWHighF1/fl_calc)+1;
-TWHighK2=round(TWHighF2/fl_calc)+1;
-if TWHighK2>mrf_calc TWHighK2=mrf_calc; end;
-if TWHighK1>mrf_calc-1 TWHighK1=mrf_calc-1; end;
-
-% TFR Target Frequency Response
-
-k=(1:m_calc);
-logweight=[0,log((k+.5)./(k-.5))]';
-logmeanLow=sum(LSdB_calc(TWLowK1:TWLowK2).*logweight(TWLowK1:TWLowK2))/ ...
-                                    sum(logweight(TWLowK1:TWLowK2));
-logmeanHigh=sum(LSdB_calc(TWHighK1:TWHighK2).*logweight(TWHighK1:TWHighK2))/ ...
-                                    sum(logweight(TWHighK1:TWHighK2));
-TWLowdB= ones(mrf_calc,1)*logmeanLow;
-TWHighdB=ones(mrf_calc,1)*logmeanHigh;
-
-TFRdB=frjoin(TWLowdB,LSdB_calc,TWLowK1,TWLowK2);
-TFRdB=frjoin(TFRdB,TWHighdB,TWHighK1,TWHighK2);
-% dB values untouched, for plotting
-TFRMag=dB2mag(TFRdB);
 
 % IFR Inverted target Frequency Response
 IFRMag=1./TFRMag; % Response inversion
 
 % Equalization impulse, before crossover and normalization
-IFRImp = ifft(minphsp(wholespmp(IFRMag)));
+IFRImp=ifft(minphsp(wholespmp(IFRMag)));
 % Trims to EQ length and windows EQ correction impulse
 IFRImp=semiblackman(m_ls).*IFRImp(1:m_ls);
 
 
 
-% Crossover filter
+% crossover filter
 
 
 switch(CFClass)
@@ -275,9 +224,15 @@ switch(CFClass)
         else
             CFImp=delta(m_ls);
 
-
-            CFClass='mp'; % ???????????????????????????????
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            CFClass='mp';
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
         end
     case "mp"
@@ -331,17 +286,21 @@ CFEqImp=postpad(fftconv(IFRImp,CFImp),m);
 
 % XO magnitude
 CFEqMag=abs(semisp(fft(CFEqImp)));
-% Normalize response (attenuation only)
+% Normalize response again (attenuation only)
 normfactor=max(CFEqMag);
-CFEqMag=CFEqMag/normfactor;
+CFEqMag=CFEqMag/normfactor;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 CFEqImp=CFEqImp/normfactor;
 
 % Prepare informative responses for graphics
 normfactor_dB = mag2dB(normfactor);
-LSdB=LSdB+normfactor_dB;
-TFRdB=TFRdB+normfactor_dB;
-CFEqdB=mag2dB(CFEqMag);
-OUTdB=CFEqdB+LSdB;
+normfactor_dB_total = normfactor_dB_provis + normfactor_dB;
+% show on screen
+normfactor_dB_total
+LSdB=LSdB+normfactor_dB_total; % Loudspeaker as measured over F
+TFRdB=mag2dB(TFRMag)+normfactor_dB; % Model over F_calc
+CFEqdB=mag2dB(CFEqMag); % Xo+Eq filter over F
+OUTdB=CFEqdB+LSdB; % % Result over F
+%OUTdB=CFEqdB+TFRdB; %%%% dimensions, see above
 
 % Saves complete filter
 if FSOutPcmFilter
@@ -381,16 +340,6 @@ legend("location", "north", "orientation", "horizontal");
 % define plot axis
 audioaxe(PSVTop,PSVRange,PSVStep,PSFLow,PSFHigh,FSOutName);
 
-% saves plot image
-if PSOutRaster
-    print ([FSOutDir, FSOutName, ".", PSOutRasterExt]);
-end
-if PSOutVector
-    print ([FSOutDir, FSOutName, ".", PSOutVectorExt]);
-end
-
-hold off;
-
 
 %% log
 
@@ -400,11 +349,25 @@ fid=fopen(normfile, "a+t");
 fputs(fid, [FSOutName, "\t\t", sprintf('% 7.2f', normfactor_dB), "\n\n"]);
 fclose(fid);
 
+% saves plot image
+disp("Saving plot...\n");
+
+if PSOutRaster
+    print ([FSOutDir, FSOutName, ".", PSOutRasterExt]);
+end
+if PSOutVector
+    print ([FSOutDir, FSOutName, ".", PSOutVectorExt]);
+end
+
 % scale the graphic and pause to examine it
 if PSShow
     figure(1,'units','normalized','position',[PSPos,PSSize])
     disp ("Press any key...\n");
     pause()
 end
+
+hold off;
+
+
 
 %% finis coronat opus
