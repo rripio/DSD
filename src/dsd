@@ -282,16 +282,20 @@ normfactor=max(CFEqMag);
 CFEqMag=CFEqMag/normfactor;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 CFEqImp=CFEqImp/normfactor;
 
-% Prepare informative responses for graphics
+% Prepare informative responses for graphics,
+% Model response is interpolated  over F, downsampled
 normfactor_dB = mag2dB(normfactor);
 normfactor_dB_total = normfactor_dB_provis + normfactor_dB;
 % show on screen
 normfactor_dB_total
-LSdB=LSdB+normfactor_dB_total; % Loudspeaker as measured over F
-TFRdB=mag2dB(TFRMag)+normfactor_dB; % Model over F_calc
-CFEqdB=mag2dB(CFEqMag); % Xo+Eq filter over F
-OUTdB=CFEqdB+LSdB; % % Result over F
-%OUTdB=CFEqdB+TFRdB; %%%% dimensions, see above
+% Loudspeaker as measured
+LSdB=LSdB+normfactor_dB_total;
+% Model down-interpolated over F
+TFRdB=interp1(F_calc,mag2dB(TFRMag)+normfactor_dB,F,'pchip');
+% Xo+Eq filter
+CFEqdB=mag2dB(CFEqMag);
+% Result (model * filter)
+OUTdB=CFEqdB+TFRdB;
 
 % Saves complete filter
 if FSOutPcmFilter
@@ -317,7 +321,7 @@ semilogx(
     F(2:end),LSdB(2:end),strcat("1",";",'Original',";"));
 % plots target response
 semilogx(
-    F_calc(2:end),TFRdB(2:end),strcat("2",";",'Model',";"));
+    F(2:end),TFRdB(2:end),strcat("2",";",'Model',";"));
 % plots CF response
 semilogx(
     F(2:end),CFEqdB(2:end),strcat("4",";",'Filter',";"));
