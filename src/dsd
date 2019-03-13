@@ -114,9 +114,10 @@ FSOutName = ["xo-" CFClass "-" FSOutSuffix];
 % begin chronometer for calculation time asessment
 t1=time;
 
-% We make equal length speaker correction filters and crossover filters of
-% final length 'm'. They will be trimmed and windowed to half the final length
-% and later convolved and padded to get the composed filter of length 'm'.
+% We make equal length speaker correction filters and crossover
+% filters of final length 'm'. They will be trimmed and windowed
+% to half the final length and later convolved and padded to get
+% the composed filter of length 'm'.
 %
 % Real frequency vectors will then have 'm/2' length
 % at any phase of calculations
@@ -279,7 +280,7 @@ CFEqImp=postpad(fftconv(IFRImp,CFImp),m);
 CFEqMag=abs(semisp(fft(CFEqImp)));
 % Normalize response again (attenuation only)
 normfactor=max(CFEqMag);
-CFEqMag=CFEqMag/normfactor;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+CFEqMag=CFEqMag/normfactor;
 CFEqImp=CFEqImp/normfactor;
 
 % Prepare informative responses for graphics,
@@ -362,7 +363,6 @@ if PSShow
 end
 
 hold off;
-
 
 
 %% finis coronat opus
