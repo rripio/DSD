@@ -213,32 +213,23 @@ IFRImp=semiblackman(m_ls).*IFRImp(1:m_ls);
 
 switch(CFClass)
     case "lp"
+        % High pass with Butterworth magnitude. Useful for woofers
         if CFLowAsMP && strcmp (CFLowType{1}, "B") && (CFLowF(1) > 0)
             CFLowImp = crossButterworthLP(GSFs,m_ls/2,CFLowOrder(1)...
                                                     ,CFLowF(1),0,0);
             CFHighImp = crossLinear(GSFs,m_ls/2,CFLenghthFactor,0,CFHighF);
             % both already windowed
             CFImp=postpad(fftconv(CFLowImp,CFHighImp), m_ls);
-        elseif (CFHighF > 0 || CFLowF(1) > 0) % Crossover filter
+        % Crossover filter
+        elseif (CFHighF > 0 || CFLowF(1) > 0)
             CFImp = crossLinear(GSFs,m_ls,CFLenghthFactor,CFLowF(1),CFHighF);
         else
             CFImp=delta(m_ls);
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            CFClass='mp';
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
         end
     case "mp"
         CFLowImp=delta(m_calc);
+        % Highpass
         for i = 1:length(CFLowF)
-            % Highpass
             if CFLowF(i) > 0
                 switch(CFLowType{i})
                     case "B"
