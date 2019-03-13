@@ -148,7 +148,7 @@ m
 
 % LSdB, magnitude response from .frd file
 [LSF_in, LSdB_in] = loadfrd (FSInputFile);
-LSdB_pp = interp1(LSF_in, LSdB_in, 'spline','pp');
+LSdB_pp = interp1(LSF_in, LSdB_in, 'pchip','pp');
 LSdB = ppval(LSdB_pp, F);
 LSdB_calc = ppval(LSdB_pp, F_calc);
 
