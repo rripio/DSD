@@ -67,7 +67,7 @@ else
 end
 
 % check for design script file and sources it
-filename = [p.Results.script '.xof'];
+filename = [p.Results.script ".xof"];
 if exist(filename, "file")
     source(filename); % Reads project config
 else
@@ -123,11 +123,13 @@ t1=time;
 % at any phase of calculations
 
 % Final filter length and corresponding real F lenght
-m=2^GSLExp; mrf=m/2+1;
+m=2^GSLExp;
+mrf=m/2+1;
 % Speaker EQ and XO length
 m_ls=m/2;
 % Calculation filter length and corresponding real F lenght
-m_calc=2^GSLExpCalc; mrf_calc=m_calc/2+1;
+m_calc=2^GSLExpCalc;
+mrf_calc=m_calc/2+1;
 
 % frequency jump between bins
 % (sampling frequency divided by filter length)
@@ -161,7 +163,7 @@ normfactor_dB_provis = - dsd_level_estimate (fl_calc,
                                          CFHighF,
                                          GSLevelInterval);
 
-LSdB_calc = LSdB_calc + normfactor_dB_provis;
+LSdB_calc += normfactor_dB_provis;
 
 
 
@@ -280,8 +282,8 @@ CFEqImp=postpad(fftconv(IFRImp,CFImp),m);
 CFEqMag=abs(semisp(fft(CFEqImp)));
 % Normalize response again (attenuation only)
 normfactor=max(CFEqMag);
-CFEqMag=CFEqMag/normfactor;
-CFEqImp=CFEqImp/normfactor;
+CFEqMag/=normfactor;
+CFEqImp/=normfactor;
 
 % Prepare informative responses for graphics,
 % Model response is interpolated  over F, downsampled
@@ -290,7 +292,7 @@ normfactor_dB_total = normfactor_dB_provis + normfactor_dB;
 % show on screen
 normfactor_dB_total
 % Loudspeaker as measured
-LSdB=LSdB+normfactor_dB_total;
+LSdB+=normfactor_dB_total;
 % Model down-interpolated over F
 TFRdB=interp1(F_calc,mag2dB(TFRMag)+normfactor_dB,F,'pchip');
 % Xo+Eq filter
@@ -303,13 +305,13 @@ if FSOutPcmFilter
     savepcm(CFEqImp, [FSOutDir FSOutName FSOutPcmExt]);
 end
 if FSOutWavFilter
-    audiowrite([FSOutDir FSOutName '.wav'],
+    audiowrite([FSOutDir FSOutName ".wav"],
             CFEqImp, GSFs, 'BitsPerSample', FSOutWavDepth);
 end
 
 % some indications
 t2=time;
-disp (["\n" "Calculated in ", num2str(t2-t1), " s" "\n"]);
+disp (["\nCalculated in ", num2str(t2-t1), " s\n"]);
 
 
 %% plot
