@@ -1,11 +1,14 @@
 %% usage: imp = crossLinear(fs,m,nc,fl,fh)
 %%
-%% Obtiene el filtro FIR de fase lineal y alta pendiente.
+%% Gets a windowed sinc linear phase FIR filter.
+%% Window have a length in cycles at crossover frequency:
+%% nc*fs/fl or nc*fs/fh.
+%% window is centered in the total length m.
 %%
 %% imp = FIR filter Coefficients.
 %% fs  = Sampling frequency.
 %% m   = Number of samples.
-%% nc  = Number of cycles of impulso.
+%% nc  = Length factor of impulse (factor of fs/fl or fs/fh).
 %% fl  = Highpass crossover frequency. 0 if only lowpass.
 %% fh  = Lowpass crossover frequency. 0 if only highpass.
 
