@@ -1,6 +1,6 @@
 %% usage: imp = centerimp(imporig,m)
 %%
-%% Centers an impulse response by increasing its length.
+%% Centers an impulse in a given length.
 %% Length of input impulse must be odd.
 %%
 %% imp     = FIR filter coefficients.
