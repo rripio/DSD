@@ -22,7 +22,8 @@
 
 
 
-%% prepare
+%%% prepare
+
 
 
 % avoid checking timestamps of DSD m files for better performance
@@ -34,7 +35,6 @@ dsd\n\
 Loudspeaker crossover and equalizer design\n\
 Part of DSD (C) 2012-2019 Roberto Ripio\
 \n");
-
 
 % parse command line
 p = inputParser;
@@ -94,10 +94,8 @@ if p.Results.nopause
 end
 
 % Set file output folder and prefix
-% filename suffix taken from frd file
-[dummyFSOutDir , FSOutSuffix] = fileparts(FSInputFile);
-% directory path taken from script file
-[FSOutDir , dummyFSOutSuffix] = fileparts(filename);
+% directory path and filename suffix taken from script file
+[FSOutDir , FSOutSuffix] = fileparts(filename);
 if length(FSOutDir)==0
     FSOutDir = ".";
 end
@@ -107,9 +105,9 @@ mkdir(FSOutDir);
 FSOutName = ["xo-" CFClass "-" FSOutSuffix];
 
 % Some variable prefixes:
-% TFR Target Frequency Response
-% IFR Inverted target Frequency Response
-% LS  LoudSpeaker frequency response
+% MFR Model Frequency Response
+% IFR Inverted model Frequency Response
+% LS  LoudSpeaker frequency response as measured
 
 % begin chronometer for calculation time asessment
 t1=time;
@@ -142,12 +140,6 @@ fh_calc=mrf_calc-1*fl_calc;
 F      = (0:mrf-1)'*fl;
 F_calc = (0:mrf_calc-1)'*fl_calc;
 
-% Some information on screen
-
-FSOutName
-GSFs
-GSLExp
-m
 
 % LSdB, magnitude response from .frd file
 [LSF_in, LSdB_in] = loadfrd (FSInputFile);
@@ -155,23 +147,29 @@ LSdB_pp = interp1(LSF_in, LSdB_in, 'pchip','pp');
 LSdB = ppval(LSdB_pp, F);
 LSdB_calc = ppval(LSdB_pp, F_calc);
 
+
+
+%%% calculate
+
+
+
+%% equalizer
+
+
 % first working normalization
 
 normfactor_dB_provis = - dsd_level_estimate (fl_calc,
-                                         LSdB_calc,
-                                         CFLowF,
-                                         CFHighF,
-                                         GSLevelInterval);
+                                             LSdB_calc,
+                                             CFLowF,
+                                             CFHighF,
+                                             GSLevelInterval);
 
 LSdB_calc += normfactor_dB_provis;
 
-
-
 % shape target
 
-
 % fix tails
-TFRMag = dsd_fixtail (  F_calc,
+MFRMag = dsd_fixtail (  F_calc,
                         LSdB_calc,
                         TFEndLow,
                         TFBeginLow,
@@ -183,8 +181,8 @@ TFRMag = dsd_fixtail (  F_calc,
                         TFSlopeHigh);
 
 % limit equalization (horizontal)
-TFRMag = dsd_fixtail (  F_calc,
-                        mag2dB(TFRMag),
+MFRMag = dsd_fixtail (  F_calc,
+                        mag2dB(MFRMag),
                         EQLEndLow,
                         EQLBeginLow,
                         EQLIntervalLow,
@@ -196,13 +194,10 @@ TFRMag = dsd_fixtail (  F_calc,
                         % slope allways zero here
                         0);
 
-
-
 % target inversion
 
-
 % IFR Inverted target Frequency Response
-IFRMag=1./TFRMag; % Response inversion
+IFRMag=1./MFRMag; % Response inversion
 
 % Equalization impulse, before crossover and normalization
 IFRImp=ifft(minphsp(wholespmp(IFRMag)));
@@ -210,8 +205,7 @@ IFRImp=ifft(minphsp(wholespmp(IFRMag)));
 IFRImp=semiblackman(m_ls).*IFRImp(1:m_ls);
 
 
-
-% crossover filter
+%% crossover
 
 
 switch(CFClass)
@@ -266,55 +260,75 @@ switch(CFClass)
 end
 
 
+%% final impulse
 
-% final impulse
 
+% convolves with loudspeaker correction
 
-%Convolves with loudspeaker correction
 CFEqImp=postpad(fftconv(IFRImp,CFImp),m);
 
-
-
-% output
-
+% normalize
 
 % XO magnitude
 CFEqMag=abs(semisp(fft(CFEqImp)));
-% Normalize response again (attenuation only)
+
+% normalize again, against possible low frequency amplification
 normfactor=max(CFEqMag);
+normfactor_dB = mag2dB(normfactor);
+normfactor_dB_total = normfactor_dB_provis + normfactor_dB;
+
+% apply normalization
 CFEqMag/=normfactor;
 CFEqImp/=normfactor;
 
-% Prepare informative responses for graphics,
-% Model response is interpolated  over F, downsampled
-normfactor_dB = mag2dB(normfactor);
-normfactor_dB_total = normfactor_dB_provis + normfactor_dB;
-% show on screen
-normfactor_dB_total
-% Loudspeaker as measured
-LSdB+=normfactor_dB_total;
-% Model down-interpolated over F
-TFRdB=interp1(F_calc,mag2dB(TFRMag)+normfactor_dB,F,'pchip');
-% Xo+Eq filter
-CFEqdB=mag2dB(CFEqMag);
-% Result (model * filter)
-OUTdB=CFEqdB+TFRdB;
 
-% Saves complete filter
+
+%%% output
+
+
+
+%% filter pcm
+
+
+% raw format
 if FSOutPcmFilter
     savepcm(CFEqImp, [FSOutDir FSOutName FSOutPcmExt]);
 end
+
+% wav format
 if FSOutWavFilter
     audiowrite([FSOutDir FSOutName ".wav"],
             CFEqImp, GSFs, 'BitsPerSample', FSOutWavDepth);
 end
 
-% some indications
+
+%% Some information on screen
+
+
+FSOutName
+GSFs
+GSLExp
+m
+normfactor_dB_total
 t2=time;
 disp (["\nCalculated in ", num2str(t2-t1), " s\n"]);
 
 
 %% plot
+
+
+% prepare informative responses for graphics,
+
+% loudspeaker as measured
+LSdB+=normfactor_dB_total;
+% model response is interpolated  over F, downsampled
+MFRdB=interp1(F_calc,mag2dB(MFRMag)+normfactor_dB,F,'pchip');
+% Xo+Eq filter
+CFEqdB=mag2dB(CFEqMag);
+% result (model * filter)
+OUTdB=CFEqdB+MFRdB;
+
+% draw
 
 figure(1,'visible','off');
 hold on;
@@ -324,7 +338,7 @@ semilogx(
     F(2:end),LSdB(2:end),strcat("1",";",'Original',";"));
 % plots target response
 semilogx(
-    F(2:end),TFRdB(2:end),strcat("2",";",'Model',";"));
+    F(2:end),MFRdB(2:end),strcat("2",";",'Model',";"));
 % plots CF response
 semilogx(
     F(2:end),CFEqdB(2:end),strcat("4",";",'Filter',";"));
@@ -340,6 +354,7 @@ audioaxe(PSVTop,PSVRange,PSVStep,PSFLow,PSFHigh,FSOutName);
 
 
 %% log
+
 
 % save normalization factor
 normfile = [FSOutDir FSNormFile];
