@@ -3,7 +3,7 @@
 %% Gets a windowed sinc linear phase FIR filter.
 %% Window have a length in cycles at crossover frequency:
 %% nc*fs/fl or nc*fs/fh.
-%% window is centered in the total length m.
+%% The window is centered in the total length m.
 %%
 %% imp = FIR filter Coefficients.
 %% fs  = Sampling frequency.

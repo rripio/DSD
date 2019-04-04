@@ -1,6 +1,6 @@
 %% usage: imp = delta(m)
 %%
-%% Gets an m length delta impulse.
+%% Gets an m length delta impulse. First sample has value 1.
 %%
 %% imp = FIR filter Coefficients.
 %% m   = Number of samples.

@@ -1,4 +1,4 @@
-%% usage: imp = crossButterworth(Fs,m,n,fl,fh)
+%% usage: imp = crossButterworth(fs,m,nl,fl,nh,fh)
 %%
 %% Gets a n order FIR Butterworth filter.
 %%
